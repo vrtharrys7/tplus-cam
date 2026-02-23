@@ -2,11 +2,11 @@
  * Toyota Plus Cambodia — Car Inventory Data
  * All prices in USD. Mileage in km.
  * Grade system:
- *   grade: S > A > B > C > D > E  (overall condition)
- *   frame: A (no accident), B (minor), C (repaired)
- *   exterior: A (excellent) → D (poor)
- *   interior: A (excellent) → D (poor)
- *   function: A (all working) → D (issues)
+ *   grade: B+ > B > B- > C > D  (overall condition)
+ *   frame: B (no accident), B- (minor), C (repaired)
+ *   exterior: B (excellent) → D (poor)
+ *   interior: B (excellent) → D (poor)
+ *   function: B (all working) → D (issues)
  */
 const carsData = [
   {
@@ -25,7 +25,7 @@ const carsData = [
     seats: 7,
     origin: 'Japan',
     tags: ['certified'],
-    grades: { grade: 'A', frame: 'A', exterior: 'A', interior: 'A', function: 'A' },
+    grades: { grade: 'B+', frame: 'B', exterior: 'B', interior: 'B', function: 'B' },
     image: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80',
@@ -51,7 +51,7 @@ const carsData = [
     seats: 7,
     origin: 'Japan',
     tags: ['certified'],
-    grades: { grade: 'B', frame: 'A', exterior: 'B', interior: 'A', function: 'A' },
+    grades: { grade: 'B', frame: 'B', exterior: 'B-', interior: 'B', function: 'B' },
     image: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&q=80',
@@ -77,7 +77,7 @@ const carsData = [
     seats: 7,
     origin: 'Thailand',
     tags: ['certified', 'new-arrival'],
-    grades: { grade: 'A', frame: 'A', exterior: 'A', interior: 'A', function: 'A' },
+    grades: { grade: 'B+', frame: 'B', exterior: 'B', interior: 'B', function: 'B' },
     image: 'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80',
@@ -103,7 +103,7 @@ const carsData = [
     seats: 7,
     origin: 'Thailand',
     tags: ['certified'],
-    grades: { grade: 'B', frame: 'A', exterior: 'B', interior: 'B', function: 'A' },
+    grades: { grade: 'B', frame: 'B', exterior: 'B-', interior: 'B-', function: 'B' },
     image: 'https://images.unsplash.com/photo-1598014000890-4bff2f2c7f74?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1598014000890-4bff2f2c7f74?w=800&q=80',
@@ -129,7 +129,7 @@ const carsData = [
     seats: 5,
     origin: 'Thailand',
     tags: ['certified', 'new-arrival'],
-    grades: { grade: 'A', frame: 'A', exterior: 'A', interior: 'A', function: 'A' },
+    grades: { grade: 'B+', frame: 'B', exterior: 'B', interior: 'B', function: 'B' },
     image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
@@ -155,7 +155,7 @@ const carsData = [
     seats: 5,
     origin: 'Thailand',
     tags: ['certified'],
-    grades: { grade: 'C', frame: 'A', exterior: 'C', interior: 'B', function: 'A' },
+    grades: { grade: 'C', frame: 'B', exterior: 'C', interior: 'B-', function: 'B' },
     image: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=800&q=80',
@@ -181,7 +181,7 @@ const carsData = [
     seats: 5,
     origin: 'Japan',
     tags: ['certified'],
-    grades: { grade: 'B', frame: 'A', exterior: 'A', interior: 'A', function: 'A' },
+    grades: { grade: 'B', frame: 'B', exterior: 'B', interior: 'B', function: 'B' },
     image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80',
@@ -207,7 +207,7 @@ const carsData = [
     seats: 5,
     origin: 'Thailand',
     tags: ['certified'],
-    grades: { grade: 'B', frame: 'A', exterior: 'B', interior: 'B', function: 'A' },
+    grades: { grade: 'B', frame: 'B', exterior: 'B-', interior: 'B-', function: 'B' },
     image: 'https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=800&q=80',
@@ -233,7 +233,7 @@ const carsData = [
     seats: 5,
     origin: 'Japan',
     tags: ['certified', 'new-arrival'],
-    grades: { grade: 'S', frame: 'A', exterior: 'A', interior: 'A', function: 'A' },
+    grades: { grade: 'B+', frame: 'B', exterior: 'B', interior: 'B', function: 'B' },
     image: 'https://images.unsplash.com/photo-1551830820-330a71b99659?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1551830820-330a71b99659?w=800&q=80',
@@ -259,7 +259,7 @@ const carsData = [
     seats: 5,
     origin: 'Japan',
     tags: ['certified'],
-    grades: { grade: 'B', frame: 'A', exterior: 'B', interior: 'A', function: 'A' },
+    grades: { grade: 'B', frame: 'B', exterior: 'B-', interior: 'B', function: 'B' },
     image: 'https://images.unsplash.com/photo-1619767886558-efdc259b6e9b?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1619767886558-efdc259b6e9b?w=800&q=80',
@@ -285,7 +285,7 @@ const carsData = [
     seats: 5,
     origin: 'Thailand',
     tags: ['certified', 'new-arrival'],
-    grades: { grade: 'A', frame: 'A', exterior: 'A', interior: 'A', function: 'A' },
+    grades: { grade: 'B+', frame: 'B', exterior: 'B', interior: 'B', function: 'B' },
     image: 'https://images.unsplash.com/photo-1548962294-4db99e5dbf68?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1548962294-4db99e5dbf68?w=800&q=80',
@@ -311,7 +311,7 @@ const carsData = [
     seats: 5,
     origin: 'Thailand',
     tags: ['certified'],
-    grades: { grade: 'C', frame: 'B', exterior: 'C', interior: 'C', function: 'B' },
+    grades: { grade: 'C', frame: 'B-', exterior: 'C', interior: 'C', function: 'B' },
     image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80',
@@ -337,7 +337,7 @@ const carsData = [
     seats: 8,
     origin: 'Thailand',
     tags: ['certified'],
-    grades: { grade: 'B', frame: 'A', exterior: 'A', interior: 'B', function: 'A' },
+    grades: { grade: 'B', frame: 'B', exterior: 'B', interior: 'B-', function: 'B' },
     image: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800&q=80',
@@ -363,7 +363,7 @@ const carsData = [
     seats: 5,
     origin: 'Thailand',
     tags: ['certified', 'new-arrival'],
-    grades: { grade: 'A', frame: 'A', exterior: 'A', interior: 'A', function: 'A' },
+    grades: { grade: 'B+', frame: 'B', exterior: 'B', interior: 'B', function: 'B' },
     image: 'https://images.unsplash.com/photo-1616788494672-ec7ca25495bf?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1616788494672-ec7ca25495bf?w=800&q=80',
@@ -389,7 +389,7 @@ const carsData = [
     seats: 8,
     origin: 'USA',
     tags: ['certified'],
-    grades: { grade: 'B', frame: 'A', exterior: 'B', interior: 'A', function: 'A' },
+    grades: { grade: 'B', frame: 'B', exterior: 'B-', interior: 'B', function: 'B' },
     image: 'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800&q=80',
@@ -415,7 +415,7 @@ const carsData = [
     seats: 7,
     origin: 'Thailand',
     tags: ['certified'],
-    grades: { grade: 'B', frame: 'A', exterior: 'B', interior: 'B', function: 'A' },
+    grades: { grade: 'B', frame: 'B', exterior: 'B-', interior: 'B-', function: 'B' },
     image: 'https://images.unsplash.com/photo-1551522435-a13afa10f103?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1551522435-a13afa10f103?w=800&q=80',
@@ -441,7 +441,7 @@ const carsData = [
     seats: 5,
     origin: 'Thailand',
     tags: ['new-arrival'],
-    grades: { grade: 'A', frame: 'A', exterior: 'A', interior: 'A', function: 'A' },
+    grades: { grade: 'B+', frame: 'B', exterior: 'B', interior: 'B', function: 'B' },
     image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80',
@@ -467,7 +467,7 @@ const carsData = [
     seats: 7,
     origin: 'Japan',
     tags: ['certified'],
-    grades: { grade: 'C', frame: 'B', exterior: 'B', interior: 'B', function: 'A' },
+    grades: { grade: 'C', frame: 'B-', exterior: 'B-', interior: 'B-', function: 'B' },
     image: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=600&q=80',
     images: [
       'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&q=80',

@@ -320,23 +320,23 @@
 
   // Returns the CSS class suffix for an overall grade value
   function overallGradeClass(g) {
-    const map = { 'S':'s','A':'a','B':'b','C':'c','D':'d','E':'e','R':'r' };
-    return map[String(g).toUpperCase()] || 'na';
+    const map = { 'B+':'bplus', 'B':'b', 'B-':'bminus', 'C':'c', 'D':'d' };
+    return map[String(g)] || 'na';
   }
 
   // Returns a short descriptor for the overall grade
   function overallGradeDesc(g) {
     const map = {
-      'S':'Pristine','A':'Excellent','B':'Good',
-      'C':'Average','D':'Below Avg','E':'Poor','R':'Repaired'
+      'B+':'Very Good', 'B':'Good', 'B-':'Fair',
+      'C':'Average', 'D':'Below Avg'
     };
-    return map[String(g).toUpperCase()] || '—';
+    return map[String(g)] || '—';
   }
 
-  // Returns the CSS class for a sub-grade (A/B/C/D)
+  // Returns the CSS class for a sub-grade (B+/B/B-/C/D)
   function subGradeClass(g) {
-    const map = { 'A':'a','B':'b','C':'c','D':'d' };
-    return map[String(g).toUpperCase()] || 'na';
+    const map = { 'B+':'bplus', 'B':'b', 'B-':'bminus', 'C':'c', 'D':'d' };
+    return map[String(g)] || 'na';
   }
 
   // Builds the full grade strip HTML
