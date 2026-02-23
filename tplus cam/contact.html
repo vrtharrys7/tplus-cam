@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us - Toyota Plus Cambodia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    body { font-family: 'Inter', 'Segoe UI', sans-serif; }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ---- Contact Channel Cards ---- */
+    .contact-channels {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding: 48px 0 0;
+    }
+    .channel-card {
+      background: white;
+      border-radius: 16px;
+      padding: 28px 20px;
+      text-align: center;
+      border: 2px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .channel-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--channel-color, var(--red));
+      opacity: 0;
+      transition: opacity 0.28s ease;
+    }
+    .channel-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.14); border-color: transparent; }
+    .channel-card:hover::before { opacity: 1; }
+    .channel-card:hover .channel-icon,
+    .channel-card:hover .channel-title,
+    .channel-card:hover .channel-value,
+    .channel-card:hover .channel-desc { color: white !important; position: relative; z-index: 1; }
+    .channel-icon {
+      width: 60px; height: 60px;
+      background: var(--channel-bg, #FFF0F0);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px;
+      font-size: 22px;
+      color: var(--channel-color, var(--red));
+      transition: var(--transition);
+      position: relative; z-index: 1;
+    }
+    .channel-card:hover .channel-icon { background: rgba(255,255,255,0.2); color: white; }
+    .channel-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--grey); margin-bottom: 5px; position: relative; z-index: 1; transition: color 0.28s; }
+    .channel-value { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 4px; position: relative; z-index: 1; transition: color 0.28s; }
+    .channel-desc { font-size: 12px; color: var(--grey); position: relative; z-index: 1; transition: color 0.28s; }
+
+    /* ---- Open Status Badge ---- */
+    .open-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 32px;
+    }
+    .open-status.open { background: #E8F5E9; color: #1B5E20; }
+    .open-status.closed { background: #FCE4EC; color: #880E4F; }
+    .open-status .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      animation: pulse-dot 1.5s ease-in-out infinite;
+    }
+    .open-status.open .dot { background: #43A047; }
+    .open-status.closed .dot { background: #E91E63; animation: none; }
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.7; }
+    }
+
+    /* ---- Main Layout ---- */
+    .contact-main {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 48px;
+      align-items: start;
+      padding: 56px 0 72px;
+    }
+
+    /* ---- Form ---- */
+    .contact-form-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.07);
+      border: 1.5px solid var(--border);
+    }
+    .contact-form-card h2 { font-size: 24px; font-weight: 900; color: var(--dark); margin-bottom: 6px; }
+    .contact-form-card > p { font-size: 14px; color: var(--grey); margin-bottom: 28px; }
+
+    /* Floating label inputs */
+    .float-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .float-group input,
+    .float-group select,
+    .float-group textarea {
+      width: 100%;
+      padding: 18px 14px 8px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: inherit;
+      background: white;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+      outline: none;
+      color: var(--dark);
+      appearance: none;
+    }
+    .float-group select {
+      padding-right: 36px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+    }
+    .float-group textarea { resize: vertical; min-height: 120px; padding-top: 22px; }
+    .float-group label {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      font-size: 14px;
+      color: var(--grey);
+      pointer-events: none;
+      transition: all 0.18s ease;
+      background: transparent;
+    }
+    .float-group input:focus,
+    .float-group select:focus,
+    .float-group textarea:focus { border-color: var(--red); }
+    .float-group input:focus ~ label,
+    .float-group input:not(:placeholder-shown) ~ label,
+    .float-group select:focus ~ label,
+    .float-group select:valid ~ label,
+    .float-group textarea:focus ~ label,
+    .float-group textarea:not(:placeholder-shown) ~ label {
+      top: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .float-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* Character counter */
+    .char-counter { font-size: 12px; color: var(--grey); text-align: right; margin-top: -14px; margin-bottom: 12px; }
+    .char-counter.warn { color: #E65100; }
+
+    /* Form success state */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .form-success i { font-size: 52px; color: #43A047; margin-bottom: 16px; display: block; }
+    .form-success h3 { font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 8px; }
+    .form-success p { color: var(--grey); font-size: 14px; }
+
+    /* Consent checkbox */
+    .consent-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--grey-dark);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .consent-label input[type="checkbox"] { margin-top: 2px; flex-shrink: 0; accent-color: var(--red); }
+
+    /* ---- Info Sidebar ---- */
+    .contact-info-sidebar { display: flex; flex-direction: column; gap: 20px; }
+
+    .info-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      border: 1.5px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .info-card-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      background: #FFF0F0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; color: var(--red); flex-shrink: 0;
+    }
+    .info-card-header h4 { font-size: 15px; font-weight: 800; color: var(--dark); margin: 0; }
+    .info-card p { font-size: 14px; color: var(--grey-dark); line-height: 1.7; margin: 0; }
+    .info-card a { color: var(--red); text-decoration: none; font-weight: 600; }
+    .info-card a:hover { text-decoration: underline; }
+
+    /* Hours table */
+    .hours-table { width: 100%; font-size: 13px; }
+    .hours-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-day { color: var(--grey); }
+    .hours-time { font-weight: 600; color: var(--dark); }
+    .hours-time.closed { color: var(--grey); font-weight: 400; }
+    .hours-today { background: #FFF7F7; border-radius: 6px; padding: 6px 8px; margin: 0 -8px; }
+
+    /* ---- Showroom Locator Section ---- */
+    .showrooms-section { padding: 0 0 72px; }
+    .showrooms-layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .showroom-list { display: flex; flex-direction: column; gap: 12px; }
+    .showroom-card {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+    }
+    .showroom-card:hover { border-color: var(--red); box-shadow: 0 6px 20px rgba(235,10,30,0.1); transform: translateX(4px); }
+    .showroom-card.active { border-color: var(--red); background: #FFF7F7; box-shadow: 0 6px 20px rgba(235,10,30,0.12); }
+    .showroom-card.active::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 12px; bottom: 12px;
+      width: 3px; background: var(--red); border-radius: 0 3px 3px 0;
+    }
+    .showroom-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .showroom-name { font-size: 15px; font-weight: 800; color: var(--dark); }
+    .showroom-card.active .showroom-name { color: var(--red); }
+    .showroom-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 50px;
+      background: var(--silver);
+      color: var(--grey);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .showroom-card.active .showroom-badge { background: var(--red); color: white; }
+    .showroom-card-body { font-size: 13px; color: var(--grey-dark); display: flex; flex-direction: column; gap: 5px; }
+    .showroom-card-body span { display: flex; align-items: flex-start; gap: 8px; }
+    .showroom-card-body i { color: var(--red); flex-shrink: 0; margin-top: 2px; width: 14px; }
+    .showroom-card-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .showroom-select-hint { font-size: 12px; color: var(--grey); display: flex; align-items: center; gap: 5px; }
+    .showroom-card.active .showroom-select-hint { color: var(--red); }
+
+    /* Map panel */
+    .showroom-map-panel {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1.5px solid var(--border);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 100px;
+    }
+    .showroom-map-header {
+      background: white;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .showroom-map-name { font-size: 15px; font-weight: 800; color: var(--dark); }
+    .showroom-map-addr { font-size: 13px; color: var(--grey); margin-top: 2px; }
+    #showroomMapFrame {
+      display: block;
+      width: 100%;
+      height: 360px;
+      border: none;
+      transition: opacity 0.3s ease;
+    }
+    #showroomMapFrame.loading { opacity: 0.4; }
+
+    /* Social strip */
+    .social-strip {
+      background: var(--dark);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .social-strip p { color: rgba(255,255,255,0.75); font-size: 13px; margin: 0; }
+    .social-btns { display: flex; gap: 10px; }
+    .social-btn {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; color: white; text-decoration: none;
+      transition: var(--transition);
+    }
+    .social-btn:hover { transform: translateY(-3px) scale(1.08); }
+    .social-btn.fb { background: #1877F2; }
+    .social-btn.tg { background: #2CA5E0; }
+    .social-btn.tt { background: #000; }
+
+    @media (max-width: 1024px) {
+      .contact-channels { grid-template-columns: 1fr 1fr; }
+      .contact-main { grid-template-columns: 1fr; }
+      .showrooms-layout { grid-template-columns: 1fr; }
+      .showroom-map-panel { position: static; }
+      #showroomMapFrame { height: 280px; }
+    }
+    @media (max-width: 640px) {
+      .contact-channels { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .contact-form-card { padding: 24px 20px; }
+      .float-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 400px) {
+      .contact-channels { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="page-transition">
+
+<!-- HEADER -->
+<header id="header">
+  <div class="top-bar">
+    <div class="container">
+      <div style="display:flex;gap:20px;align-items:center;">
+        <span><i class="fas fa-phone-alt" style="margin-right:6px;color:var(--red)"></i>+855 23 456 789</span>
+        <span><i class="fas fa-clock" style="margin-right:6px;color:var(--red)"></i>Mon-Sat: 8:00 AM - 6:00 PM</span>
+      </div>
+      <div class="top-bar-links"><a href="#">Facebook</a><a href="#">Telegram</a></div>
+    </div>
+  </div>
+  <div class="container">
+    <nav class="nav-wrap">
+      <a href="index.html" class="logo">
+        <div style="width:44px;height:44px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="18" viewBox="0 0 28 18" fill="none"><ellipse cx="14" cy="9" rx="13" ry="8.5" stroke="white" stroke-width="1.5" fill="none"/><ellipse cx="14" cy="9" rx="6" ry="4" stroke="white" stroke-width="1.5" fill="none"/><ellipse cx="14" cy="9" rx="2" ry="8.5" stroke="white" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="logo-text"><strong>Toyota Plus</strong><span>Cambodia</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="news.html">News</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html" class="active">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="lang-toggle" onclick="toggleLang(this)"><i class="fas fa-globe"></i> EN / &#6017;&#6098;&#6040;&#6082;&#6042;</button>
+        <a href="inventory.html" class="btn btn-primary"><i class="fas fa-car"></i> Browse Cars</a>
+        <button class="nav-hamburger" onclick="openMobileMenu()"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" onclick="closeMobileMenuOutside(event)">
+  <div class="mobile-menu-panel">
+    <div class="mobile-menu-close"><button onclick="closeMobileMenu()"><i class="fas fa-times"></i></button></div>
+    <div class="mobile-nav-links">
+      <a href="index.html">Home</a>
+      <a href="inventory.html">Inventory</a>
+      <a href="news.html">News</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero" style="background:linear-gradient(135deg,#0d0d0d 0%,#1e0003 100%);position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1486006920555-c77dcf18193c?w=1400&q=50') center/cover;opacity:0.12;"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right" style="font-size:10px;"></i>
+      <span>Contact</span>
+    </div>
+    <h1>Get in Touch</h1>
+    <p>We're here to help in Khmer or English. Choose how you'd like to connect.</p>
+  </div>
+</section>
+
+<!-- CONTACT CHANNELS -->
+<section style="background:var(--silver);padding-bottom:56px;">
+  <div class="container">
+    <div class="contact-channels">
+
+      <a href="tel:+85523456789"
+         class="channel-card reveal"
+         style="--channel-color:var(--red);--channel-bg:#FFF0F0;">
+        <div class="channel-icon"><i class="fas fa-phone-alt"></i></div>
+        <div class="channel-title">Call Us</div>
+        <div class="channel-value">+855 23 456 789</div>
+        <div class="channel-desc">Sales & general enquiries</div>
+      </a>
+
+      <a href="https://wa.me/85512345678" target="_blank"
+         class="channel-card reveal" style="transition-delay:0.07s;--channel-color:#25d366;--channel-bg:#E8FFF1;">
+        <div class="channel-icon"><i class="fab fa-whatsapp"></i></div>
+        <div class="channel-title">WhatsApp</div>
+        <div class="channel-value">+855 12 345 678</div>
+        <div class="channel-desc">Quick responses, 7 days</div>
+      </a>
+
+      <a href="https://t.me/toyotapluskh" target="_blank"
+         class="channel-card reveal" style="transition-delay:0.14s;--channel-color:#2CA5E0;--channel-bg:#E8F6FF;">
+        <div class="channel-icon"><i class="fab fa-telegram-plane"></i></div>
+        <div class="channel-title">Telegram</div>
+        <div class="channel-value">@toyotapluskh</div>
+        <div class="channel-desc">Message us anytime</div>
+      </a>
+
+      <a href="mailto:info@toyotaplus.com.kh"
+         class="channel-card reveal" style="transition-delay:0.21s;--channel-color:#1565C0;--channel-bg:#E8F0FF;">
+        <div class="channel-icon"><i class="fas fa-envelope"></i></div>
+        <div class="channel-title">Email</div>
+        <div class="channel-value" style="font-size:13px;">info@toyotaplus.com.kh</div>
+        <div class="channel-desc">Reply within 24 hours</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT: FORM + SIDEBAR -->
+<section>
+  <div class="container">
+    <div class="contact-main">
+
+      <!-- CONTACT FORM -->
+      <div class="contact-form-card reveal">
+        <h2>Send Us a Message</h2>
+        <p>Fill in the form and our team will respond within 24 hours.</p>
+
+        <!-- Success state (hidden by default) -->
+        <div class="form-success" id="formSuccess">
+          <i class="fas fa-check-circle"></i>
+          <h3>Message Sent!</h3>
+          <p>Thank you! Our team will contact you within 24 hours via your preferred channel.</p>
+          <button class="btn btn-outline" style="margin-top:20px;" onclick="resetForm()">
+            <i class="fas fa-redo"></i> Send Another Message
+          </button>
+        </div>
+
+        <form id="contactForm" onsubmit="handleContactSubmit(event)">
+          <div class="float-row">
+            <div class="float-group">
+              <input type="text" name="firstName" id="firstName" placeholder=" " required />
+              <label for="firstName">First Name *</label>
+            </div>
+            <div class="float-group">
+              <input type="text" name="lastName" id="lastName" placeholder=" " required />
+              <label for="lastName">Last Name *</label>
+            </div>
+          </div>
+
+          <div class="float-row">
+            <div class="float-group">
+              <input type="tel" name="phone" id="phone" placeholder=" " required />
+              <label for="phone">Phone / WhatsApp *</label>
+            </div>
+            <div class="float-group">
+              <input type="email" name="email" id="email" placeholder=" " />
+              <label for="email">Email Address</label>
+            </div>
+          </div>
+
+          <div class="float-group">
+            <select name="subject" id="subject" required>
+              <option value="" disabled selected></option>
+              <option>I'm interested in a specific car</option>
+              <option>Schedule a test drive</option>
+              <option>Finance / Loan enquiry</option>
+              <option>Trade-in valuation</option>
+              <option>After-sales service</option>
+              <option>General enquiry</option>
+            </select>
+            <label for="subject">Subject *</label>
+          </div>
+
+          <div class="float-group">
+            <input type="text" name="carInterest" id="carInterest" placeholder=" " />
+            <label for="carInterest">Car of Interest (optional)</label>
+          </div>
+
+          <div class="float-group">
+            <textarea name="message" id="message" placeholder=" " maxlength="500" oninput="updateCharCount(this)" required></textarea>
+            <label for="message">Your Message *</label>
+          </div>
+          <div class="char-counter" id="charCounter">0 / 500</div>
+
+          <label class="consent-label">
+            <input type="checkbox" required />
+            <span>I agree to be contacted by Toyota Plus Cambodia regarding my enquiry. My information will not be shared with third parties.</span>
+          </label>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitBtn">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+
+      <!-- INFO SIDEBAR -->
+      <div class="contact-info-sidebar">
+
+        <!-- Open Status + Hours -->
+        <div class="info-card reveal" style="transition-delay:0.1s">
+          <div id="openStatus"></div>
+          <div class="info-card-header">
+            <div class="info-card-icon"><i class="fas fa-clock"></i></div>
+            <h4>Opening Hours</h4>
+          </div>
+          <div class="hours-table" id="hoursTable"></div>
+        </div>
+
+        <!-- Showroom Quick Links -->
+        <div class="info-card reveal" style="transition-delay:0.15s">
+          <div class="info-card-header">
+            <div class="info-card-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <h4>Our Showrooms</h4>
+          </div>
+          <p style="margin-bottom:14px;">We have 3 locations across Cambodia. Select a showroom below to view on the map.</p>
+          <a href="#showrooms-section" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--red);text-decoration:none;" onclick="document.getElementById('showrooms-section').scrollIntoView({behavior:'smooth'});return false;">
+            <i class="fas fa-map-marked-alt"></i> View All Showrooms &amp; Maps
+          </a>
+        </div>
+
+        <!-- Social -->
+        <div class="social-strip reveal" style="transition-delay:0.25s">
+          <p>Follow us for daily inventory updates</p>
+          <div class="social-btns">
+            <a href="#" class="social-btn fb"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-btn tg"><i class="fab fa-telegram-plane"></i></a>
+            <a href="#" class="social-btn tt"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SHOWROOMS SECTION -->
+<section class="showrooms-section" id="showrooms-section" style="background:var(--silver);padding-top:64px;">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:40px;">
+      <div class="section-label">Our Locations</div>
+      <h2 class="section-title">Find a Showroom Near You</h2>
+      <p class="section-sub">Click any showroom to see it on the map and get directions</p>
+    </div>
+    <div class="showrooms-layout reveal">
+
+      <!-- Showroom list -->
+      <div class="showroom-list" id="showroomList"></div>
+
+      <!-- Map panel -->
+      <div class="showroom-map-panel">
+        <div class="showroom-map-header">
+          <div>
+            <div class="showroom-map-name" id="mapShowroomName">Phnom Penh Main</div>
+            <div class="showroom-map-addr" id="mapShowroomAddr">No. 123, Monivong Boulevard, Phnom Penh</div>
+          </div>
+          <a id="mapDirectionsBtn" href="#" target="_blank" class="btn btn-primary btn-sm" style="white-space:nowrap;">
+            <i class="fas fa-directions"></i> Get Directions
+          </a>
+        </div>
+        <iframe
+          id="showroomMapFrame"
+          src="https://maps.google.com/maps?q=11.5564,104.9157&z=15&output=embed"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Showroom Map"
+        ></iframe>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><div style="width:40px;height:40px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="24" height="16" viewBox="0 0 28 18" fill="none"><ellipse cx="14" cy="9" rx="13" ry="8.5" stroke="white" stroke-width="1.8" fill="none"/><ellipse cx="14" cy="9" rx="6" ry="4" stroke="white" stroke-width="1.8" fill="none"/><ellipse cx="14" cy="9" rx="2" ry="8.5" stroke="white" stroke-width="1.8" fill="none"/></svg></div><div class="logo-text"><strong style="font-size:17px;">Toyota Plus</strong><span>Cambodia</span></div></a>
+        <p>Your most trusted certified pre-owned Toyota dealer in Cambodia.</p>
+        <div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-telegram-plane"></i></a><a href="#"><i class="fab fa-tiktok"></i></a></div>
+      </div>
+      <div class="footer-col"><h5>Navigation</h5><ul><li><a href="index.html">Home</a></li><li><a href="inventory.html">Inventory</a></li><li><a href="news.html">News</a></li><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h5>Popular Models</h5><ul><li><a href="inventory.html?model=Land+Cruiser">Land Cruiser</a></li><li><a href="inventory.html?model=Fortuner">Fortuner</a></li><li><a href="inventory.html?model=Camry">Camry</a></li><li><a href="inventory.html?model=Hilux">Hilux</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul class="footer-contact"><li><i class="fas fa-map-marker-alt"></i><span>123 Monivong Blvd, Phnom Penh</span></li><li><i class="fas fa-phone-alt"></i><span>+855 23 456 789</span></li><li><i class="fas fa-envelope"></i><span>info@toyotaplus.com.kh</span></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2025 Toyota Plus Cambodia. All rights reserved.</span></div>
+  </div>
+</footer>
+
+<a href="https://wa.me/85523456789" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<div id="toast"></div>
+
+<script src="assets/js/cars-data.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+// ─── Opening Hours & Status ─────────────────────────────────────────────────
+const HOURS = [
+  { day: 'Monday',    open: '08:00', close: '18:00' },
+  { day: 'Tuesday',   open: '08:00', close: '18:00' },
+  { day: 'Wednesday', open: '08:00', close: '18:00' },
+  { day: 'Thursday',  open: '08:00', close: '18:00' },
+  { day: 'Friday',    open: '08:00', close: '18:00' },
+  { day: 'Saturday',  open: '08:00', close: '18:00' },
+  { day: 'Sunday',    open: '09:00', close: '16:00' },
+];
+
+function renderHours() {
+  const now = new Date();
+  const dayIdx = now.getDay(); // 0=Sun, 1=Mon...
+  const adjustedIdx = dayIdx === 0 ? 6 : dayIdx - 1; // Make Mon=0 ... Sun=6
+  const timeStr = now.getHours() * 60 + now.getMinutes();
+
+  function toMins(t) { const [h, m] = t.split(':').map(Number); return h * 60 + m; }
+
+  const todayHours = HOURS[adjustedIdx];
+  const isOpen = timeStr >= toMins(todayHours.open) && timeStr < toMins(todayHours.close);
+
+  // Status badge
+  const statusEl = document.getElementById('openStatus');
+  if (statusEl) {
+    statusEl.innerHTML = `
+      <div class="open-status ${isOpen ? 'open' : 'closed'}" style="margin-bottom:16px;">
+        <span class="dot"></span>
+        ${isOpen
+          ? 'Open Now &nbsp;&middot;&nbsp; Closes at ' + todayHours.close
+          : 'Closed Now &nbsp;&middot;&nbsp; Opens ' + (adjustedIdx === 6 ? 'Mon' : 'tomorrow') + ' at ' + HOURS[(adjustedIdx + 1) % 7].open
+        }
+      </div>`;
+  }
+
+  // Hours table
+  const hoursEl = document.getElementById('hoursTable');
+  if (!hoursEl) return;
+  hoursEl.innerHTML = HOURS.map((h, i) => {
+    const isToday = i === adjustedIdx;
+    return `<div class="hours-row ${isToday ? 'hours-today' : ''}">
+      <span class="hours-day">${isToday ? '<strong>' + h.day + '</strong>' : h.day}</span>
+      <span class="hours-time">${h.open} - ${h.close}</span>
+    </div>`;
+  }).join('');
+}
+
+// ─── Character Counter ──────────────────────────────────────────────────────
+function updateCharCount(el) {
+  const counter = document.getElementById('charCounter');
+  if (!counter) return;
+  const len = el.value.length;
+  counter.textContent = len + ' / 500';
+  counter.classList.toggle('warn', len > 440);
+}
+
+// ─── Form Submit ────────────────────────────────────────────────────────────
+function handleContactSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+  btn.disabled = true;
+
+  // Simulate network delay
+  setTimeout(() => {
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }, 1200);
+}
+
+function resetForm() {
+  document.getElementById('contactForm').reset();
+  document.getElementById('contactForm').style.display = 'block';
+  document.getElementById('formSuccess').style.display = 'none';
+  document.getElementById('charCounter').textContent = '0 / 500';
+  const btn = document.getElementById('submitBtn');
+  btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+  btn.disabled = false;
+}
+
+// ─── Showroom Data ──────────────────────────────────────────────────────────
+const SHOWROOMS = [
+  {
+    id: 0,
+    name: 'Phnom Penh Main',
+    badge: 'Headquarters',
+    address: 'No. 123, Monivong Boulevard, Chamkar Mon District, Phnom Penh 12302',
+    shortAddr: 'No. 123, Monivong Boulevard, Phnom Penh',
+    phone: '+855 23 456 789',
+    mobile: '+855 12 345 678',
+    hours: 'Mon–Sat: 8:00 AM – 6:00 PM  |  Sun: 9:00 AM – 4:00 PM',
+    mapSrc: 'https://maps.google.com/maps?q=11.5564,104.9157&z=15&output=embed',
+    directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=11.5564,104.9157'
+  },
+  {
+    id: 1,
+    name: 'Siem Reap Branch',
+    badge: 'Branch',
+    address: 'No. 45, National Road 6, Svay Dangkum, Siem Reap 17252',
+    shortAddr: 'No. 45, National Road 6, Siem Reap',
+    phone: '+855 63 789 012',
+    mobile: '+855 17 345 678',
+    hours: 'Mon–Sat: 8:00 AM – 5:30 PM  |  Sun: Closed',
+    mapSrc: 'https://maps.google.com/maps?q=13.3633,103.8564&z=15&output=embed',
+    directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=13.3633,103.8564'
+  },
+  {
+    id: 2,
+    name: 'Sihanoukville Branch',
+    badge: 'Branch',
+    address: 'No. 88, Serendipity Road, Mittapheap District, Sihanoukville 18452',
+    shortAddr: 'No. 88, Serendipity Road, Sihanoukville',
+    phone: '+855 34 567 890',
+    mobile: '+855 96 345 678',
+    hours: 'Mon–Sat: 8:00 AM – 5:30 PM  |  Sun: Closed',
+    mapSrc: 'https://maps.google.com/maps?q=10.6280,103.5228&z=15&output=embed',
+    directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=10.6280,103.5228'
+  }
+];
+
+let activeShowroom = 0;
+
+function renderShowrooms() {
+  const list = document.getElementById('showroomList');
+  if (!list) return;
+  list.innerHTML = SHOWROOMS.map(s => `
+    <div class="showroom-card ${s.id === activeShowroom ? 'active' : ''}" onclick="selectShowroom(${s.id})" id="showroom-card-${s.id}">
+      <div class="showroom-card-head">
+        <span class="showroom-name">${s.name}</span>
+        <span class="showroom-badge">${s.badge}</span>
+      </div>
+      <div class="showroom-card-body">
+        <span><i class="fas fa-map-marker-alt"></i>${s.address}</span>
+        <span><i class="fas fa-phone-alt"></i><a href="tel:${s.phone.replace(/\s/g,'')}" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none;">${s.phone}</a></span>
+        <span><i class="fas fa-mobile-alt"></i><a href="tel:${s.mobile.replace(/\s/g,'')}" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none;">${s.mobile}</a></span>
+        <span><i class="fas fa-clock"></i>${s.hours}</span>
+      </div>
+      <div class="showroom-card-foot">
+        <span class="showroom-select-hint">
+          ${s.id === activeShowroom
+            ? '<i class="fas fa-map-marker-alt"></i> Showing on map'
+            : '<i class="fas fa-hand-pointer"></i> Click to view on map'}
+        </span>
+        <a href="${s.directionsUrl}" target="_blank" onclick="event.stopPropagation()"
+           class="btn btn-sm btn-outline" style="font-size:12px;padding:5px 12px;">
+          <i class="fas fa-directions"></i> Directions
+        </a>
+      </div>
+    </div>
+  `).join('');
+}
+
+function selectShowroom(id) {
+  if (id === activeShowroom) return;
+  activeShowroom = id;
+  const s = SHOWROOMS[id];
+
+  // Update map with fade
+  const frame = document.getElementById('showroomMapFrame');
+  if (frame) {
+    frame.classList.add('loading');
+    // Small delay so the fade is visible before src swap
+    setTimeout(() => {
+      frame.src = s.mapSrc;
+      frame.onload = () => frame.classList.remove('loading');
+    }, 180);
+  }
+
+  // Update map header
+  const nameEl = document.getElementById('mapShowroomName');
+  const addrEl = document.getElementById('mapShowroomAddr');
+  const dirBtn = document.getElementById('mapDirectionsBtn');
+  if (nameEl) nameEl.textContent = s.name;
+  if (addrEl) addrEl.textContent = s.shortAddr;
+  if (dirBtn) dirBtn.href = s.directionsUrl;
+
+  // Re-render cards
+  renderShowrooms();
+
+  // Scroll map into view on mobile
+  if (window.innerWidth < 860) {
+    document.getElementById('showroomMapFrame')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+// ─── Scroll Reveal ──────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('.page-transition').classList.add('loaded');
+  renderHours();
+  renderShowrooms();
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+});
+</script>
+</body>
+</html>

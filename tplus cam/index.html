@@ -1,0 +1,1934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toyota Plus Cambodia — Premium Used Cars in Phnom Penh</title>
+  <meta name="description" content="Toyota Plus Cambodia — Buy certified pre-owned Toyota vehicles in Phnom Penh. Best prices, quality inspection, financing available." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    body { font-family: 'Inter', 'Segoe UI', sans-serif; }
+
+    /* ============================================================
+       SCROLL REVEAL
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+    .reveal-delay-6 { transition-delay: 0.6s; }
+
+    /* ============================================================
+       HERO SLIDER
+    ============================================================ */
+    .hero {
+      position: relative;
+      height: 56vh;
+      min-height: 340px;
+      max-height: 580px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .hero-slides {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transform: scale(1.06);
+      transition: opacity 1.2s ease, transform 6s ease;
+    }
+    .hero-slide.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .hero-slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=1600&q=85'); }
+    .hero-slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=1600&q=85'); }
+    .hero-slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600&q=85'); }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(0,0,0,0.10) 0%,
+        rgba(0,0,0,0.08) 100%
+      );
+      z-index: 1;
+    }
+
+    /* Slide indicators */
+    .hero-dots {
+      position: absolute;
+      bottom: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      display: flex;
+      gap: 10px;
+    }
+    .hero-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      padding: 0;
+    }
+    .hero-dot.active {
+      background: var(--red);
+      width: 28px;
+      border-radius: 4px;
+    }
+
+    /* Slide arrows */
+    .hero-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 4;
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: var(--transition);
+      backdrop-filter: blur(6px);
+    }
+    .hero-arrow:hover { background: var(--red); border-color: var(--red); }
+    .hero-arrow-left  { left: 24px; }
+    .hero-arrow-right { right: 24px; }
+
+    /* ============================================================
+       ABOVE-BANNER HERO TOP — text + search  (vibrant red)
+    ============================================================ */
+    .hero-top {
+      background:
+        linear-gradient(135deg,
+          #0c0e18 0%,
+          #1e0810 20%,
+          #7a0b1a 46%,
+          #EB0A1E 72%,
+          #ff3547 100%
+        );
+      padding: 72px 0 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Dot-grid texture overlay */
+    .hero-top::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.09) 1.5px, transparent 1.5px);
+      background-size: 26px 26px;
+      pointer-events: none;
+    }
+    /* Warm radial glow — anchored bottom-right where colour is brightest */
+    .hero-top::after {
+      content: '';
+      position: absolute;
+      right: -120px; bottom: -160px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(255,100,80,0.30) 0%, rgba(235,10,30,0.12) 40%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    /* Cool dark glow — anchored top-left */
+    .hero-top-dark-glow {
+      position: absolute;
+      left: -140px; top: -140px;
+      width: 580px; height: 580px;
+      background: radial-gradient(circle, rgba(30,20,60,0.55) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-top > .container { position: relative; z-index: 1; }
+
+    .hero-top-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: 70px;
+      align-items: center;
+    }
+    /* Bottom decorative ring — adds depth */
+    .hero-top-text {
+      position: relative;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 22px;
+    }
+    .hero-eyebrow span {
+      width: 6px; height: 6px;
+      background: white;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.7); }
+      50%      { box-shadow: 0 0 0 7px rgba(255,255,255,0); }
+    }
+    .hero-top h1 {
+      font-size: clamp(34px, 5vw, 70px);
+      font-weight: 900;
+      line-height: 1.06;
+      color: white;
+      margin-bottom: 18px;
+      letter-spacing: -0.5px;
+    }
+    .hero-top h1 .accent {
+      color: rgba(255,255,255,0.92);
+      text-shadow: 0 0 30px rgba(255,255,255,0.4);
+    }
+    .hero-top h1 .underline-anim {
+      display: inline-block;
+      position: relative;
+    }
+    .hero-top h1 .underline-anim::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 100%; height: 3px;
+      background: rgba(255,255,255,0.75);
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: underlineDraw 0.9s 0.8s forwards ease-out;
+    }
+    @keyframes underlineDraw { to { transform: scaleX(1); } }
+    .hero-sub {
+      font-size: 16px;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.75;
+      margin-bottom: 32px;
+      max-width: 460px;
+    }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    /* Buttons on red bg */
+    .hero-top .btn-primary {
+      background: white !important;
+      color: var(--red, #EB0A1E) !important;
+      border-color: white !important;
+    }
+    .hero-top .btn-primary:hover {
+      background: #f0f0f0 !important;
+      border-color: #f0f0f0 !important;
+    }
+    .hero-top .btn-outline {
+      color: white !important;
+      border-color: rgba(255,255,255,0.6) !important;
+      background: rgba(255,255,255,0.1) !important;
+    }
+    .hero-top .btn-outline:hover {
+      background: white !important;
+      color: var(--red, #EB0A1E) !important;
+      border-color: white !important;
+    }
+    /* Floating search card on red bg */
+    .hero-top-search .search-section {
+      box-shadow: 0 16px 60px rgba(0,0,0,0.28);
+      border: none;
+      border-radius: 18px;
+      padding: 30px 28px 26px;
+      background: white;
+    }
+    .hero-top-search .search-grid {
+      grid-template-columns: 1fr 1fr;
+      row-gap: 14px;
+    }
+    .hero-top-search .search-btn-wrap { grid-column: 1 / -1; }
+    @media (max-width: 980px) {
+      .hero-top-grid { grid-template-columns: 1fr; gap: 44px; }
+      .hero-top { padding: 56px 0 50px; }
+    }
+
+    /* Progress bar at bottom of hero */
+    .hero-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: var(--red);
+      z-index: 5;
+      transition: width linear;
+    }
+
+    /* ============================================================
+       SEARCH CARD
+    ============================================================ */
+    .search-section {
+      background: white;
+      border-radius: 20px;
+      padding: 32px 36px;
+      box-shadow: 0 12px 50px rgba(0,0,0,0.13);
+    }
+    .search-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+    .search-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr auto;
+      gap: 14px;
+      align-items: end;
+    }
+    .search-field label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--grey);
+      display: block;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .search-field select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 2px solid var(--border, #e8e8e8);
+      border-radius: 10px;
+      font-size: 14px;
+      color: var(--dark);
+      background: var(--silver);
+      outline: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .search-field select:focus { border-color: var(--red); background-color: white; }
+    .search-btn-wrap .btn { height: 46px; border-radius: 10px; }
+
+    /* ============================================================
+       FEATURES STRIP
+    ============================================================ */
+    .features-strip {
+      background: var(--dark);
+      padding: 0;
+    }
+    .features-strip .container {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+    }
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 24px 20px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      color: white;
+      transition: background 0.25s;
+      cursor: default;
+    }
+    .feature-item:last-child { border-right: none; }
+    .feature-item:hover { background: rgba(235,10,30,0.15); }
+    .feature-item i {
+      font-size: 22px;
+      color: var(--red);
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+    .feature-item:hover i { transform: scale(1.2) rotate(-5deg); }
+    .feature-item strong { font-size: 13px; display: block; font-weight: 700; }
+    .feature-item span   { font-size: 12px; color: rgba(255,255,255,0.5); }
+
+    /* ============================================================
+       SECTION COMMON
+    ============================================================ */
+    .section-label {
+      display: inline-block;
+      background: rgba(235,10,30,0.1);
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 50px;
+      margin-bottom: 12px;
+    }
+    .section-title { font-size: clamp(26px, 4vw, 38px); font-weight: 800; color: var(--dark); margin-bottom: 10px; }
+    .section-sub   { font-size: 15px; color: var(--grey); max-width: 480px; margin: 0 auto; }
+
+    /* ============================================================
+       CAR FILTER TABS
+    ============================================================ */
+    .car-filter-tabs {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+    .car-filter-tab {
+      padding: 8px 22px;
+      border-radius: 50px;
+      border: 2px solid var(--border, #e8e8e8);
+      background: white;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--grey);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .car-filter-tab:hover { border-color: var(--red); color: var(--red); }
+    .car-filter-tab.active { background: var(--red); border-color: var(--red); color: white; }
+
+    /* ============================================================
+       HOW IT WORKS
+    ============================================================ */
+    .how-section { background: var(--silver); }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      position: relative;
+    }
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 52px;
+      left: calc(16.67% + 24px);
+      width: calc(66.66% - 48px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), rgba(235,10,30,0.2));
+      z-index: 0;
+    }
+    .step-card {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      background: white;
+      border-radius: 20px;
+      padding: 40px 28px 32px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    .step-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+    .step-num {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--red);
+      color: white;
+      font-size: 22px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      position: relative;
+      box-shadow: 0 6px 20px rgba(235,10,30,0.35);
+      transition: transform 0.3s;
+    }
+    .step-card:hover .step-num { transform: scale(1.1) rotate(-5deg); }
+    .step-icon {
+      font-size: 30px;
+      color: var(--red);
+      margin-bottom: 14px;
+    }
+    .step-card h4 { font-size: 17px; font-weight: 700; margin-bottom: 10px; color: var(--dark); }
+    .step-card p  { font-size: 14px; color: var(--grey); line-height: 1.65; }
+
+    /* ============================================================
+       MODEL SHOWCASE
+    ============================================================ */
+    .model-showcase { background: var(--dark); }
+    .model-scroll-wrap {
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 8px;
+    }
+    .model-scroll-wrap::-webkit-scrollbar { display: none; }
+    .model-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+    }
+    .model-card {
+      flex-shrink: 0;
+      width: 260px;
+      height: 320px;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      display: block;
+    }
+    .model-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+    .model-card:hover img { transform: scale(1.08); }
+    .model-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, transparent 55%);
+    }
+    .model-card-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 18px 16px;
+      z-index: 2;
+      transform: translateY(0);
+      transition: transform 0.3s;
+    }
+    .model-card:hover .model-card-info { transform: translateY(-8px); }
+    .model-card-info strong { display: block; font-size: 17px; color: white; font-weight: 800; }
+    .model-card-info span   { font-size: 13px; color: rgba(255,255,255,0.65); }
+    .model-card-cta {
+      position: absolute;
+      bottom: 20px;
+      right: 16px;
+      z-index: 3;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .model-card:hover .model-card-cta { opacity: 1; transform: translateY(0); }
+
+    /* Scroll buttons */
+    .model-scroll-controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 24px;
+    }
+    .scroll-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 15px;
+      transition: var(--transition);
+    }
+    .scroll-btn:hover { background: var(--red); border-color: var(--red); }
+
+    /* ============================================================
+       WHY CHOOSE US
+    ============================================================ */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .why-card {
+      padding: 32px 28px;
+      border-radius: 16px;
+      border: 2px solid var(--border, #eee);
+      background: white;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .why-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 0;
+      background: var(--red);
+      transition: height 0.4s ease;
+    }
+    .why-card:hover::before { height: 100%; }
+    .why-card:hover { border-color: var(--red); transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .why-icon {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      background: rgba(235,10,30,0.08);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+      transition: var(--transition);
+    }
+    .why-card:hover .why-icon { background: var(--red); }
+    .why-icon i { font-size: 22px; color: var(--red); transition: color 0.25s; }
+    .why-card:hover .why-icon i { color: white; }
+    .why-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--dark); }
+    .why-card p  { font-size: 14px; color: var(--grey); line-height: 1.65; }
+
+    /* ============================================================
+       STATS BANNER
+    ============================================================ */
+    .stats-banner {
+      background: linear-gradient(135deg, var(--red) 0%, #a0061a 100%);
+      padding: 60px 0;
+    }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .stat-box {
+      text-align: center;
+      padding: 28px 20px;
+      border-right: 1px solid rgba(255,255,255,0.18);
+      color: white;
+    }
+    .stat-box:last-child { border-right: none; }
+    .stat-box .big-num {
+      font-size: clamp(36px, 5vw, 54px);
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-box .stat-unit { font-size: 22px; }
+    .stat-box .stat-label { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 6px; }
+
+    /* ============================================================
+       TESTIMONIALS CAROUSEL
+    ============================================================ */
+    .testimonials-section { background: var(--silver); }
+    .testimonial-carousel {
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonial-track {
+      display: flex;
+      gap: 24px;
+      transition: transform 0.5s ease;
+    }
+    .testimonial-card {
+      flex: 0 0 calc((100% - 48px) / 3);
+      background: white;
+      border-radius: 20px;
+      padding: 32px 28px;
+      box-shadow: var(--shadow);
+      border: 1.5px solid var(--border, #eee);
+      transition: var(--transition);
+      position: relative;
+    }
+    .testimonial-card::before {
+      content: '\201C';
+      position: absolute;
+      top: 18px;
+      right: 24px;
+      font-size: 72px;
+      color: rgba(235,10,30,0.08);
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+    .testimonial-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .testimonial-stars { color: #f5a623; font-size: 16px; margin-bottom: 14px; letter-spacing: 2px; }
+    .testimonial-text { font-size: 14px; line-height: 1.75; color: var(--grey-dark, #444); margin-bottom: 22px; font-style: italic; }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .testimonial-author img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 3px solid var(--red); }
+    .testimonial-author strong { font-size: 14px; display: block; color: var(--dark); }
+    .testimonial-author span   { font-size: 12px; color: var(--grey); }
+    .testimonial-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .t-arrow {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--border, #ddd);
+      background: white;
+      color: var(--dark);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      transition: var(--transition);
+    }
+    .t-arrow:hover { background: var(--red); border-color: var(--red); color: white; }
+    .t-dots { display: flex; gap: 8px; }
+    .t-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--grey-light, #ccc);
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+    }
+    .t-dot.active { background: var(--red); width: 24px; border-radius: 4px; }
+
+    /* ============================================================
+       LATEST NEWS STRIP
+    ============================================================ */
+    .news-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .news-mini-card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1.5px solid var(--border, #eee);
+      transition: var(--transition);
+      display: block;
+      color: inherit;
+    }
+    .news-mini-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .news-mini-card img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .news-mini-card:hover img { transform: scale(1.05); }
+    .news-mini-img { overflow: hidden; }
+    .news-mini-body { padding: 18px; }
+    .news-mini-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 10px;
+      border-radius: 50px;
+      margin-bottom: 8px;
+    }
+    .news-mini-title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .news-mini-card:hover .news-mini-title { color: var(--red); }
+    .news-mini-date { font-size: 12px; color: var(--grey); display: flex; align-items: center; gap: 5px; }
+
+    /* ============================================================
+       CTA BANNER
+    ============================================================ */
+    .cta-banner {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+      padding: 80px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(235,10,30,0.18) 0%, transparent 70%);
+    }
+    .cta-banner::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(235,10,30,0.12) 0%, transparent 70%);
+    }
+    .cta-banner .container { position: relative; z-index: 1; }
+    .cta-banner h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; color: white; margin-bottom: 14px; }
+    .cta-banner p  { font-size: 16px; color: rgba(255,255,255,0.65); margin-bottom: 36px; }
+    .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ============================================================
+       PARTNER BANKS STRIP
+    ============================================================ */
+    .partners-section { padding: 40px 0; background: white; border-top: 1px solid var(--border, #eee); }
+    .partners-label {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--grey);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+    }
+    .partners-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+      flex-wrap: wrap;
+    }
+    .partner-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border, #eee);
+      color: var(--grey);
+      font-size: 14px;
+      font-weight: 700;
+      transition: var(--transition);
+      filter: grayscale(1);
+      opacity: 0.65;
+    }
+    .partner-logo:hover { filter: grayscale(0); opacity: 1; border-color: var(--red); color: var(--dark); }
+    .partner-logo i { font-size: 20px; }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .search-grid { grid-template-columns: 1fr 1fr; }
+      .search-btn-wrap { grid-column: 1/-1; }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .stat-box:nth-child(2) { border-right: none; }
+    }
+    @media (max-width: 768px) {
+      .features-strip .container { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid { grid-template-columns: 1fr; }
+      .steps-grid::before { display: none; }
+      .news-strip { grid-template-columns: 1fr; }
+      .testimonial-card { flex: 0 0 100%; }
+      .hero-arrow { display: none; }
+      .hero-dots { bottom: 90px; }
+    }
+    @media (max-width: 600px) {
+      .features-strip .container { grid-template-columns: 1fr 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .hero h1 { font-size: 34px; }
+    }
+
+    /* ============================================================
+       SIDE PROMOTION BANNER
+    ============================================================ */
+    .promo-side {
+      position: fixed;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1200;
+      display: flex;
+      align-items: stretch;
+      /* Panel container must not block clicks when closed */
+      pointer-events: none;
+    }
+    /* Re-enable clicks on visible parts */
+    .promo-tab { pointer-events: auto; }
+    .promo-side.open .promo-panel { pointer-events: auto; }
+    /* Vertical tab trigger */
+    .promo-tab {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      background: var(--red);
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 18px 10px;
+      cursor: pointer;
+      border-radius: 8px 0 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+      transition: background 0.2s;
+      border: none;
+      box-shadow: -3px 0 16px rgba(235,10,30,0.25);
+    }
+    .promo-tab:hover { background: #c50018; }
+    .promo-tab i { transform: rotate(180deg); font-size: 13px; }
+
+    /* Slide-out panel */
+    .promo-panel {
+      width: 280px;
+      background: white;
+      border-radius: 12px 0 0 12px;
+      box-shadow: -6px 0 32px rgba(0,0,0,0.16);
+      overflow: hidden;
+      transform: translateX(100%);
+      transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+    }
+    .promo-side.open .promo-panel { transform: translateX(0); }
+    .promo-side.open .promo-tab { border-radius: 0; }
+
+    .promo-panel-head {
+      background: var(--red);
+      color: white;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .promo-panel-head h4 { font-size: 14px; font-weight: 800; margin: 0; letter-spacing: 0.3px; }
+    .promo-close {
+      background: rgba(255,255,255,0.18);
+      border: none; color: white; width: 26px; height: 26px;
+      border-radius: 50%; cursor: pointer; font-size: 13px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .promo-close:hover { background: rgba(255,255,255,0.32); }
+
+    /* Promo slides */
+    .promo-slides-wrap { position: relative; overflow: hidden; flex: 1; }
+    .promo-slides { display: flex; transition: transform 0.4s ease; }
+    .promo-slide {
+      min-width: 280px;
+      padding: 0 0 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .promo-slide-img {
+      height: 138px;
+      overflow: hidden;
+      flex-shrink: 0;
+      margin-bottom: 12px;
+    }
+    .promo-slide-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .promo-slide-img img:hover { transform: scale(1.05); }
+    .promo-slide-content {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      padding: 0 16px;
+    }
+    .promo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      width: fit-content;
+    }
+    .promo-slide-title { font-size: 18px; font-weight: 900; color: var(--dark); line-height: 1.25; }
+    .promo-slide-desc { font-size: 13px; color: var(--grey); line-height: 1.6; }
+    .promo-slide-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 16px;
+      background: var(--red);
+      color: white;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s;
+      width: fit-content;
+      margin-top: 4px;
+    }
+    .promo-slide-cta:hover { background: #c50018; }
+    .promo-slide-expiry {
+      font-size: 11px;
+      color: var(--grey);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Dots nav */
+    .promo-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px 14px;
+      border-top: 1px solid var(--border);
+    }
+    .promo-dots { display: flex; gap: 6px; }
+    .promo-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--border); border: none; padding: 0; cursor: pointer;
+      transition: background 0.2s, width 0.2s;
+    }
+    .promo-dot.active { background: var(--red); width: 20px; border-radius: 4px; }
+    .promo-arrows { display: flex; gap: 6px; }
+    .promo-arr {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: white; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: var(--grey);
+      transition: var(--transition);
+    }
+    .promo-arr:hover { border-color: var(--red); color: var(--red); }
+
+    @media (max-width: 600px) {
+      .promo-panel { width: 240px; }
+      .promo-slide { min-width: 240px; }
+      .promo-slide-img { height: 110px; }
+    }
+  </style>
+</head>
+<body class="page-transition">
+
+<!-- ===== HEADER ===== -->
+<header id="header">
+  <div class="top-bar">
+    <div class="container">
+      <div style="display:flex; gap:20px; align-items:center;">
+        <span><i class="fas fa-phone-alt" style="margin-right:6px;color:var(--red)"></i>+855 23 456 789</span>
+        <span><i class="fas fa-clock" style="margin-right:6px;color:var(--red)"></i>Mon–Sat: 8:00 AM – 6:00 PM</span>
+      </div>
+      <div class="top-bar-links">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <nav class="nav-wrap">
+      <a href="index.html" class="logo">
+        <div style="width:44px;height:44px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="28" height="18" viewBox="0 0 28 18" fill="none">
+            <ellipse cx="14" cy="9" rx="13" ry="8.5" stroke="white" stroke-width="1.5" fill="none"/>
+            <ellipse cx="14" cy="9" rx="6" ry="4" stroke="white" stroke-width="1.5" fill="none"/>
+            <ellipse cx="14" cy="9" rx="2" ry="8.5" stroke="white" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <div class="logo-text"><strong>Toyota Plus</strong><span>Cambodia</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="news.html">News</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="lang-toggle" onclick="toggleLang(this)" title="Switch Language">
+          <i class="fas fa-globe"></i> EN / ខ្មែរ
+        </button>
+        <a href="inventory.html" class="btn btn-primary">
+          <i class="fas fa-search"></i> Browse Cars
+        </a>
+        <button class="nav-hamburger" onclick="openMobileMenu()" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" onclick="closeMobileMenuOutside(event)">
+  <div class="mobile-menu-panel">
+    <div class="mobile-menu-close">
+      <button onclick="closeMobileMenu()"><i class="fas fa-times"></i></button>
+    </div>
+    <a href="index.html" class="logo" style="margin-bottom:24px;display:flex;">
+      <div style="width:36px;height:36px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-right:10px;">
+        <svg width="22" height="14" viewBox="0 0 28 18" fill="none"><ellipse cx="14" cy="9" rx="13" ry="8.5" stroke="white" stroke-width="1.8" fill="none"/><ellipse cx="14" cy="9" rx="6" ry="4" stroke="white" stroke-width="1.8" fill="none"/><ellipse cx="14" cy="9" rx="2" ry="8.5" stroke="white" stroke-width="1.8" fill="none"/></svg>
+      </div>
+      <div class="logo-text"><strong>Toyota Plus</strong><span>Cambodia</span></div>
+    </a>
+    <div class="mobile-nav-links">
+      <a href="index.html">Home</a>
+      <a href="inventory.html">Inventory</a>
+      <a href="news.html">News</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div style="margin-top:24px;">
+      <a href="contact.html" class="btn btn-primary btn-block"><i class="fas fa-phone-alt"></i> Call Us Now</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HERO TOP — Text + Search (above banner) ===== -->
+<section class="hero-top">
+  <div class="hero-top-dark-glow"></div>
+  <div class="container">
+    <div class="hero-top-grid">
+
+      <!-- Left: headline + CTAs -->
+      <div class="hero-top-text animate-fade">
+        <div class="hero-eyebrow">
+          <span></span> Cambodia's #1 Toyota Dealer
+        </div>
+        <h1>
+          Find Your Perfect<br>
+          <span class="accent"><span class="underline-anim">Toyota</span></span> Today
+        </h1>
+        <p class="hero-sub">
+          Premium certified pre-owned Toyota vehicles in Phnom Penh.
+          Every car inspected, graded, and priced right for the Cambodian market.
+        </p>
+        <div class="hero-cta">
+          <a href="inventory.html" class="btn btn-primary btn-lg">
+            <i class="fas fa-car"></i> Browse Inventory
+          </a>
+          <a href="contact.html" class="btn btn-outline btn-lg">
+            <i class="fas fa-phone-alt"></i> Talk to an Expert
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: search form -->
+      <div class="hero-top-search">
+        <div class="search-section">
+          <div class="search-title"><i class="fas fa-search" style="color:var(--red);margin-right:8px;"></i>Quick Car Search</div>
+          <div class="search-grid">
+            <div class="search-field">
+              <label>Model</label>
+              <select id="searchModel" onchange="filterSearch()">
+                <option value="">All Models</option>
+                <option>Camry</option><option>Corolla</option><option>Hilux</option>
+                <option>Land Cruiser</option><option>Fortuner</option><option>RAV4</option>
+                <option>Innova</option><option>Vios</option><option>Prado</option><option>Highlander</option>
+              </select>
+            </div>
+            <div class="search-field">
+              <label>Year From</label>
+              <select id="searchYear" onchange="filterSearch()">
+                <option value="">Any Year</option>
+                <option>2024</option><option>2023</option><option>2022</option>
+                <option>2021</option><option>2020</option><option>2019</option>
+                <option>2018</option><option>2017</option><option>2016</option>
+              </select>
+            </div>
+            <div class="search-field">
+              <label>Max Price (USD)</label>
+              <select id="searchPrice" onchange="filterSearch()">
+                <option value="">Any Price</option>
+                <option value="10000">Under $10,000</option>
+                <option value="20000">Under $20,000</option>
+                <option value="30000">Under $30,000</option>
+                <option value="50000">Under $50,000</option>
+                <option value="80000">Under $80,000</option>
+              </select>
+            </div>
+            <div class="search-field">
+              <label>Body Type</label>
+              <select id="searchType" onchange="filterSearch()">
+                <option value="">All Types</option>
+                <option>Sedan</option><option>SUV</option><option>Pickup</option>
+                <option>MPV</option><option>Hatchback</option>
+              </select>
+            </div>
+            <div class="search-btn-wrap">
+              <a href="inventory.html" class="btn btn-primary" id="searchBtn" style="height:46px;width:100%;justify-content:center;">
+                <i class="fas fa-search"></i> Search Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== HERO BANNER — image slider only, no overlay text ===== -->
+<section class="hero">
+  <div class="hero-slides">
+    <div class="hero-slide active"></div>
+    <div class="hero-slide"></div>
+    <div class="hero-slide"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-progress" id="heroProgress"></div>
+
+  <button class="hero-arrow hero-arrow-left"  onclick="heroSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+  <button class="hero-arrow hero-arrow-right" onclick="heroSlide(1)"><i class="fas fa-chevron-right"></i></button>
+
+  <div class="hero-dots">
+    <button class="hero-dot active" onclick="goToSlide(0)"></button>
+    <button class="hero-dot" onclick="goToSlide(1)"></button>
+    <button class="hero-dot" onclick="goToSlide(2)"></button>
+  </div>
+</section>
+
+<!-- ===== FEATURES STRIP ===== -->
+<div class="reveal">
+  <div class="features-strip">
+    <div class="container">
+      <div class="feature-item">
+        <i class="fas fa-certificate"></i>
+        <div><strong>150-Point Inspection</strong><span>Every car certified</span></div>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-shield-alt"></i>
+        <div><strong>Warranty Included</strong><span>Peace of mind</span></div>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-hand-holding-usd"></i>
+        <div><strong>Easy Financing</strong><span>Low down payment</span></div>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-exchange-alt"></i>
+        <div><strong>Trade-In Welcome</strong><span>Best trade value</span></div>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-tools"></i>
+        <div><strong>Free Service Check</strong><span>After purchase</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FEATURED CARS ===== -->
+<section class="section-pad" style="background:var(--silver);">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:32px;">
+      <div class="section-label">Hot Deals</div>
+      <h2 class="section-title">Featured Vehicles</h2>
+      <p class="section-sub">Hand-picked quality cars at the best prices in Cambodia</p>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="car-filter-tabs reveal">
+      <button class="car-filter-tab active" onclick="filterFeatured('all', this)">
+        <i class="fas fa-th-large"></i> All Cars
+      </button>
+      <button class="car-filter-tab" onclick="filterFeatured('SUV', this)">
+        <i class="fas fa-car-side"></i> SUV
+      </button>
+      <button class="car-filter-tab" onclick="filterFeatured('Sedan', this)">
+        <i class="fas fa-car"></i> Sedan
+      </button>
+      <button class="car-filter-tab" onclick="filterFeatured('Pickup', this)">
+        <i class="fas fa-truck-pickup"></i> Pickup
+      </button>
+      <button class="car-filter-tab" onclick="filterFeatured('MPV', this)">
+        <i class="fas fa-shuttle-van"></i> MPV
+      </button>
+    </div>
+
+    <div class="cars-grid" id="featuredCars">
+      <!-- Populated by JS -->
+    </div>
+
+    <div class="text-center reveal" style="margin-top:40px;">
+      <a href="inventory.html" class="btn btn-outline btn-lg">
+        View All <span id="totalCount">18</span> Cars <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="section-pad how-section">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:50px;">
+      <div class="section-label">Simple Process</div>
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-sub">Getting your dream Toyota is easier than you think</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card reveal reveal-delay-1">
+        <div class="step-num">1</div>
+        <div class="step-icon"><i class="fas fa-search"></i></div>
+        <h4>Search & Explore</h4>
+        <p>Browse our full inventory online or visit our showroom. Filter by model, budget, year, and grade to find exactly what you need.</p>
+      </div>
+      <div class="step-card reveal reveal-delay-3">
+        <div class="step-num">2</div>
+        <div class="step-icon"><i class="fas fa-calendar-check"></i></div>
+        <h4>Book a Test Drive</h4>
+        <p>Schedule a test drive online or by phone. Our experts will walk you through the inspection report and answer all your questions.</p>
+      </div>
+      <div class="step-card reveal reveal-delay-5">
+        <div class="step-num">3</div>
+        <div class="step-icon"><i class="fas fa-key"></i></div>
+        <h4>Drive Away Happy</h4>
+        <p>Complete the paperwork with our team. We handle ownership transfer, financing, and registration — then hand you the keys.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== POPULAR MODELS ===== -->
+<section class="section-pad model-showcase">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:40px;">
+      <div class="section-label" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);">Browse By Model</div>
+      <h2 class="section-title" style="color:white;">Popular Models</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,0.5);">Find the Toyota that fits your lifestyle</p>
+    </div>
+    <div class="model-scroll-wrap reveal" id="modelScrollWrap">
+      <div class="model-track" id="modelTrack">
+        <a href="inventory.html?model=Land+Cruiser" class="model-card">
+          <img src="assets/images/lc.jpg" alt="Land Cruiser" onerror="this.src='https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&q=80'" />
+          <div class="model-card-info"><strong>Land Cruiser</strong><span>From $45,000</span></div>
+          <div class="model-card-cta"><span class="btn btn-primary btn-sm">View All</span></div>
+        </a>
+        <a href="inventory.html?model=Fortuner" class="model-card">
+          <img src="assets/images/fortuner.jpg" alt="Fortuner" onerror="this.src='https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=600&q=80'" />
+          <div class="model-card-info"><strong>Fortuner</strong><span>From $22,000</span></div>
+          <div class="model-card-cta"><span class="btn btn-primary btn-sm">View All</span></div>
+        </a>
+        <a href="inventory.html?model=Hilux" class="model-card">
+          <img src="assets/images/hilux.jpg" alt="Hilux" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'" />
+          <div class="model-card-info"><strong>Hilux</strong><span>From $18,000</span></div>
+          <div class="model-card-cta"><span class="btn btn-primary btn-sm">View All</span></div>
+        </a>
+        <a href="inventory.html?model=Camry" class="model-card">
+          <img src="assets/images/camry.jpg" alt="Camry" onerror="this.src='https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&q=80'" />
+          <div class="model-card-info"><strong>Camry</strong><span>From $14,000</span></div>
+          <div class="model-card-cta"><span class="btn btn-primary btn-sm">View All</span></div>
+        </a>
+        <a href="inventory.html?model=RAV4" class="model-card">
+          <img src="assets/images/rav4.jpg" alt="RAV4" onerror="this.src='https://images.unsplash.com/photo-1551830820-330a71b99659?w=600&q=80'" />
+          <div class="model-card-info"><strong>RAV4</strong><span>From $20,000</span></div>
+          <div class="model-card-cta"><span class="btn btn-primary btn-sm">View All</span></div>
+        </a>
+        <a href="inventory.html?model=Corolla" class="model-card">
+          <img src="assets/images/corolla.jpg" alt="Corolla" onerror="this.src='https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=600&q=80'" />
+          <div class="model-card-info"><strong>Corolla</strong><span>From $11,000</span></div>
+          <div class="model-card-cta"><span class="btn btn-primary btn-sm">View All</span></div>
+        </a>
+        <a href="inventory.html?model=Prado" class="model-card">
+          <img src="assets/images/prado.jpg" alt="Prado" onerror="this.src='https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&q=80'" />
+          <div class="model-card-info"><strong>Prado</strong><span>From $35,000</span></div>
+          <div class="model-card-cta"><span class="btn btn-primary btn-sm">View All</span></div>
+        </a>
+        <a href="inventory.html?model=Alphard" class="model-card">
+          <img src="assets/images/alphard.jpg" alt="Alphard" onerror="this.src='https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600&q=80'" />
+          <div class="model-card-info"><strong>Alphard</strong><span>From $55,000</span></div>
+          <div class="model-card-cta"><span class="btn btn-primary btn-sm">View All</span></div>
+        </a>
+      </div>
+    </div>
+    <div class="model-scroll-controls reveal">
+      <button class="scroll-btn" onclick="scrollModels(-1)"><i class="fas fa-chevron-left"></i></button>
+      <button class="scroll-btn" onclick="scrollModels(1)"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY CHOOSE US ===== -->
+<section class="section-pad">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:40px;">
+      <div class="section-label">Our Promise</div>
+      <h2 class="section-title">Why Choose Toyota Plus?</h2>
+      <p class="section-sub">Cambodia's most trusted certified pre-owned Toyota dealership</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-icon"><i class="fas fa-award"></i></div>
+        <h4>Certified Quality</h4>
+        <p>Every vehicle passes our rigorous 150-point inspection by trained Toyota technicians before hitting our lot.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-icon"><i class="fas fa-file-contract"></i></div>
+        <h4>Transparent Pricing</h4>
+        <p>No hidden fees. The price you see is the price you pay — clearly shown in both USD and KHR.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-3">
+        <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+        <h4>Warranty Included</h4>
+        <p>All certified vehicles come with a powertrain warranty with optional extended plans available.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-4">
+        <div class="why-icon"><i class="fas fa-hand-holding-usd"></i></div>
+        <h4>Flexible Financing</h4>
+        <p>Low down payment options with our local banking partners. Quick approval with competitive rates.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-5">
+        <div class="why-icon"><i class="fas fa-history"></i></div>
+        <h4>Full Car History</h4>
+        <p>Complete vehicle history and Japanese auction inspection report provided for every car — no surprises.</p>
+      </div>
+      <div class="why-card reveal reveal-delay-6">
+        <div class="why-icon"><i class="fas fa-headset"></i></div>
+        <h4>After-Sales Support</h4>
+        <p>Dedicated customer service team available in Khmer and English, 6 days a week including Sundays.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ANIMATED STATS ===== -->
+<section class="stats-banner">
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat-box reveal reveal-delay-1">
+        <div class="big-num"><span class="count-up" data-target="200">0</span><span class="stat-unit">+</span></div>
+        <div class="stat-label">Vehicles In Stock</div>
+      </div>
+      <div class="stat-box reveal reveal-delay-2">
+        <div class="big-num"><span class="count-up" data-target="5000">0</span><span class="stat-unit">+</span></div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+      <div class="stat-box reveal reveal-delay-3">
+        <div class="big-num"><span class="count-up" data-target="8">0</span><span class="stat-unit">+</span></div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+      <div class="stat-box reveal reveal-delay-4">
+        <div class="big-num"><span class="count-up" data-target="150">0</span><span class="stat-unit">-pt</span></div>
+        <div class="stat-label">Inspection Standard</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="section-pad testimonials-section">
+  <div class="container">
+    <div class="text-center reveal" style="margin-bottom:40px;">
+      <div class="section-label">Reviews</div>
+      <h2 class="section-title">What Our Customers Say</h2>
+      <p class="section-sub">Over 5,000 happy Toyota Plus customers across Cambodia</p>
+    </div>
+    <div class="testimonial-carousel reveal">
+      <div class="testimonial-track" id="testimonialTrack">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"I bought a Fortuner here and the experience was amazing. The team was very professional and helped me get financing in just 2 days. Highly recommend Toyota Plus!"</p>
+          <div class="testimonial-author">
+            <img src="https://i.pravatar.cc/80?img=11" alt="Sovann" />
+            <div><strong>Sovann Pich</strong><span>Phnom Penh · Fortuner Owner</span></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Best car dealer in Cambodia. The 150-point inspection gave me total peace of mind. My Land Cruiser has been perfect for 2 years. Great after-sales service too!"</p>
+          <div class="testimonial-author">
+            <img src="https://i.pravatar.cc/80?img=32" alt="Dara" />
+            <div><strong>Dara Chhorn</strong><span>Siem Reap · Land Cruiser Owner</span></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"ខ្ញុំពេញចិត្តណាស់ជាមួយ Toyota Plus។ ការបម្រើសេវាល្អ ហើយតម្លៃសមរម្យ។ ឥឡូវខ្ញុំបានឡាន Camry ថ្មីស្អាត!"</p>
+          <div class="testimonial-author">
+            <img src="https://i.pravatar.cc/80?img=47" alt="Bopha" />
+            <div><strong>Bopha Keo</strong><span>Kampong Cham · Camry Owner</span></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Very honest and transparent. They showed me the full inspection report and explained every grade. Bought my Hilux with full confidence. Will buy again!"</p>
+          <div class="testimonial-author">
+            <img src="https://i.pravatar.cc/80?img=53" alt="Rith" />
+            <div><strong>Rith Sokha</strong><span>Battambang · Hilux Owner</span></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"The team spoke Khmer which made everything so easy. No pressure at all, they helped me find exactly the right Corolla within my budget. 5 stars!"</p>
+          <div class="testimonial-author">
+            <img src="https://i.pravatar.cc/80?img=22" alt="Chanthy" />
+            <div><strong>Chanthy Meas</strong><span>Phnom Penh · Corolla Owner</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-controls">
+      <button class="t-arrow" onclick="testimonialPrev()"><i class="fas fa-chevron-left"></i></button>
+      <div class="t-dots" id="tDots"></div>
+      <button class="t-arrow" onclick="testimonialNext()"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LATEST NEWS ===== -->
+<section class="section-pad" style="background:white;">
+  <div class="container">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:36px;">
+      <div class="reveal">
+        <div class="section-label" style="margin-bottom:8px;">From The Blog</div>
+        <h2 class="section-title" style="margin-bottom:0;">Latest News & Tips</h2>
+      </div>
+      <a href="news.html" class="btn btn-outline reveal">View All Articles <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="news-strip">
+      <a href="news.html" class="news-mini-card reveal reveal-delay-1">
+        <div class="news-mini-img">
+          <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&q=80" alt="Buying Guide" />
+        </div>
+        <div class="news-mini-body">
+          <span class="news-mini-tag" style="background:#F3E5F5;color:#6A1B9A;">Buying Guide</span>
+          <div class="news-mini-title">The Complete Guide to Buying a Used Toyota in Cambodia (2025)</div>
+          <div class="news-mini-date"><i class="fas fa-calendar-alt"></i> 14 Jan 2025 &nbsp;·&nbsp; <i class="fas fa-clock"></i> 8 min</div>
+        </div>
+      </a>
+      <a href="news.html" class="news-mini-card reveal reveal-delay-3">
+        <div class="news-mini-img">
+          <img src="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=600&q=80" alt="Car Tips" />
+        </div>
+        <div class="news-mini-body">
+          <span class="news-mini-tag" style="background:#FFF3E0;color:#E65100;">Car Tips</span>
+          <div class="news-mini-title">10 Things to Check Before Buying a Used Car</div>
+          <div class="news-mini-date"><i class="fas fa-calendar-alt"></i> 5 Feb 2025 &nbsp;·&nbsp; <i class="fas fa-clock"></i> 5 min</div>
+        </div>
+      </a>
+      <a href="news.html" class="news-mini-card reveal reveal-delay-5">
+        <div class="news-mini-img">
+          <img src="https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=600&q=80" alt="Models" />
+        </div>
+        <div class="news-mini-body">
+          <span class="news-mini-tag" style="background:#E8F5E9;color:#1B5E20;">Toyota Models</span>
+          <div class="news-mini-title">Land Cruiser 300 Series: Is It Worth the Price?</div>
+          <div class="news-mini-date"><i class="fas fa-calendar-alt"></i> 10 Jan 2025 &nbsp;·&nbsp; <i class="fas fa-clock"></i> 6 min</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PARTNER BANKS ===== -->
+<section class="partners-section reveal">
+  <div class="container">
+    <div class="partners-label">Financing Available Through Our Banking Partners</div>
+    <div class="partners-row">
+      <div class="partner-logo"><i class="fas fa-university"></i> ABA Bank</div>
+      <div class="partner-logo"><i class="fas fa-university"></i> Acleda Bank</div>
+      <div class="partner-logo"><i class="fas fa-university"></i> Canadia Bank</div>
+      <div class="partner-logo"><i class="fas fa-university"></i> Cambodian Bank</div>
+      <div class="partner-logo"><i class="fas fa-university"></i> Chip Mong Bank</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA BANNER ===== -->
+<section class="cta-banner">
+  <div class="container">
+    <div class="section-label reveal" style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.9);margin-bottom:16px;">Limited Time Offer</div>
+    <h2 class="reveal">Ready to Drive Your Dream Toyota?</h2>
+    <p class="reveal">Visit our showroom in Phnom Penh or browse online and get a free quote today.</p>
+    <div class="cta-actions reveal">
+      <a href="inventory.html" class="btn btn-white btn-lg"><i class="fas fa-car"></i> Browse All Cars</a>
+      <a href="https://wa.me/85523456789" class="btn btn-lg" style="background:rgba(37,211,102,0.9);color:white;border-color:transparent;" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+      <a href="contact.html" class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,0.5);color:white;"><i class="fas fa-map-marker-alt"></i> Find Showroom</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div style="width:40px;height:40px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+            <svg width="24" height="16" viewBox="0 0 28 18" fill="none"><ellipse cx="14" cy="9" rx="13" ry="8.5" stroke="white" stroke-width="1.8" fill="none"/><ellipse cx="14" cy="9" rx="6" ry="4" stroke="white" stroke-width="1.8" fill="none"/><ellipse cx="14" cy="9" rx="2" ry="8.5" stroke="white" stroke-width="1.8" fill="none"/></svg>
+          </div>
+          <div class="logo-text"><strong style="font-size:17px;">Toyota Plus</strong><span>Cambodia</span></div>
+        </a>
+        <p>Your most trusted certified pre-owned Toyota dealer in Cambodia. Premium cars, transparent prices, exceptional service.</p>
+        <div class="footer-social">
+          <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+          <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="inventory.html">Inventory</a></li>
+          <li><a href="news.html">News & Articles</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact Us</h5>
+        <ul class="footer-contact">
+          <li><i class="fas fa-map-marker-alt"></i><span>No. 123, Monivong Blvd, Chamkar Mon, Phnom Penh</span></li>
+          <li><i class="fas fa-phone-alt"></i><span>+855 23 456 789<br>+855 12 345 678</span></li>
+          <li><i class="fas fa-envelope"></i><span>info@toyotaplus.com.kh</span></li>
+          <li><i class="fas fa-clock"></i><span>Mon–Sat: 8:00 AM – 6:00 PM<br>Sun: 9:00 AM – 4:00 PM</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 Toyota Plus Cambodia. All rights reserved.</span>
+      <span><a href="#">Privacy Policy</a> &nbsp;|&nbsp; <a href="#">Terms of Use</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SIDE PROMOTION BANNER ===== -->
+<div class="promo-side" id="promoSide">
+  <!-- Slide-out panel (appears first in DOM so it renders behind the tab) -->
+  <div class="promo-panel" id="promoPanel">
+    <div class="promo-panel-head">
+      <h4><i class="fas fa-tags" style="margin-right:7px;"></i>Current Promotions</h4>
+      <button class="promo-close" onclick="togglePromo()" title="Close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="promo-slides-wrap">
+      <div class="promo-slides" id="promoSlides">
+
+        <!-- Promo 1 -->
+        <div class="promo-slide">
+          <div class="promo-slide-img">
+            <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=400&q=80" alt="0% Down Payment" />
+          </div>
+          <div class="promo-slide-content">
+            <span class="promo-badge" style="background:#FFF3E0;color:#E65100;"><i class="fas fa-fire"></i> Hot Deal</span>
+            <div class="promo-slide-title">0% Down<br>Payment</div>
+            <div class="promo-slide-desc">Drive away today with zero down payment on selected certified pre-owned models. Finance from $350/month.</div>
+            <a href="inventory.html" class="promo-slide-cta"><i class="fas fa-car"></i> View Eligible Cars</a>
+            <div class="promo-slide-expiry"><i class="fas fa-clock"></i> Offer ends 31 Mar 2025</div>
+          </div>
+        </div>
+
+        <!-- Promo 2 -->
+        <div class="promo-slide">
+          <div class="promo-slide-img">
+            <img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=400&q=80" alt="Free 1-Year Warranty" />
+          </div>
+          <div class="promo-slide-content">
+            <span class="promo-badge" style="background:#E8F5E9;color:#1B5E20;"><i class="fas fa-shield-alt"></i> Free Gift</span>
+            <div class="promo-slide-title">Free 1-Year<br>Warranty</div>
+            <div class="promo-slide-desc">Every certified pre-owned Toyota purchased this month comes with a complimentary 1-year / 20,000 km warranty upgrade.</div>
+            <a href="contact.html" class="promo-slide-cta"><i class="fas fa-phone-alt"></i> Enquire Now</a>
+            <div class="promo-slide-expiry"><i class="fas fa-clock"></i> Valid for April 2025 purchases</div>
+          </div>
+        </div>
+
+        <!-- Promo 3 -->
+        <div class="promo-slide">
+          <div class="promo-slide-img">
+            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400&q=80" alt="Free 150-Point Inspection" />
+          </div>
+          <div class="promo-slide-content">
+            <span class="promo-badge" style="background:#E3F2FD;color:#1565C0;"><i class="fas fa-search"></i> Free Service</span>
+            <div class="promo-slide-title">Free 150-Point<br>Inspection</div>
+            <div class="promo-slide-desc">Bring any Toyota you're considering buying — from us or elsewhere — for a free 150-point pre-purchase inspection at our workshop.</div>
+            <a href="contact.html" class="promo-slide-cta"><i class="fas fa-calendar-check"></i> Book Inspection</a>
+            <div class="promo-slide-expiry"><i class="fas fa-clock"></i> Limited slots per week</div>
+          </div>
+        </div>
+
+        <!-- Promo 4 -->
+        <div class="promo-slide">
+          <div class="promo-slide-img">
+            <img src="https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=400&q=80" alt="Low Rate Financing" />
+          </div>
+          <div class="promo-slide-content">
+            <span class="promo-badge" style="background:#F3E5F5;color:#6A1B9A;"><i class="fas fa-percent"></i> Finance Deal</span>
+            <div class="promo-slide-title">Low Rate<br>Financing</div>
+            <div class="promo-slide-desc">Special 8% flat rate financing via ABA Bank and ACLEDA, available on all vehicles. Apply in-store in under 30 minutes.</div>
+            <a href="faq.html" class="promo-slide-cta"><i class="fas fa-info-circle"></i> Learn More</a>
+            <div class="promo-slide-expiry"><i class="fas fa-clock"></i> Subject to bank approval</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- Dots + Arrows nav -->
+    <div class="promo-nav">
+      <div class="promo-dots" id="promoDots"></div>
+      <div class="promo-arrows">
+        <button class="promo-arr" onclick="promoGo(-1)" title="Previous"><i class="fas fa-chevron-left"></i></button>
+        <button class="promo-arr" onclick="promoGo(1)"  title="Next"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Always-visible vertical tab -->
+  <button class="promo-tab" onclick="togglePromo()" id="promoTab">
+    <i class="fas fa-tags"></i>
+    Promotions
+  </button>
+</div>
+
+<a href="https://wa.me/85523456789" class="whatsapp-float" title="Chat on WhatsApp" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+</a>
+<div id="toast"></div>
+
+<script src="assets/js/cars-data.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+/* ============================================================
+   INIT
+============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  renderFeaturedCars('featuredCars', 6);
+  document.querySelector('.page-transition').classList.add('loaded');
+  initScrollReveal();
+  initCounters();
+  initTestimonialDots();
+  startHeroSlider();
+  /* animateHeroCounters removed — stats section removed */
+});
+
+/* ============================================================
+   SEARCH
+============================================================ */
+function filterSearch() {
+  const model = document.getElementById('searchModel').value;
+  const year  = document.getElementById('searchYear').value;
+  const price = document.getElementById('searchPrice').value;
+  const type  = document.getElementById('searchType').value;
+  let url = 'inventory.html?';
+  if (model) url += `model=${encodeURIComponent(model)}&`;
+  if (year)  url += `year=${year}&`;
+  if (price) url += `maxPrice=${price}&`;
+  if (type)  url += `type=${encodeURIComponent(type)}&`;
+  document.getElementById('searchBtn').href = url;
+}
+
+/* ============================================================
+   FEATURED CAR FILTER TABS
+============================================================ */
+let allFeaturedCars = [];
+function filterFeatured(type, tabEl) {
+  document.querySelectorAll('.car-filter-tab').forEach(t => t.classList.remove('active'));
+  tabEl.classList.add('active');
+  if (!allFeaturedCars.length)
+    allFeaturedCars = [...carsData].sort((a, b) => b.year - a.year);
+  const filtered = type === 'all'
+    ? allFeaturedCars.slice(0, 6)
+    : allFeaturedCars.filter(c => c.type === type).slice(0, 6);
+  const grid = document.getElementById('featuredCars');
+  grid.style.opacity = '0';
+  grid.style.transform = 'translateY(16px)';
+  setTimeout(() => {
+    grid.innerHTML = filtered.length
+      ? filtered.map(c => buildCarCard(c)).join('')
+      : `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--grey);">No ${type} vehicles currently in stock. <a href="inventory.html" style="color:var(--red);">Browse all cars</a></div>`;
+    grid.style.transition = 'opacity 0.4s, transform 0.4s';
+    grid.style.opacity = '1';
+    grid.style.transform = 'translateY(0)';
+  }, 220);
+}
+
+/* ============================================================
+   HERO SLIDER
+============================================================ */
+let currentSlide = 0;
+const SLIDE_INTERVAL = 5000;
+let slideTimer, progressAnim;
+
+function startHeroSlider() {
+  slideTimer = setInterval(() => heroSlide(1), SLIDE_INTERVAL);
+  animateProgress();
+}
+
+function animateProgress() {
+  const bar = document.getElementById('heroProgress');
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  requestAnimationFrame(() => {
+    bar.style.transition = `width ${SLIDE_INTERVAL}ms linear`;
+    bar.style.width = '100%';
+  });
+}
+
+function goToSlide(idx) {
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots   = document.querySelectorAll('.hero-dot');
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+  currentSlide = (idx + slides.length) % slides.length;
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+  clearInterval(slideTimer);
+  slideTimer = setInterval(() => heroSlide(1), SLIDE_INTERVAL);
+  animateProgress();
+}
+
+function heroSlide(dir) {
+  goToSlide(currentSlide + dir);
+}
+
+/* ============================================================
+   MODEL CAROUSEL SCROLL
+============================================================ */
+function scrollModels(dir) {
+  const wrap = document.getElementById('modelScrollWrap');
+  wrap.scrollBy({ left: dir * 300, behavior: 'smooth' });
+}
+
+/* ============================================================
+   TESTIMONIAL CAROUSEL
+============================================================ */
+let tCurrent = 0;
+let tPerView = getTPV();
+
+function getTPV() {
+  return window.innerWidth <= 768 ? 1 : 3;
+}
+
+function initTestimonialDots() {
+  const cards = document.querySelectorAll('.testimonial-card');
+  tPerView = getTPV();
+  const total = Math.ceil(cards.length / tPerView);
+  const dotsEl = document.getElementById('tDots');
+  dotsEl.innerHTML = '';
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('button');
+    d.className = 't-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goToTestimonial(i);
+    dotsEl.appendChild(d);
+  }
+}
+
+function goToTestimonial(idx) {
+  tPerView = getTPV();
+  const cards   = document.querySelectorAll('.testimonial-card');
+  const total   = Math.ceil(cards.length / tPerView);
+  tCurrent      = (idx + total) % total;
+  const track   = document.getElementById('testimonialTrack');
+  const cardW   = track.querySelector('.testimonial-card').offsetWidth + 24;
+  track.style.transform = `translateX(-${tCurrent * tPerView * cardW}px)`;
+  document.querySelectorAll('.t-dot').forEach((d, i) => d.classList.toggle('active', i === tCurrent));
+}
+
+function testimonialNext() { goToTestimonial(tCurrent + 1); }
+function testimonialPrev() { goToTestimonial(tCurrent - 1); }
+
+window.addEventListener('resize', () => {
+  initTestimonialDots();
+  goToTestimonial(0);
+});
+
+/* ============================================================
+   SCROLL REVEAL (Intersection Observer)
+============================================================ */
+function initScrollReveal() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+/* ============================================================
+   ANIMATED COUNTERS (Stats Banner)
+============================================================ */
+function initCounters() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.count-up').forEach(el => countUp(el));
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const statsSection = document.querySelector('.stats-banner');
+  if (statsSection) observer.observe(statsSection);
+}
+
+function countUp(el) {
+  const target   = +el.dataset.target;
+  const duration = 1800;
+  const step     = 16;
+  const increment = target / (duration / step);
+  let current = 0;
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= target) {
+      el.textContent = target.toLocaleString();
+      clearInterval(timer);
+    } else {
+      el.textContent = Math.floor(current).toLocaleString();
+    }
+  }, step);
+}
+
+
+/* ── Promo Side Banner ─────────────────────────────────────── */
+(function initPromo() {
+  const slides = document.querySelectorAll('#promoSlides .promo-slide');
+  const dotsEl  = document.getElementById('promoDots');
+  if (!slides.length || !dotsEl) return;
+  let current  = 0;
+  let autoTimer;
+
+  /* Build dots */
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'promo-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Slide ' + (i + 1));
+    d.onclick = function() { goTo(i); };
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(idx) {
+    const dots = dotsEl.querySelectorAll('.promo-dot');
+    dots[current].classList.remove('active');
+    current = (idx + slides.length) % slides.length;
+    document.getElementById('promoSlides').style.transform =
+      'translateX(-' + (current * 100) + '%)';
+    dots[current].classList.add('active');
+    resetAuto();
+  }
+
+  function resetAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(function() { goTo(current + 1); }, 5000);
+  }
+  resetAuto();
+
+  window.togglePromo = function() {
+    document.getElementById('promoSide').classList.toggle('open');
+  };
+  window.promoGo = function(dir) { goTo(current + dir); };
+})();
+</script>
+</body>
+</html>

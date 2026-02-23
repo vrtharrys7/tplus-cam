@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car Detail — Toyota Plus Cambodia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    body { font-family: 'Inter', 'Segoe UI', sans-serif; }
+
+    /* ── Inspection Sheet button ── */
+    .btn-inspection {
+      background: #EFF6FF;
+      color: #1565C0;
+      border: 1.5px solid #BBDEFB !important;
+    }
+    .btn-inspection:hover {
+      background: #1565C0;
+      color: white;
+      border-color: #1565C0 !important;
+    }
+
+    /* ── Payment Calculator card ── */
+    .calc-card {
+      background: white;
+      border: 1.5px solid var(--border, #e5e7eb);
+      border-radius: 16px;
+      padding: 22px;
+      margin-top: 18px;
+    }
+    .calc-card h3 {
+      font-size: 15px;
+      font-weight: 800;
+      margin: 0 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--dark, #111);
+    }
+    .calc-card h3 i { color: var(--red, #EB0A1E); }
+    .calc-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .calc-field > label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+    .calc-field input,
+    .calc-field select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1.5px solid var(--border, #e5e7eb);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      outline: none;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .calc-field input:focus,
+    .calc-field select:focus { border-color: var(--red, #EB0A1E); }
+    .calc-result {
+      background: #FFF5F5;
+      border: 1.5px solid #FFCDD2;
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .calc-res-item { text-align: center; }
+    .calc-res-item .val {
+      font-size: 17px;
+      font-weight: 900;
+      color: var(--red, #EB0A1E);
+      line-height: 1.2;
+    }
+    .calc-res-item .lbl {
+      font-size: 10px;
+      color: #6b7280;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-top: 3px;
+    }
+    .calc-note {
+      font-size: 11px;
+      color: #9ca3af;
+      text-align: center;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    /* ── Modal: payment type radios ── */
+    .pay-type-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .pay-type-label {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border, #e5e7eb);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .pay-type-label:has(input:checked) {
+      border-color: var(--red, #EB0A1E);
+      background: #FFF5F5;
+      color: var(--red, #EB0A1E);
+    }
+    .pay-type-label input[type="radio"] { accent-color: var(--red, #EB0A1E); }
+  </style>
+</head>
+<body class="page-transition">
+
+<!-- HEADER -->
+<header id="header">
+  <div class="top-bar">
+    <div class="container">
+      <div style="display:flex;gap:20px;align-items:center;">
+        <span><i class="fas fa-phone-alt" style="margin-right:6px;color:var(--red)"></i>+855 23 456 789</span>
+        <span><i class="fas fa-clock" style="margin-right:6px;color:var(--red)"></i>Mon–Sat: 8:00 AM – 6:00 PM</span>
+      </div>
+      <div class="top-bar-links"><a href="contact.html">Contact</a></div>
+    </div>
+  </div>
+  <div class="container">
+    <nav class="nav-wrap">
+      <a href="index.html" class="logo">
+        <div style="width:44px;height:44px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="28" height="18" viewBox="0 0 28 18" fill="none"><ellipse cx="14" cy="9" rx="13" ry="8.5" stroke="white" stroke-width="1.5" fill="none"/><ellipse cx="14" cy="9" rx="6" ry="4" stroke="white" stroke-width="1.5" fill="none"/><ellipse cx="14" cy="9" rx="2" ry="8.5" stroke="white" stroke-width="1.5" fill="none"/></svg>
+        </div>
+        <div class="logo-text"><strong>Toyota Plus</strong><span>Cambodia</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="inventory.html" class="active">Inventory</a>
+        <a href="news.html">News</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="lang-toggle"><i class="fas fa-globe"></i> EN / ខ្មែរ</button>
+        <a href="contact.html" class="btn btn-primary"><i class="fas fa-phone-alt"></i> Enquire</a>
+        <button class="nav-hamburger" onclick="openMobileMenu()"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" onclick="closeMobileMenuOutside(event)">
+  <div class="mobile-menu-panel">
+    <div class="mobile-menu-close"><button onclick="closeMobileMenu()"><i class="fas fa-times"></i></button></div>
+    <div class="mobile-nav-links">
+      <a href="index.html">Home</a><a href="inventory.html">Inventory</a>
+      <a href="news.html">News</a><a href="faq.html">FAQ</a>
+      <a href="about.html">About Us</a><a href="contact.html">Contact</a>
+    </div>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<section class="page-hero" style="padding:30px 0;">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right" style="font-size:10px;"></i>
+      <a href="inventory.html">Inventory</a>
+      <i class="fas fa-chevron-right" style="font-size:10px;"></i>
+      <span id="breadcrumbName">Car Detail</span>
+    </div>
+    <h1 id="pageTitle" style="font-size:28px;">Loading...</h1>
+  </div>
+</section>
+
+<!-- CAR DETAIL -->
+<div class="container">
+  <div class="car-detail-grid" id="carDetailGrid">
+    <!-- Populated by JS -->
+  </div>
+
+</div>
+
+<!-- SIMILAR CARS -->
+<section style="background:var(--silver);padding:60px 0;">
+  <div class="container">
+    <h2 style="font-size:26px;font-weight:800;margin-bottom:8px;">Similar Vehicles</h2>
+    <p style="color:var(--grey);margin-bottom:30px;">You might also be interested in these cars</p>
+    <div class="cars-grid" id="similarCars"></div>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="inventory.html" class="btn btn-outline btn-lg"><i class="fas fa-car"></i> View All Inventory</a>
+    </div>
+  </div>
+</section>
+
+<!-- ENQUIRY MODAL -->
+<div id="enquiryModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:3000;display:flex;align-items:center;justify-content:center;padding:20px;" onclick="closeModal(event)">
+  <div style="background:white;border-radius:var(--radius-lg);padding:32px;max-width:480px;width:100%;position:relative;" onclick="event.stopPropagation()">
+    <button onclick="document.getElementById('enquiryModal').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;"><i class="fas fa-times"></i></button>
+    <h3 style="font-size:22px;font-weight:800;margin-bottom:6px;">Book a Test Drive</h3>
+    <p style="color:var(--grey);font-size:14px;margin-bottom:24px;" id="enquiryCarName">—</p>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Your Name *</label>
+        <input type="text" placeholder="Full name" />
+      </div>
+      <div class="form-group">
+        <label>Phone / WhatsApp *</label>
+        <input type="tel" placeholder="+855 ..." />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="your@email.com" />
+      </div>
+      <div class="form-group">
+        <label>Occupation</label>
+        <input type="text" placeholder="e.g. Business owner, Employee…" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label style="display:block;margin-bottom:10px;font-weight:700;">Payment Preference</label>
+      <div class="pay-type-group">
+        <label class="pay-type-label">
+          <input type="radio" name="payType" value="lease" checked />
+          <i class="fas fa-calendar-alt"></i> Pay by Lease
+        </label>
+        <label class="pay-type-label">
+          <input type="radio" name="payType" value="full" />
+          <i class="fas fa-money-bill-wave"></i> Full Payment
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Message</label>
+      <textarea placeholder="I'm interested in this vehicle. Please contact me..." style="min-height:80px;"></textarea>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn btn-primary btn-block" onclick="submitEnquiry()"><i class="fas fa-calendar-check"></i> Book Test Drive</button>
+    </div>
+    <p style="font-size:12px;color:var(--grey);margin-top:12px;text-align:center;">Or call us directly: <strong>+855 23 456 789</strong></p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div style="width:40px;height:40px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="24" height="16" viewBox="0 0 28 18" fill="none"><ellipse cx="14" cy="9" rx="13" ry="8.5" stroke="white" stroke-width="1.8" fill="none"/><ellipse cx="14" cy="9" rx="6" ry="4" stroke="white" stroke-width="1.8" fill="none"/><ellipse cx="14" cy="9" rx="2" ry="8.5" stroke="white" stroke-width="1.8" fill="none"/></svg></div>
+          <div class="logo-text"><strong style="font-size:17px;">Toyota Plus</strong><span>Cambodia</span></div>
+        </a>
+        <p>Your most trusted certified pre-owned Toyota dealer in Cambodia.</p>
+      </div>
+      <div class="footer-col"><h5>Navigation</h5><ul><li><a href="index.html">Home</a></li><li><a href="inventory.html">Inventory</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h5>Models</h5><ul><li><a href="inventory.html?model=Land+Cruiser">Land Cruiser</a></li><li><a href="inventory.html?model=Fortuner">Fortuner</a></li><li><a href="inventory.html?model=Camry">Camry</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul class="footer-contact"><li><i class="fas fa-phone-alt"></i><span>+855 23 456 789</span></li><li><i class="fas fa-envelope"></i><span>info@toyotaplus.com.kh</span></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2025 Toyota Plus Cambodia.</span></div>
+  </div>
+</footer>
+
+<a href="https://wa.me/85523456789" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<div id="toast"></div>
+
+<script src="assets/js/cars-data.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  /* ── Grade helpers ─────────────────────────────────────────── */
+
+  // Returns the CSS class suffix for an overall grade value
+  function overallGradeClass(g) {
+    const map = { 'S':'s','A':'a','B':'b','C':'c','D':'d','E':'e','R':'r' };
+    return map[String(g).toUpperCase()] || 'na';
+  }
+
+  // Returns a short descriptor for the overall grade
+  function overallGradeDesc(g) {
+    const map = {
+      'S':'Pristine','A':'Excellent','B':'Good',
+      'C':'Average','D':'Below Avg','E':'Poor','R':'Repaired'
+    };
+    return map[String(g).toUpperCase()] || '—';
+  }
+
+  // Returns the CSS class for a sub-grade (A/B/C/D)
+  function subGradeClass(g) {
+    const map = { 'A':'a','B':'b','C':'c','D':'d' };
+    return map[String(g).toUpperCase()] || 'na';
+  }
+
+  // Builds the full grade strip HTML
+  function buildGradeStrip(grades) {
+    if (!grades) return '';
+    const g  = grades.grade    || '—';
+    const fr = grades.frame    || '—';
+    const ex = grades.exterior || '—';
+    const it = grades.interior || '—';
+    const fn = grades.function || '—';
+
+    return `
+      <div class="grade-strip">
+        <div class="grade-box grade-overall grade-${overallGradeClass(g)}">
+          <span class="grade-label">Grade</span>
+          <span class="grade-value">${g}</span>
+          <span class="grade-desc">${overallGradeDesc(g)}</span>
+        </div>
+        <div class="grade-box sub-grade-${subGradeClass(fr)}">
+          <span class="grade-label">Frame</span>
+          <span class="grade-value">${fr}</span>
+        </div>
+        <div class="grade-box sub-grade-${subGradeClass(ex)}">
+          <span class="grade-label">Exterior</span>
+          <span class="grade-value">${ex}</span>
+        </div>
+        <div class="grade-box sub-grade-${subGradeClass(it)}">
+          <span class="grade-label">Interior</span>
+          <span class="grade-value">${it}</span>
+        </div>
+        <div class="grade-box sub-grade-${subGradeClass(fn)}">
+          <span class="grade-label">Function</span>
+          <span class="grade-value">${fn}</span>
+        </div>
+      </div>
+    `;
+  }
+
+  /* ── Page init ─────────────────────────────────────────────── */
+  document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const carId  = parseInt(params.get('id'));
+    const car    = carsData.find(c => c.id === carId);
+
+    if (!car) {
+      document.getElementById('carDetailGrid').innerHTML =
+        '<div style="padding:60px;text-align:center;grid-column:1/-1;">' +
+        '<h2>Car not found</h2>' +
+        '<a href="inventory.html" class="btn btn-primary" style="margin-top:16px;">Back to Inventory</a>' +
+        '</div>';
+      return;
+    }
+
+    document.title = `${car.year} Toyota ${car.model} — Toyota Plus Cambodia`;
+    document.getElementById('breadcrumbName').textContent = `Toyota ${car.model}`;
+    document.getElementById('pageTitle').textContent = `${car.year} Toyota ${car.model} ${car.trim || ''}`;
+    document.getElementById('enquiryCarName').textContent =
+      `${car.year} Toyota ${car.model} — $${car.price.toLocaleString()}`;
+
+    const imgs = car.images || [car.image, car.image, car.image, car.image];
+
+    document.getElementById('carDetailGrid').innerHTML = `
+
+      <!-- LEFT COLUMN: grade strip + gallery -->
+      <div>
+
+        <!-- GRADE BOXES (above image) -->
+        ${buildGradeStrip(car.grades)}
+
+        <!-- MAIN IMAGE -->
+        <div class="gallery-main" id="galleryMain">
+          <img
+            src="${imgs[0]}"
+            alt="${car.model}"
+            onerror="this.src='https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=800&q=80'"
+            id="mainImg"
+          />
+        </div>
+
+        <!-- THUMBNAILS -->
+        <div class="gallery-thumbs">
+          ${imgs.map((img, i) => `
+            <div class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="switchImg(this,'${img}')">
+              <img
+                src="${img}"
+                alt="${car.model} ${i + 1}"
+                onerror="this.src='https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=200&q=60'"
+              />
+            </div>
+          `).join('')}
+        </div>
+
+        <!-- TAGS -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;">
+          ${(car.tags || []).map(t => `
+            <span class="tag" style="${t === 'certified' ? 'background:rgba(200,169,110,0.15);color:#a0802a;' : ''}">
+              <i class="fas fa-${t === 'certified' ? 'award' : t === 'new-arrival' ? 'star' : 'tag'}"></i>
+              ${t === 'certified' ? 'Certified Pre-Owned' : t === 'new-arrival' ? 'New Arrival' : t}
+            </span>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: detail card -->
+      <div>
+        <div class="car-detail-card">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;">
+            <h1 class="car-detail-name">Toyota ${car.model}</h1>
+            <button class="car-fav ${isFavourite(car.id) ? 'active' : ''}" id="favBtn"
+                    onclick="toggleFav(${car.id})" title="Save to Favourites">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+          <p class="car-detail-sub">${car.year} · ${car.trim || ''} · ${car.color || ''}</p>
+
+          <div class="car-detail-price">
+            $${car.price.toLocaleString()}
+            <small>≈ ${(car.price * 4100).toLocaleString()} KHR</small>
+          </div>
+
+          <hr class="car-detail-divider" />
+
+          <div class="spec-grid">
+            <div class="spec-item">
+              <i class="fas fa-calendar-alt"></i>
+              <div class="spec-lbl">Year</div>
+              <div class="spec-val">${car.year}</div>
+            </div>
+            <div class="spec-item">
+              <i class="fas fa-tachometer-alt"></i>
+              <div class="spec-lbl">Mileage</div>
+              <div class="spec-val">${car.km.toLocaleString()} km</div>
+            </div>
+            <div class="spec-item">
+              <i class="fas fa-cog"></i>
+              <div class="spec-lbl">Transmission</div>
+              <div class="spec-val">${car.transmission}</div>
+            </div>
+            <div class="spec-item">
+              <i class="fas fa-gas-pump"></i>
+              <div class="spec-lbl">Fuel</div>
+              <div class="spec-val">${car.fuel}</div>
+            </div>
+            <div class="spec-item">
+              <i class="fas fa-paint-brush"></i>
+              <div class="spec-lbl">Color</div>
+              <div class="spec-val">${car.color || 'N/A'}</div>
+            </div>
+            <div class="spec-item">
+              <i class="fas fa-car"></i>
+              <div class="spec-lbl">Body Type</div>
+              <div class="spec-val">${car.type}</div>
+            </div>
+          </div>
+
+          <hr class="car-detail-divider" />
+
+          <div class="detail-actions">
+            <button class="btn btn-block btn-lg btn-inspection" onclick="downloadInspection(event)">
+              <i class="fas fa-file-alt"></i> Download Inspection Sheet
+            </button>
+            <button class="btn btn-primary btn-block btn-lg" onclick="openEnquiry()">
+              <i class="fas fa-calendar-check"></i> Book Test Drive
+            </button>
+            <a href="https://wa.me/85523456789?text=Hi! I'm interested in the ${car.year} Toyota ${car.model} (ID: ${car.id}). Price: $${car.price.toLocaleString()}"
+               class="btn btn-block btn-lg"
+               style="background:#25d366;color:white;border-color:#25d366;"
+               target="_blank">
+              <i class="fab fa-whatsapp"></i> WhatsApp Us
+            </a>
+            <a href="tel:+85523456789" class="btn btn-outline btn-block">
+              <i class="fas fa-phone-alt"></i> Call: +855 23 456 789
+            </a>
+          </div>
+        </div>
+
+        <!-- PAYMENT CALCULATOR -->
+        <div class="calc-card">
+          <h3><i class="fas fa-calculator"></i> Payment Calculator</h3>
+          <div class="calc-row">
+            <div class="calc-field">
+              <label>Down Payment ($)</label>
+              <input type="number" id="calcDown" value="5000" min="0" step="500"
+                     oninput="calcPayment(${car.price})" />
+            </div>
+            <div class="calc-field">
+              <label>Loan Term</label>
+              <select id="calcTerm" onchange="calcPayment(${car.price})">
+                <option value="12">12 months</option>
+                <option value="24">24 months</option>
+                <option value="36" selected>36 months</option>
+                <option value="48">48 months</option>
+                <option value="60">60 months</option>
+                <option value="72">72 months</option>
+              </select>
+            </div>
+          </div>
+          <div class="calc-result">
+            <div class="calc-res-item">
+              <div class="val" id="calcMonthly">—</div>
+              <div class="lbl">Monthly</div>
+            </div>
+            <div class="calc-res-item">
+              <div class="val" id="calcLoan">—</div>
+              <div class="lbl">Loan Amount</div>
+            </div>
+            <div class="calc-res-item">
+              <div class="val" id="calcTotal">—</div>
+              <div class="lbl">Total Paid</div>
+            </div>
+          </div>
+          <p class="calc-note">* 8% flat rate via ABA Bank / ACLEDA. Subject to bank approval.</p>
+        </div>
+      </div>
+    `;
+
+    calcPayment(car.price);
+
+    // Similar cars
+    const similar = carsData
+      .filter(c => c.id !== car.id && (c.model === car.model || c.type === car.type))
+      .slice(0, 3);
+    document.getElementById('similarCars').innerHTML = similar.map(c => buildCarCard(c)).join('');
+
+    document.querySelector('.page-transition').classList.add('loaded');
+  });
+
+  /* ── Helpers ───────────────────────────────────────────────── */
+  function switchImg(el, src) {
+    document.getElementById('mainImg').src = src;
+    document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function openEnquiry() {
+    document.getElementById('enquiryModal').style.display = 'flex';
+  }
+
+  function closeModal(e) {
+    if (e.target === document.getElementById('enquiryModal')) {
+      document.getElementById('enquiryModal').style.display = 'none';
+    }
+  }
+
+  function submitEnquiry() {
+    showToast('Enquiry sent! We will contact you shortly.', 'success');
+    document.getElementById('enquiryModal').style.display = 'none';
+  }
+
+  function downloadInspection(e) {
+    e.preventDefault();
+    showToast('Inspection sheet download started!', 'success');
+  }
+
+  function calcPayment(price) {
+    const downEl = document.getElementById('calcDown');
+    const termEl = document.getElementById('calcTerm');
+    if (!downEl || !termEl) return;
+    const down    = Math.max(0, parseFloat(downEl.value) || 0);
+    const term    = parseInt(termEl.value) || 36;
+    const loan    = Math.max(0, price - down);
+    const rate    = 0.08;                             /* 8% flat annual rate */
+    const total   = loan + (loan * rate * (term / 12));
+    const monthly = term > 0 ? total / term : 0;
+    document.getElementById('calcMonthly').textContent = '$' + Math.round(monthly).toLocaleString();
+    document.getElementById('calcLoan').textContent    = '$' + loan.toLocaleString();
+    document.getElementById('calcTotal').textContent   = '$' + Math.round(total).toLocaleString();
+  }
+</script>
+</body>
+</html>

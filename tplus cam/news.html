@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News & Articles — Toyota Plus Cambodia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    body { font-family: 'Inter', 'Segoe UI', sans-serif; }
+
+    /* ---- Featured Article ---- */
+    .news-featured {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 0;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.13);
+      margin-bottom: 60px;
+      background: white;
+    }
+    .news-featured-img {
+      position: relative;
+      overflow: hidden;
+      min-height: 380px;
+    }
+    .news-featured-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .news-featured:hover .news-featured-img img { transform: scale(1.04); }
+    .news-featured-body {
+      padding: 44px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .news-cat-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .tag-tips    { background:#FFF3E0; color:#E65100; }
+    .tag-market  { background:#E3F2FD; color:#1565C0; }
+    .tag-model   { background:#E8F5E9; color:#1B5E20; }
+    .tag-guide   { background:#F3E5F5; color:#6A1B9A; }
+    .tag-news    { background:#FCE4EC; color:#880E4F; }
+
+    .news-featured-title {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.3;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .news-featured-excerpt {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--grey);
+      margin-bottom: 24px;
+    }
+    .news-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--grey);
+      margin-bottom: 20px;
+    }
+    .news-meta span { display: flex; align-items: center; gap: 5px; }
+
+    /* ---- Filter Tabs ---- */
+    .news-filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .news-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .news-tab {
+      padding: 7px 18px;
+      border-radius: 50px;
+      border: 2px solid var(--border);
+      background: white;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--grey);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .news-tab:hover { border-color: var(--red); color: var(--red); }
+    .news-tab.active { background: var(--red); border-color: var(--red); color: white; }
+
+    .news-search {
+      position: relative;
+    }
+    .news-search input {
+      padding: 9px 38px 9px 16px;
+      border: 2px solid var(--border);
+      border-radius: 50px;
+      font-size: 13px;
+      outline: none;
+      width: 220px;
+      transition: border-color 0.2s;
+    }
+    .news-search input:focus { border-color: var(--red); }
+    .news-search i {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--grey);
+      font-size: 13px;
+    }
+
+    /* ---- Article Grid ---- */
+    .news-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 40px;
+      align-items: start;
+    }
+    .news-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .article-card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1.5px solid var(--border);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .article-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.12);
+    }
+    .article-card.hidden { display: none; }
+    .article-img {
+      width: 100%;
+      height: 185px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .article-card:hover .article-img { transform: scale(1.05); }
+    .article-img-wrap { overflow: hidden; }
+    .article-body { padding: 20px; }
+    .article-title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--dark);
+      margin: 8px 0 8px;
+    }
+    .article-card:hover .article-title { color: var(--red); }
+    .article-excerpt {
+      font-size: 13px;
+      color: var(--grey);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+    .article-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--grey);
+    }
+    .article-footer span { display: flex; align-items: center; gap: 4px; }
+    .read-more {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--red);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .read-more:hover { text-decoration: underline; }
+
+    /* ---- Sidebar ---- */
+    .news-sidebar { display: flex; flex-direction: column; gap: 28px; }
+    .sidebar-card {
+      background: white;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 1.5px solid var(--border);
+    }
+    .sidebar-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--dark);
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--red);
+      display: inline-block;
+    }
+    .recent-post {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .recent-post:last-child { border-bottom: none; padding-bottom: 0; }
+    .recent-post img {
+      width: 64px;
+      height: 52px;
+      object-fit: cover;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .recent-post-title {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--dark);
+    }
+    .recent-post:hover .recent-post-title { color: var(--red); }
+    .recent-post-date { font-size: 12px; color: var(--grey); margin-top: 4px; }
+
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag-pill {
+      padding: 5px 14px;
+      border-radius: 50px;
+      border: 1.5px solid var(--border);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--grey);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .tag-pill:hover { background: var(--red); border-color: var(--red); color: white; }
+
+    .newsletter-box { text-align: center; }
+    .newsletter-box p { font-size: 13px; color: var(--grey); margin-bottom: 14px; line-height: 1.6; }
+    .newsletter-box input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+      outline: none;
+    }
+    .newsletter-box input:focus { border-color: var(--red); }
+
+    /* ---- No results ---- */
+    .news-no-results {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--grey);
+      display: none;
+    }
+    .news-no-results i { font-size: 40px; color: var(--border); margin-bottom: 14px; display: block; }
+
+    /* ---- Load More ---- */
+    .load-more-wrap { text-align: center; margin-top: 32px; }
+
+    @media (max-width: 960px) {
+      .news-featured { grid-template-columns: 1fr; }
+      .news-featured-img { min-height: 240px; }
+      .news-layout { grid-template-columns: 1fr; }
+      .news-sidebar { display: none; }
+    }
+    @media (max-width: 640px) {
+      .news-grid { grid-template-columns: 1fr; }
+      .news-featured-body { padding: 28px 24px; }
+      .news-featured-title { font-size: 20px; }
+    }
+  </style>
+</head>
+<body class="page-transition">
+
+<!-- HEADER -->
+<header id="header">
+  <div class="top-bar">
+    <div class="container">
+      <div style="display:flex;gap:20px;align-items:center;">
+        <span><i class="fas fa-phone-alt" style="margin-right:6px;color:var(--red)"></i>+855 23 456 789</span>
+        <span><i class="fas fa-clock" style="margin-right:6px;color:var(--red)"></i>Mon–Sat: 8:00 AM – 6:00 PM</span>
+      </div>
+      <div class="top-bar-links"><a href="contact.html">Contact</a></div>
+    </div>
+  </div>
+  <div class="container">
+    <nav class="nav-wrap">
+      <a href="index.html" class="logo">
+        <div style="width:44px;height:44px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="18" viewBox="0 0 28 18" fill="none"><ellipse cx="14" cy="9" rx="13" ry="8.5" stroke="white" stroke-width="1.5" fill="none"/><ellipse cx="14" cy="9" rx="6" ry="4" stroke="white" stroke-width="1.5" fill="none"/><ellipse cx="14" cy="9" rx="2" ry="8.5" stroke="white" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="logo-text"><strong>Toyota Plus</strong><span>Cambodia</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="news.html" class="active">News</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="lang-toggle" onclick="toggleLang(this)"><i class="fas fa-globe"></i> EN / ខ្មែរ</button>
+        <a href="inventory.html" class="btn btn-primary"><i class="fas fa-car"></i> Browse Cars</a>
+        <button class="nav-hamburger" onclick="openMobileMenu()"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" onclick="closeMobileMenuOutside(event)">
+  <div class="mobile-menu-panel">
+    <div class="mobile-menu-close"><button onclick="closeMobileMenu()"><i class="fas fa-times"></i></button></div>
+    <div class="mobile-nav-links">
+      <a href="index.html">Home</a>
+      <a href="inventory.html">Inventory</a>
+      <a href="news.html">News</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right" style="font-size:10px;"></i>
+      <span>News & Articles</span>
+    </div>
+    <h1>News & Articles</h1>
+    <p>Car tips, market updates, and buying guides from our team of Toyota specialists</p>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<section style="padding:60px 0;">
+  <div class="container">
+
+    <!-- Featured Article -->
+    <div class="news-featured">
+      <div class="news-featured-img">
+        <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=900&q=80" alt="Featured article" />
+      </div>
+      <div class="news-featured-body">
+        <span class="news-cat-tag tag-guide"><i class="fas fa-book-open"></i> Buying Guide</span>
+        <h2 class="news-featured-title">The Complete Guide to Buying a Used Toyota in Cambodia (2025)</h2>
+        <p class="news-featured-excerpt">From understanding the Japanese auction grade system to negotiating prices and handling ownership transfer — everything first-time buyers in Cambodia need to know before signing.</p>
+        <div class="news-meta">
+          <span><i class="fas fa-user-circle"></i> Sophea Keo</span>
+          <span><i class="fas fa-calendar-alt"></i> 14 Jan 2025</span>
+          <span><i class="fas fa-clock"></i> 8 min read</span>
+        </div>
+        <a href="article-detail.html?id=featured" class="btn btn-primary" style="width:fit-content;">Read Full Article <i class="fas fa-arrow-right" style="margin-left:6px;"></i></a>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="news-filter-bar">
+      <div class="news-tabs" id="newsTabs">
+        <button class="news-tab active" onclick="filterNews('all', this)">All</button>
+        <button class="news-tab" onclick="filterNews('guide', this)">Buying Guides</button>
+        <button class="news-tab" onclick="filterNews('tips', this)">Car Tips</button>
+        <button class="news-tab" onclick="filterNews('market', this)">Market News</button>
+        <button class="news-tab" onclick="filterNews('model', this)">Toyota Models</button>
+      </div>
+      <div class="news-search">
+        <input type="text" id="newsSearch" placeholder="Search articles…" oninput="searchNews(this.value)" />
+        <i class="fas fa-search"></i>
+      </div>
+    </div>
+
+    <!-- Layout: Grid + Sidebar -->
+    <div class="news-layout">
+
+      <!-- Article Grid -->
+      <div>
+        <div class="news-grid" id="newsGrid">
+
+          <!-- Article 1 -->
+          <div class="article-card" data-cat="tips" onclick="location.href='article-detail.html?id=1'">
+            <div class="article-img-wrap">
+              <img class="article-img" src="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=600&q=80" alt="Engine check" />
+            </div>
+            <div class="article-body">
+              <span class="news-cat-tag tag-tips"><i class="fas fa-tools"></i> Car Tips</span>
+              <div class="article-title">10 Things to Check Before Buying a Used Car</div>
+              <div class="article-excerpt">A practical checklist to help you avoid hidden problems — from engine oil colour to checking the chassis number.</div>
+              <div class="article-footer">
+                <span><i class="fas fa-calendar-alt"></i> 5 Feb 2025</span>
+                <a href="article-detail.html?id=1" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Article 2 -->
+          <div class="article-card" data-cat="market" onclick="location.href='article-detail.html?id=2'">
+            <div class="article-img-wrap">
+              <img class="article-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Car market" />
+            </div>
+            <div class="article-body">
+              <span class="news-cat-tag tag-market"><i class="fas fa-chart-line"></i> Market News</span>
+              <div class="article-title">Used Car Prices in Cambodia: 2025 Market Overview</div>
+              <div class="article-excerpt">Which models held their value best last year? Our analysts break down price trends across popular Toyota segments.</div>
+              <div class="article-footer">
+                <span><i class="fas fa-calendar-alt"></i> 20 Jan 2025</span>
+                <a href="article-detail.html?id=2" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Article 3 -->
+          <div class="article-card" data-cat="model" onclick="location.href='article-detail.html?id=3'">
+            <div class="article-img-wrap">
+              <img class="article-img" src="https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=600&q=80" alt="Land Cruiser" />
+            </div>
+            <div class="article-body">
+              <span class="news-cat-tag tag-model"><i class="fas fa-car"></i> Toyota Models</span>
+              <div class="article-title">Toyota Land Cruiser 300 Series: Is It Worth the Price?</div>
+              <div class="article-excerpt">We dive deep into the LC300's reliability record, running costs, and why it remains Cambodia's most sought-after 4WD.</div>
+              <div class="article-footer">
+                <span><i class="fas fa-calendar-alt"></i> 10 Jan 2025</span>
+                <a href="article-detail.html?id=3" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Article 4 -->
+          <div class="article-card" data-cat="guide" onclick="location.href='article-detail.html?id=4'">
+            <div class="article-img-wrap">
+              <img class="article-img" src="https://images.unsplash.com/photo-1590502593747-42a996133562?w=600&q=80" alt="Car finance" />
+            </div>
+            <div class="article-body">
+              <span class="news-cat-tag tag-guide"><i class="fas fa-book-open"></i> Buying Guide</span>
+              <div class="article-title">How Car Financing Works in Cambodia: A Step-by-Step Guide</div>
+              <div class="article-excerpt">ABA, Acleda, Canadia — which bank offers the best rate for a car loan? We compare down payments, terms, and interest.</div>
+              <div class="article-footer">
+                <span><i class="fas fa-calendar-alt"></i> 3 Jan 2025</span>
+                <a href="article-detail.html?id=4" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Article 5 -->
+          <div class="article-card" data-cat="tips" onclick="location.href='article-detail.html?id=5'">
+            <div class="article-img-wrap">
+              <img class="article-img" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80" alt="Car maintenance" />
+            </div>
+            <div class="article-body">
+              <span class="news-cat-tag tag-tips"><i class="fas fa-tools"></i> Car Tips</span>
+              <div class="article-title">How Often Should You Service Your Toyota in Cambodia?</div>
+              <div class="article-excerpt">Cambodian roads and climate put extra strain on your vehicle. Here's a localised service schedule recommended by our technicians.</div>
+              <div class="article-footer">
+                <span><i class="fas fa-calendar-alt"></i> 28 Dec 2024</span>
+                <a href="article-detail.html?id=5" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Article 6 -->
+          <div class="article-card" data-cat="model" onclick="location.href='article-detail.html?id=6'">
+            <div class="article-img-wrap">
+              <img class="article-img" src="https://images.unsplash.com/photo-1546614042-7df3c24c9e5d?w=600&q=80" alt="Toyota Fortuner" />
+            </div>
+            <div class="article-body">
+              <span class="news-cat-tag tag-model"><i class="fas fa-car"></i> Toyota Models</span>
+              <div class="article-title">Fortuner vs Hilux SW4: Which SUV Should You Buy?</div>
+              <div class="article-excerpt">Both are built on the same ladder-frame platform — but they drive very differently. We compare comfort, off-road capability, and value.</div>
+              <div class="article-footer">
+                <span><i class="fas fa-calendar-alt"></i> 15 Dec 2024</span>
+                <a href="article-detail.html?id=6" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Article 7 -->
+          <div class="article-card" data-cat="market" onclick="location.href='article-detail.html?id=7'">
+            <div class="article-img-wrap">
+              <img class="article-img" src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=80" alt="Import cars" />
+            </div>
+            <div class="article-body">
+              <span class="news-cat-tag tag-market"><i class="fas fa-chart-line"></i> Market News</span>
+              <div class="article-title">Japanese Auction Imports: How Vehicles Get From Japan to Cambodia</div>
+              <div class="article-excerpt">From bidding at USS Tokyo to clearing Sihanoukville port — the full journey of an imported Toyota explained.</div>
+              <div class="article-footer">
+                <span><i class="fas fa-calendar-alt"></i> 5 Dec 2024</span>
+                <a href="article-detail.html?id=7" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Article 8 -->
+          <div class="article-card" data-cat="guide" onclick="location.href='article-detail.html?id=8'">
+            <div class="article-img-wrap">
+              <img class="article-img" src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=600&q=80" alt="Test drive" />
+            </div>
+            <div class="article-body">
+              <span class="news-cat-tag tag-guide"><i class="fas fa-book-open"></i> Buying Guide</span>
+              <div class="article-title">What to Look for on a Test Drive: The Expert Checklist</div>
+              <div class="article-excerpt">Most buyers focus on looks — but a proper test drive reveals much more. Use this checklist to evaluate any used car before buying.</div>
+              <div class="article-footer">
+                <span><i class="fas fa-calendar-alt"></i> 22 Nov 2024</span>
+                <a href="article-detail.html?id=8" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- No results -->
+          <div class="news-no-results" id="newsNoResults">
+            <i class="fas fa-search"></i>
+            <p>No articles matched your search. Try different keywords.</p>
+          </div>
+
+        </div><!-- /news-grid -->
+
+        <div class="load-more-wrap">
+          <button class="btn btn-outline" onclick="showToast('All articles loaded!', '')">
+            <i class="fas fa-sync-alt"></i> Load More Articles
+          </button>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="news-sidebar">
+
+        <!-- Recent Posts -->
+        <div class="sidebar-card">
+          <h4>Recent Posts</h4>
+          <a href="article-detail.html?id=featured" class="recent-post">
+            <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=120&q=80" alt="post" />
+            <div>
+              <div class="recent-post-title">The Complete Guide to Buying a Used Toyota in Cambodia</div>
+              <div class="recent-post-date"><i class="fas fa-calendar-alt" style="margin-right:4px;"></i>14 Jan 2025</div>
+            </div>
+          </a>
+          <a href="article-detail.html?id=1" class="recent-post">
+            <img src="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=120&q=80" alt="post" />
+            <div>
+              <div class="recent-post-title">10 Things to Check Before Buying a Used Car</div>
+              <div class="recent-post-date"><i class="fas fa-calendar-alt" style="margin-right:4px;"></i>5 Feb 2025</div>
+            </div>
+          </a>
+          <a href="article-detail.html?id=3" class="recent-post">
+            <img src="https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=120&q=80" alt="post" />
+            <div>
+              <div class="recent-post-title">Land Cruiser 300: Is It Worth the Price?</div>
+              <div class="recent-post-date"><i class="fas fa-calendar-alt" style="margin-right:4px;"></i>10 Jan 2025</div>
+            </div>
+          </a>
+          <a href="article-detail.html?id=2" class="recent-post">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" alt="post" />
+            <div>
+              <div class="recent-post-title">Used Car Prices in Cambodia: 2025 Market Overview</div>
+              <div class="recent-post-date"><i class="fas fa-calendar-alt" style="margin-right:4px;"></i>20 Jan 2025</div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Tags -->
+        <div class="sidebar-card">
+          <h4>Popular Tags</h4>
+          <div class="tag-cloud">
+            <span class="tag-pill" onclick="filterNews('guide', document.querySelectorAll('.news-tab')[1])">Buying Guide</span>
+            <span class="tag-pill" onclick="filterNews('tips', document.querySelectorAll('.news-tab')[2])">Car Tips</span>
+            <span class="tag-pill" onclick="filterNews('market', document.querySelectorAll('.news-tab')[3])">Market</span>
+            <span class="tag-pill" onclick="filterNews('model', document.querySelectorAll('.news-tab')[4])">Land Cruiser</span>
+            <span class="tag-pill" onclick="filterNews('model', document.querySelectorAll('.news-tab')[4])">Fortuner</span>
+            <span class="tag-pill" onclick="filterNews('model', document.querySelectorAll('.news-tab')[4])">Camry</span>
+            <span class="tag-pill" onclick="filterNews('tips', document.querySelectorAll('.news-tab')[2])">Maintenance</span>
+            <span class="tag-pill" onclick="filterNews('market', document.querySelectorAll('.news-tab')[3])">Japan Import</span>
+            <span class="tag-pill" onclick="filterNews('guide', document.querySelectorAll('.news-tab')[1])">Financing</span>
+            <span class="tag-pill" onclick="filterNews('guide', document.querySelectorAll('.news-tab')[1])">Test Drive</span>
+          </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="sidebar-card newsletter-box">
+          <h4>Stay Updated</h4>
+          <p>Get new articles and inventory updates delivered to your inbox.</p>
+          <input type="email" placeholder="Your email address" />
+          <button class="btn btn-primary btn-block" onclick="handleNewsletterSignup(this)">
+            <i class="fas fa-paper-plane"></i> Subscribe
+          </button>
+        </div>
+
+        <!-- Browse Inventory CTA -->
+        <div class="sidebar-card" style="background:var(--red);border-color:var(--red);text-align:center;color:white;">
+          <div style="font-size:32px;margin-bottom:10px;"><i class="fas fa-car"></i></div>
+          <div style="font-weight:700;font-size:16px;margin-bottom:8px;">Ready to Buy?</div>
+          <p style="color:rgba(255,255,255,0.8);font-size:13px;margin-bottom:16px;">Browse our current stock of certified pre-owned Toyotas.</p>
+          <a href="inventory.html" class="btn btn-white btn-block">View Inventory</a>
+        </div>
+
+      </aside>
+
+    </div><!-- /news-layout -->
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><div style="width:40px;height:40px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="24" height="16" viewBox="0 0 28 18" fill="none"><ellipse cx="14" cy="9" rx="13" ry="8.5" stroke="white" stroke-width="1.8" fill="none"/><ellipse cx="14" cy="9" rx="6" ry="4" stroke="white" stroke-width="1.8" fill="none"/><ellipse cx="14" cy="9" rx="2" ry="8.5" stroke="white" stroke-width="1.8" fill="none"/></svg></div><div class="logo-text"><strong style="font-size:17px;">Toyota Plus</strong><span>Cambodia</span></div></a>
+        <p>Your most trusted certified pre-owned Toyota dealer in Cambodia.</p>
+        <div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-telegram-plane"></i></a><a href="#"><i class="fab fa-tiktok"></i></a></div>
+      </div>
+      <div class="footer-col"><h5>Navigation</h5><ul><li><a href="index.html">Home</a></li><li><a href="inventory.html">Inventory</a></li><li><a href="news.html">News</a></li><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h5>Popular Models</h5><ul><li><a href="inventory.html?model=Land+Cruiser">Land Cruiser</a></li><li><a href="inventory.html?model=Fortuner">Fortuner</a></li><li><a href="inventory.html?model=Camry">Camry</a></li><li><a href="inventory.html?model=Hilux">Hilux</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul class="footer-contact"><li><i class="fas fa-map-marker-alt"></i><span>123 Monivong Blvd, Phnom Penh</span></li><li><i class="fas fa-phone-alt"></i><span>+855 23 456 789</span></li><li><i class="fas fa-envelope"></i><span>info@toyotaplus.com.kh</span></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2025 Toyota Plus Cambodia. All rights reserved.</span></div>
+  </div>
+</footer>
+
+<a href="https://wa.me/85523456789" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<div id="toast"></div>
+
+<script src="assets/js/cars-data.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('.page-transition').classList.add('loaded');
+  });
+
+  function filterNews(cat, tabEl) {
+    document.querySelectorAll('.news-tab').forEach(t => t.classList.remove('active'));
+    if (tabEl) tabEl.classList.add('active');
+
+    document.getElementById('newsSearch').value = '';
+
+    const cards = document.querySelectorAll('.article-card');
+    let any = false;
+    cards.forEach(card => {
+      const show = cat === 'all' || card.dataset.cat === cat;
+      card.classList.toggle('hidden', !show);
+      if (show) any = true;
+    });
+    document.getElementById('newsNoResults').style.display = any ? 'none' : 'block';
+  }
+
+  function searchNews(query) {
+    const q = query.trim().toLowerCase();
+    document.querySelectorAll('.news-tab').forEach(t => t.classList.remove('active'));
+    document.querySelector('.news-tab').classList.add('active');
+
+    if (!q) {
+      document.querySelectorAll('.article-card').forEach(c => c.classList.remove('hidden'));
+      document.getElementById('newsNoResults').style.display = 'none';
+      return;
+    }
+
+    let any = false;
+    document.querySelectorAll('.article-card').forEach(card => {
+      const text = card.textContent.toLowerCase();
+      const match = text.includes(q);
+      card.classList.toggle('hidden', !match);
+      if (match) any = true;
+    });
+    document.getElementById('newsNoResults').style.display = any ? 'none' : 'block';
+  }
+
+  function handleNewsletterSignup(btn) {
+    const input = btn.previousElementSibling;
+    if (!input.value || !input.value.includes('@')) {
+      showToast('Please enter a valid email address.', 'error');
+      return;
+    }
+    showToast('Subscribed! Thank you for signing up.', 'success');
+    input.value = '';
+  }
+</script>
+</body>
+</html>

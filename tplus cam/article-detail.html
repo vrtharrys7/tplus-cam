@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">Article — Toyota Plus Cambodia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    body { font-family: 'Inter', 'Segoe UI', sans-serif; }
+
+    /* Reading Progress */
+    .reading-progress {
+      position: fixed; top: 0; left: 0; width: 0%;
+      height: 3px; background: var(--red); z-index: 9999;
+      transition: width 0.1s linear;
+    }
+
+    /* Article Hero */
+    .article-hero {
+      position: relative; height: 480px; overflow: hidden; background: var(--dark);
+    }
+    .article-hero-img {
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: 0.5; transform: scale(1.06); transition: transform 9s ease, opacity 0.6s;
+    }
+    .article-hero-img.loaded { transform: scale(1); opacity: 0.55; }
+    .article-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.88) 36%, rgba(8,8,8,0.15) 100%);
+      display: flex; align-items: flex-end; padding: 52px 0;
+    }
+    .article-hero-content { max-width: 780px; }
+    .article-hero-content .breadcrumb { margin-bottom: 14px; }
+    .article-hero-content .breadcrumb a,
+    .article-hero-content .breadcrumb span { color: rgba(255,255,255,0.65); }
+    .article-hero-content .breadcrumb i { color: rgba(255,255,255,0.35); }
+    .article-hero-title {
+      font-size: 36px; font-weight: 900; color: white;
+      line-height: 1.22; margin: 14px 0 20px;
+    }
+    .article-hero-meta {
+      display: flex; align-items: center; flex-wrap: wrap;
+      gap: 18px; font-size: 13px; color: rgba(255,255,255,0.72);
+    }
+    .article-hero-meta span { display: flex; align-items: center; gap: 6px; }
+
+    /* Layout */
+    .article-layout {
+      display: grid; grid-template-columns: 1fr 300px;
+      gap: 52px; align-items: start; padding: 56px 0 72px;
+    }
+
+    /* Article body typography */
+    .article-body { font-size: 16px; line-height: 1.82; color: #374151; }
+    .article-body h2 {
+      font-size: 24px; font-weight: 800; color: var(--dark);
+      margin: 38px 0 14px; padding-top: 6px;
+    }
+    .article-body h3 { font-size: 19px; font-weight: 700; color: var(--dark); margin: 28px 0 10px; }
+    .article-body p { margin-bottom: 18px; }
+    .article-body ul, .article-body ol { margin: 0 0 18px 24px; }
+    .article-body li { margin-bottom: 9px; }
+    .article-body strong { color: var(--dark); }
+    .article-body a { color: var(--red); text-decoration: none; }
+    .article-body a:hover { text-decoration: underline; }
+
+    .article-tip-box {
+      background: #FFF7F7; border-left: 4px solid var(--red);
+      border-radius: 0 10px 10px 0; padding: 18px 22px; margin: 26px 0;
+    }
+    .article-tip-box strong {
+      color: var(--red); display: block; margin-bottom: 7px;
+      font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px;
+    }
+    .article-info-box {
+      background: #F0F9FF; border: 1.5px solid #BAE0FF;
+      border-radius: 10px; padding: 18px 22px; margin: 26px 0;
+    }
+    .article-info-box strong {
+      color: #0369A1; display: block; margin-bottom: 7px;
+      font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px;
+    }
+
+    .article-grade-table {
+      width: 100%; border-collapse: collapse;
+      margin: 20px 0 26px; font-size: 14px;
+    }
+    .article-grade-table th {
+      background: var(--dark); color: white;
+      padding: 11px 14px; text-align: left; font-weight: 600;
+    }
+    .article-grade-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+    .article-grade-table tr:nth-child(even) td { background: #F9FAFB; }
+
+    .article-checklist { list-style: none; margin: 0 0 18px; padding: 0; }
+    .article-checklist li {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 15px;
+    }
+    .article-checklist li:last-child { border-bottom: none; }
+    .article-checklist li i { color: var(--red); flex-shrink: 0; margin-top: 3px; }
+
+    /* Share bar */
+    .article-share {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      padding: 22px 0; border-top: 2px solid var(--border);
+      border-bottom: 2px solid var(--border); margin: 34px 0;
+    }
+    .article-share span { font-weight: 700; font-size: 14px; color: var(--dark); margin-right: 4px; }
+    .share-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 8px 16px; border-radius: 50px; border: 1.5px solid var(--border);
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      transition: var(--transition); background: white; text-decoration: none; color: var(--dark);
+    }
+    .share-btn:hover { transform: translateY(-2px); }
+    .share-btn.fb { border-color: #1877F2; color: #1877F2; }
+    .share-btn.fb:hover { background: #1877F2; color: white; }
+    .share-btn.tg { border-color: #2CA5E0; color: #2CA5E0; }
+    .share-btn.tg:hover { background: #2CA5E0; color: white; }
+    .share-btn.wa { border-color: #25D366; color: #25D366; }
+    .share-btn.wa:hover { background: #25D366; color: white; }
+    .share-btn.copy:hover { background: var(--dark); color: white; border-color: var(--dark); }
+
+    /* Related articles */
+    .related-section { margin-top: 48px; }
+    .related-section h3 { font-size: 20px; font-weight: 800; margin-bottom: 22px; color: var(--dark); }
+    .related-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .related-card {
+      border-radius: 12px; overflow: hidden;
+      border: 1.5px solid var(--border); background: white;
+      transition: var(--transition); text-decoration: none;
+      display: block;
+    }
+    .related-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.10); }
+    .related-card img { width: 100%; height: 140px; object-fit: cover; display: block; }
+    .related-card-body { padding: 14px; }
+    .related-card-title { font-size: 14px; font-weight: 700; color: var(--dark); line-height: 1.4; margin-top: 7px; }
+    .related-card:hover .related-card-title { color: var(--red); }
+    .related-card-date { font-size: 12px; color: var(--grey); margin-top: 6px; }
+
+    /* Sidebar */
+    .news-sidebar { display: flex; flex-direction: column; gap: 28px; }
+    .sidebar-card {
+      background: white; border-radius: 14px; padding: 24px;
+      box-shadow: var(--shadow); border: 1.5px solid var(--border);
+    }
+    .sidebar-card h4 {
+      font-size: 15px; font-weight: 700; margin-bottom: 16px; color: var(--dark);
+      padding-bottom: 10px; border-bottom: 2px solid var(--red); display: inline-block;
+    }
+    .recent-post {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+      text-decoration: none;
+    }
+    .recent-post:last-child { border-bottom: none; padding-bottom: 0; }
+    .recent-post img { width: 64px; height: 52px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+    .recent-post-title { font-size: 13px; font-weight: 600; line-height: 1.4; color: var(--dark); }
+    .recent-post:hover .recent-post-title { color: var(--red); }
+    .recent-post-date { font-size: 12px; color: var(--grey); margin-top: 4px; }
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag-pill {
+      padding: 5px 14px; border-radius: 50px; border: 1.5px solid var(--border);
+      font-size: 12px; font-weight: 600; color: var(--grey);
+      cursor: pointer; transition: var(--transition); text-decoration: none; display: inline-block;
+    }
+    .tag-pill:hover { background: var(--red); border-color: var(--red); color: white; }
+    .newsletter-box { text-align: center; }
+    .newsletter-box p { font-size: 13px; color: var(--grey); margin-bottom: 14px; line-height: 1.6; }
+    .newsletter-box input {
+      width: 100%; padding: 10px 14px; border: 2px solid var(--border);
+      border-radius: 8px; font-size: 13px; margin-bottom: 10px;
+      box-sizing: border-box; outline: none;
+    }
+    .newsletter-box input:focus { border-color: var(--red); }
+
+    /* Not found */
+    .article-not-found { text-align: center; padding: 100px 20px; color: var(--grey); }
+    .article-not-found i { font-size: 48px; color: var(--border); margin-bottom: 16px; display: block; }
+    .article-not-found h2 { color: var(--dark); margin-bottom: 12px; }
+
+    /* Reveal animation */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 1024px) {
+      .article-layout { grid-template-columns: 1fr; gap: 0; }
+      .news-sidebar { display: none; }
+      .article-hero { height: 360px; }
+      .article-hero-title { font-size: 26px; }
+      .related-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .article-hero { height: 280px; }
+      .article-hero-title { font-size: 20px; }
+      .related-grid { grid-template-columns: 1fr; }
+      .article-layout { padding: 32px 0 48px; }
+    }
+  </style>
+</head>
+<body class="page-transition">
+
+<div class="reading-progress" id="readingProgress"></div>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="top-bar">
+    <div class="container">
+      <div style="display:flex;gap:20px;align-items:center;">
+        <span><i class="fas fa-phone-alt" style="margin-right:6px;color:var(--red)"></i>+855 23 456 789</span>
+        <span><i class="fas fa-clock" style="margin-right:6px;color:var(--red)"></i>Mon-Sat: 8:00 AM - 6:00 PM</span>
+      </div>
+      <div class="top-bar-links"><a href="contact.html">Contact</a></div>
+    </div>
+  </div>
+  <div class="container">
+    <nav class="nav-wrap">
+      <a href="index.html" class="logo">
+        <div style="width:44px;height:44px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="18" viewBox="0 0 28 18" fill="none"><ellipse cx="14" cy="9" rx="13" ry="8.5" stroke="white" stroke-width="1.5" fill="none"/><ellipse cx="14" cy="9" rx="6" ry="4" stroke="white" stroke-width="1.5" fill="none"/><ellipse cx="14" cy="9" rx="2" ry="8.5" stroke="white" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="logo-text"><strong>Toyota Plus</strong><span>Cambodia</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="news.html" class="active">News</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="lang-toggle" onclick="toggleLang(this)"><i class="fas fa-globe"></i> EN / &#6017;&#6098;&#6040;&#6082;&#6042;</button>
+        <a href="inventory.html" class="btn btn-primary"><i class="fas fa-car"></i> Browse Cars</a>
+        <button class="nav-hamburger" onclick="openMobileMenu()"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" onclick="closeMobileMenuOutside(event)">
+  <div class="mobile-menu-panel">
+    <div class="mobile-menu-close"><button onclick="closeMobileMenu()"><i class="fas fa-times"></i></button></div>
+    <div class="mobile-nav-links">
+      <a href="index.html">Home</a>
+      <a href="inventory.html">Inventory</a>
+      <a href="news.html">News</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLE HERO (JS-rendered) -->
+<div id="articleHero"></div>
+
+<!-- MAIN CONTENT (JS-rendered) -->
+<section>
+  <div class="container">
+    <div id="articleContent"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><div style="width:40px;height:40px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="24" height="16" viewBox="0 0 28 18" fill="none"><ellipse cx="14" cy="9" rx="13" ry="8.5" stroke="white" stroke-width="1.8" fill="none"/><ellipse cx="14" cy="9" rx="6" ry="4" stroke="white" stroke-width="1.8" fill="none"/><ellipse cx="14" cy="9" rx="2" ry="8.5" stroke="white" stroke-width="1.8" fill="none"/></svg></div><div class="logo-text"><strong style="font-size:17px;">Toyota Plus</strong><span>Cambodia</span></div></a>
+        <p>Your most trusted certified pre-owned Toyota dealer in Cambodia.</p>
+        <div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-telegram-plane"></i></a><a href="#"><i class="fab fa-tiktok"></i></a></div>
+      </div>
+      <div class="footer-col"><h5>Navigation</h5><ul><li><a href="index.html">Home</a></li><li><a href="inventory.html">Inventory</a></li><li><a href="news.html">News</a></li><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h5>Popular Models</h5><ul><li><a href="inventory.html?model=Land+Cruiser">Land Cruiser</a></li><li><a href="inventory.html?model=Fortuner">Fortuner</a></li><li><a href="inventory.html?model=Camry">Camry</a></li><li><a href="inventory.html?model=Hilux">Hilux</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul class="footer-contact"><li><i class="fas fa-map-marker-alt"></i><span>123 Monivong Blvd, Phnom Penh</span></li><li><i class="fas fa-phone-alt"></i><span>+855 23 456 789</span></li><li><i class="fas fa-envelope"></i><span>info@toyotaplus.com.kh</span></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2025 Toyota Plus Cambodia. All rights reserved.</span></div>
+  </div>
+</footer>
+
+<a href="https://wa.me/85523456789" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<div id="toast"></div>
+
+<script src="assets/js/cars-data.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+const ARTICLES = {
+  'featured': {
+    id:'featured', cat:'guide', catLabel:'Buying Guide', catClass:'tag-guide',
+    title:'The Complete Guide to Buying a Used Toyota in Cambodia (2025)',
+    date:'14 Jan 2025', author:'Sophea Keo', readTime:'8 min read',
+    img:'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=1200&q=80',
+    related:['1','4','8'],
+    body:`
+      <p>Buying a used Toyota in Cambodia can be one of the smartest financial decisions you make -- but only if you know what to look for. With Japanese auction-grade vehicles and locally used cars of varying quality, first-time buyers often feel overwhelmed. This guide covers everything you need to know before signing anything.</p>
+      <h2>1. Understanding the Cambodian Used Car Market</h2>
+      <p>The Cambodian used car market is dominated by two main sources:</p>
+      <ul>
+        <li><strong>Japanese Auction Imports</strong> -- vehicles directly sourced from Japanese auction houses like USS, TAA, and JAA. These are the most transparent in terms of condition grading.</li>
+        <li><strong>Locally Used Vehicles</strong> -- cars driven in Cambodia, Thailand, or other ASEAN markets. These require more careful inspection.</li>
+      </ul>
+      <div class="article-info-box"><strong><i class="fas fa-info-circle"></i> Pro Tip</strong>Always ask for the auction sheet if buying an import. This document gives you independent verification of the car's condition, mileage, and any damage history.</div>
+      <h2>2. The Japanese Auction Grade System</h2>
+      <p>Japanese auction vehicles are graded by independent inspectors. Understanding these grades protects you from overpriced vehicles.</p>
+      <table class="article-grade-table">
+        <thead><tr><th>Grade</th><th>Condition</th><th>What It Means</th></tr></thead>
+        <tbody>
+          <tr><td><strong>S</strong></td><td>Near New</td><td>Virtually no scratches or dents. Usually low-mileage stock.</td></tr>
+          <tr><td><strong>5</strong></td><td>Excellent</td><td>Very minor imperfections. Interior and exterior nearly flawless.</td></tr>
+          <tr><td><strong>4.5</strong></td><td>Very Good</td><td>Light scratches easily polished out. Mechanically sound.</td></tr>
+          <tr><td><strong>4</strong></td><td>Good</td><td>Minor cosmetic imperfections. No major mechanical issues.</td></tr>
+          <tr><td><strong>3.5</strong></td><td>Average</td><td>Visible scratches or minor dents. May need minor repairs.</td></tr>
+          <tr><td><strong>R</strong></td><td>Repaired</td><td>Has been repaired after an accident. Disclose carefully.</td></tr>
+        </tbody>
+      </table>
+      <div class="article-tip-box"><strong><i class="fas fa-star"></i> Toyota Plus Standard</strong>At Toyota Plus Cambodia, we only stock vehicles graded 4 and above, ensuring every car meets high quality standards.</div>
+      <h2>3. Setting Your Budget Realistically</h2>
+      <p>Beyond the sticker price, factor in these additional costs:</p>
+      <ul>
+        <li><strong>Import duties and customs</strong> -- usually included in dealer pricing, but confirm.</li>
+        <li><strong>Registration and number plates</strong> -- typically $200-$500.</li>
+        <li><strong>Vehicle insurance</strong> -- third-party insurance is compulsory in Cambodia.</li>
+        <li><strong>First service</strong> -- budget $100-$200 for an initial inspection.</li>
+      </ul>
+      <h2>4. Test Drive Essentials</h2>
+      <p>Never skip the test drive. During the drive, pay attention to:</p>
+      <ul class="article-checklist">
+        <li><i class="fas fa-check-circle"></i> Engine startup -- listen for unusual ticking or knocking sounds</li>
+        <li><i class="fas fa-check-circle"></i> Transmission -- smooth gear changes with no hesitation or jerking</li>
+        <li><i class="fas fa-check-circle"></i> Steering -- no pulling to one side, no vibration at highway speeds</li>
+        <li><i class="fas fa-check-circle"></i> Brakes -- firm pedal, no grinding, car stops straight</li>
+        <li><i class="fas fa-check-circle"></i> Air conditioning -- cools quickly and blows strongly on all settings</li>
+      </ul>
+      <h2>5. Ownership Transfer in Cambodia</h2>
+      <p>The ownership transfer process requires: vehicle registration certificate, AVIS technical inspection certificate, seller's and buyer's ID, and transfer fee payment receipt. At Toyota Plus Cambodia, our team handles the entire process on your behalf.</p>
+      <p><a href="inventory.html" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;margin-top:8px;"><i class="fas fa-car"></i> Browse Inventory</a></p>
+    `
+  },
+  '1': {
+    id:'1', cat:'tips', catLabel:'Car Tips', catClass:'tag-tips',
+    title:'10 Things to Check Before Buying a Used Car',
+    date:'5 Feb 2025', author:'Vicheka Pen', readTime:'6 min read',
+    img:'https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=1200&q=80',
+    related:['featured','5','8'],
+    body:`
+      <p>Buying a used car without proper checks is like buying a house without an inspection. Our senior technicians compiled this practical checklist to help you avoid costly mistakes.</p>
+      <h2>1. Check the Bodywork in Daylight</h2>
+      <p>Always inspect the car outdoors in good light. Look along the body panels at a low angle -- ripples, uneven paint, or colour mismatches signal previous accident repairs. Open all doors and check the rubber seals for signs of replacement.</p>
+      <h2>2. Inspect the Chassis Number (VIN)</h2>
+      <p>The VIN plate should be welded, not riveted, and must match the registration document exactly. Any tampering is a serious red flag for stolen or cloned vehicles.</p>
+      <div class="article-tip-box"><strong><i class="fas fa-search"></i> Where to Find It</strong>The VIN is stamped on the firewall under the bonnet and on a plate visible through the windscreen on the dashboard corner.</div>
+      <h2>3. Engine Oil Condition</h2>
+      <p>Pull out the dipstick and rub the oil between your fingers. Dark black oil suggests poor maintenance. Milky or grey oil indicates coolant contamination -- a sign of head gasket problems.</p>
+      <h2>4. Check for Rust</h2>
+      <ul class="article-checklist">
+        <li><i class="fas fa-search"></i> Wheel arches and underside of doors</li>
+        <li><i class="fas fa-search"></i> Spare tyre well in the boot</li>
+        <li><i class="fas fa-search"></i> Under the floor mats inside the cabin</li>
+        <li><i class="fas fa-search"></i> Underbody and sill plates</li>
+      </ul>
+      <h2>5. Test All Electrics</h2>
+      <p>Switch everything on: headlights (low and high beam), indicators, hazard lights, reversing lights, all windows, both wing mirrors, heated rear window, horn, and all A/C functions.</p>
+      <h2>6. Air Conditioning Performance</h2>
+      <p>In Cambodia's heat, A/C is essential. Run it for at least 5 minutes -- it should be blowing cold within 2 minutes. Weak cooling may indicate a gas recharge (minor) or compressor issue (major).</p>
+      <h2>7. Transmission Test</h2>
+      <p>For automatics, test in all modes (D, 2, 1, R). The car should change gears smoothly with no jerking, slipping, or hesitation.</p>
+      <h2>8. Check Under the Car After Parking</h2>
+      <p>After a test drive of 15+ minutes, park on clean ground and check underneath. Any oil drips, coolant puddles, or fuel smell are warning signs.</p>
+      <h2>9. Ask for the Service History</h2>
+      <p>A full service record shows the car has been maintained properly. Check that oil changes happened every 5,000-10,000 km.</p>
+      <h2>10. Get an Independent Inspection</h2>
+      <p>For high-value purchases, paying a Toyota-trained technician $30-$50 for an independent inspection is money very well spent.</p>
+      <div class="article-info-box"><strong><i class="fas fa-shield-alt"></i> Toyota Plus Guarantee</strong>Every car at Toyota Plus Cambodia has already passed our 150-point inspection. Buy with confidence.</div>
+    `
+  },
+  '2': {
+    id:'2', cat:'market', catLabel:'Market News', catClass:'tag-market',
+    title:'Used Car Prices in Cambodia: 2025 Market Overview',
+    date:'20 Jan 2025', author:'Sophea Keo', readTime:'5 min read',
+    img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80',
+    related:['7','featured','3'],
+    body:`
+      <p>The used car market in Cambodia remained resilient in 2024. Demand for Japanese auction imports stayed strong, and certain Toyota models proved exceptional at holding their value. Here's our analysis heading into 2025.</p>
+      <h2>Overall Market Conditions</h2>
+      <p>Used car inventory normalised in 2024 after supply disruptions. Auction prices from Japan stabilised, leading to more predictable pricing at Cambodian dealerships. The USD/JPY exchange rate remains a key driver of import costs.</p>
+      <h2>Value Retention: Key Toyota Models</h2>
+      <table class="article-grade-table">
+        <thead><tr><th>Model</th><th>2023 Avg Price</th><th>2024 Avg Price</th><th>Change</th></tr></thead>
+        <tbody>
+          <tr><td>Land Cruiser 200</td><td>$55,000</td><td>$57,500</td><td style="color:green">+4.5%</td></tr>
+          <tr><td>Land Cruiser 300</td><td>$72,000</td><td>$74,000</td><td style="color:green">+2.8%</td></tr>
+          <tr><td>Fortuner 2020+</td><td>$28,500</td><td>$27,800</td><td style="color:#d32f2f">-2.5%</td></tr>
+          <tr><td>Hilux Revo D-Cab</td><td>$22,000</td><td>$21,500</td><td style="color:#d32f2f">-2.3%</td></tr>
+          <tr><td>Alphard 2018+</td><td>$38,000</td><td>$39,200</td><td style="color:green">+3.2%</td></tr>
+        </tbody>
+      </table>
+      <h2>What Is Driving Demand in 2025?</h2>
+      <ul>
+        <li><strong>Road infrastructure improvements</strong> -- new expressways are increasing demand for comfortable highway vehicles like the Camry and Alphard.</li>
+        <li><strong>Ride-sharing growth</strong> -- high demand for fuel-efficient models like the Vios and Yaris.</li>
+        <li><strong>Chinese vehicle competition</strong> -- putting mild downward pressure on mid-range Japanese models.</li>
+        <li><strong>Premium SUV demand</strong> -- Land Cruiser and Alphard prices continue to rise.</li>
+      </ul>
+      <div class="article-tip-box"><strong><i class="fas fa-chart-line"></i> Our Recommendation</strong>The Fortuner and Hilux represent the strongest value proposition in 2025 -- dependable, practical, and priced slightly below their 2023 highs.</div>
+      <h2>Looking Ahead</h2>
+      <p>We expect the market to remain stable through 2025. Key variables to watch include the JPY exchange rate, regional fuel prices, and the pace of Chinese vehicle market penetration.</p>
+    `
+  },
+  '3': {
+    id:'3', cat:'model', catLabel:'Toyota Models', catClass:'tag-model',
+    title:'Toyota Land Cruiser 300 Series: Is It Worth the Price?',
+    date:'10 Jan 2025', author:'Dara Kong', readTime:'7 min read',
+    img:'https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=1200&q=80',
+    related:['6','2','featured'],
+    body:`
+      <p>The Land Cruiser 300 Series (J300) arrived to global acclaim in 2021 and has since dominated Cambodia's premium 4WD market. With prices starting above $70,000, is it truly worth the premium over the 200 Series?</p>
+      <h2>What's New in the 300 Series?</h2>
+      <ul>
+        <li><strong>Engine:</strong> 3.5L twin-turbo V6 petrol (415hp) or 3.3L twin-turbo V6 diesel (309hp, 700Nm)</li>
+        <li><strong>Weight reduction:</strong> ~200kg lighter than the 200 Series despite more features</li>
+        <li><strong>New KDSS+ suspension</strong> for improved on-road comfort and off-road articulation</li>
+        <li><strong>Technology:</strong> 12.3-inch display, Toyota Safety Sense 3.0, 360-camera</li>
+      </ul>
+      <div class="article-tip-box"><strong><i class="fas fa-gas-pump"></i> Fuel Economy</strong>The V6 diesel delivers approximately 10-12L/100km in Cambodian conditions, a significant improvement over the 200 Series V8 diesel's 13-16L/100km. Real savings over five years.</div>
+      <h2>300 vs 200 Series: Which to Buy?</h2>
+      <table class="article-grade-table">
+        <thead><tr><th>Factor</th><th>LC300</th><th>LC200</th></tr></thead>
+        <tbody>
+          <tr><td>Price (used, grade 4+)</td><td>$70,000-$85,000</td><td>$48,000-$62,000</td></tr>
+          <tr><td>Fuel economy</td><td>Better</td><td>Worse</td></tr>
+          <tr><td>Technology</td><td>Modern</td><td>Dated</td></tr>
+          <tr><td>Proven long-term reliability</td><td>Still building record</td><td>Exceptionally proven</td></tr>
+          <tr><td>Parts availability in Cambodia</td><td>Growing</td><td>Excellent</td></tr>
+        </tbody>
+      </table>
+      <h2>Our Verdict</h2>
+      <p>If budget is not the primary concern and you want the latest technology and fuel economy, the 300 Series is superior. If you want ultimate long-term reliability confidence and lower initial outlay, a well-maintained 200 Series remains compelling. Either way, both are among the most capable vehicles you can own in Cambodia.</p>
+      <div class="article-info-box"><strong><i class="fas fa-car"></i> Check Our Stock</strong>Toyota Plus Cambodia stocks both LC200 and LC300 models. <a href="inventory.html">Browse our Land Cruiser inventory</a> or contact us for specific specifications.</div>
+    `
+  },
+  '4': {
+    id:'4', cat:'guide', catLabel:'Buying Guide', catClass:'tag-guide',
+    title:'How Car Financing Works in Cambodia: A Step-by-Step Guide',
+    date:'3 Jan 2025', author:'Chanratana Sok', readTime:'6 min read',
+    img:'https://images.unsplash.com/photo-1590502593747-42a996133562?w=1200&q=80',
+    related:['featured','8','2'],
+    body:`
+      <p>Car financing is becoming increasingly popular in Cambodia as banks offer competitive rates. If you don't want to tie up your savings, a bank loan can be a smart financial tool.</p>
+      <h2>Which Banks Offer Car Loans?</h2>
+      <ul>
+        <li><strong>ABA Bank</strong> -- competitive rates, fast approval, most popular choice</li>
+        <li><strong>ACLEDA Bank</strong> -- extensive branch network, flexible terms</li>
+        <li><strong>Canadia Bank</strong> -- strong for higher-value vehicles</li>
+        <li><strong>Maybank</strong> -- structured international car loan products</li>
+      </ul>
+      <h2>Typical Loan Terms</h2>
+      <table class="article-grade-table">
+        <thead><tr><th>Factor</th><th>Typical Range</th></tr></thead>
+        <tbody>
+          <tr><td>Down payment</td><td>20%-40% of vehicle price</td></tr>
+          <tr><td>Loan term</td><td>12-60 months</td></tr>
+          <tr><td>Interest rate (flat)</td><td>8%-14% per annum</td></tr>
+          <tr><td>Processing fee</td><td>$50-$200</td></tr>
+          <tr><td>Maximum loan amount</td><td>Up to $80,000</td></tr>
+        </tbody>
+      </table>
+      <h2>Step-by-Step: Getting a Car Loan</h2>
+      <ol>
+        <li><strong>Choose your car</strong> -- the bank will need the car's details for their valuation.</li>
+        <li><strong>Gather documents</strong> -- national ID/passport, proof of income, bank statements (3-6 months).</li>
+        <li><strong>Submit application</strong> -- Toyota Plus submits on your behalf to multiple partner banks.</li>
+        <li><strong>Valuation</strong> -- the bank verifies vehicle value (1-2 days).</li>
+        <li><strong>Approval</strong> -- most approvals within 3-5 working days.</li>
+        <li><strong>Sign loan agreement</strong> -- review the monthly payment, total interest, and early repayment terms.</li>
+        <li><strong>Car released</strong> -- once the bank transfers funds, ownership is transferred to you.</li>
+      </ol>
+      <div class="article-tip-box"><strong><i class="fas fa-calculator"></i> Example Calculation</strong>Car: $25,000 | Down payment (30%): $7,500 | Loan: $17,500 | 36 months at 10% flat | Monthly: ~$534</div>
+      <h2>Toyota Plus Finance Assistance</h2>
+      <p>Our in-house finance team works with all partner banks to find you the best rate, at no extra cost. Contact us to start the process today.</p>
+    `
+  },
+  '5': {
+    id:'5', cat:'tips', catLabel:'Car Tips', catClass:'tag-tips',
+    title:'How Often Should You Service Your Toyota in Cambodia?',
+    date:'28 Dec 2024', author:'Dara Kong', readTime:'5 min read',
+    img:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200&q=80',
+    related:['1','8','featured'],
+    body:`
+      <p>Cambodia's climate and road conditions place unique demands on your vehicle. Dusty red laterite roads, extreme heat, wet season flooding, and stop-start traffic all accelerate wear on your Toyota's components.</p>
+      <h2>Why Cambodia Needs a Modified Schedule</h2>
+      <ul>
+        <li>Ambient temperatures regularly exceed 35 degrees C, stressing the cooling system and engine oil</li>
+        <li>Dust and red dirt clog air filters much faster than standard intervals assume</li>
+        <li>Urban idling in traffic puts extra wear on transmission and cooling</li>
+        <li>Flood-season driving exposes underbody and electrical systems to water</li>
+      </ul>
+      <h2>Recommended Service Intervals for Cambodia</h2>
+      <table class="article-grade-table">
+        <thead><tr><th>Service Item</th><th>Standard</th><th>Cambodia Recommended</th></tr></thead>
+        <tbody>
+          <tr><td>Engine oil and filter</td><td>10,000 km</td><td><strong>5,000-7,000 km</strong></td></tr>
+          <tr><td>Air filter</td><td>30,000 km</td><td><strong>15,000 km</strong></td></tr>
+          <tr><td>Cabin air filter</td><td>15,000 km</td><td><strong>10,000 km</strong></td></tr>
+          <tr><td>Brake fluid</td><td>2 years</td><td><strong>1 year</strong></td></tr>
+          <tr><td>Coolant flush</td><td>4 years</td><td><strong>2 years</strong></td></tr>
+          <tr><td>Undercarriage inspection</td><td>Annual</td><td><strong>Every 6 months</strong></td></tr>
+        </tbody>
+      </table>
+      <h2>Rainy Season Checklist</h2>
+      <ul class="article-checklist">
+        <li><i class="fas fa-check-circle"></i> Wiper blades -- replace annually at minimum</li>
+        <li><i class="fas fa-check-circle"></i> Tyre tread depth -- at least 3mm for safe wet-road braking</li>
+        <li><i class="fas fa-check-circle"></i> Brake performance -- inspect before the wet season</li>
+        <li><i class="fas fa-check-circle"></i> Underbody wash -- flush salt and mud after flood driving</li>
+        <li><i class="fas fa-check-circle"></i> Battery terminal corrosion -- clean and coat with grease</li>
+      </ul>
+      <div class="article-tip-box"><strong><i class="fas fa-wrench"></i> Our Workshop</strong>Toyota Plus Cambodia's workshop is staffed by factory-trained Toyota technicians. Bring your vehicle in for a health check any time.</div>
+    `
+  },
+  '6': {
+    id:'6', cat:'model', catLabel:'Toyota Models', catClass:'tag-model',
+    title:'Fortuner vs Hilux SW4: Which SUV Should You Buy?',
+    date:'15 Dec 2024', author:'Vicheka Pen', readTime:'6 min read',
+    img:'https://images.unsplash.com/photo-1546614042-7df3c24c9e5d?w=1200&q=80',
+    related:['3','2','1'],
+    body:`
+      <p>Both the Toyota Fortuner and the Hilux SW4 are built on the same IMV ladder-frame platform as the Hilux Revo pickup. They share engines, transmissions, and 4WD systems -- yet they drive like entirely different vehicles.</p>
+      <h2>The Key Difference</h2>
+      <p>The Fortuner is built as a <strong>family SUV first</strong>. The SW4 is built as a <strong>capable off-roader first</strong>. Both are excellent, but their priorities differ significantly.</p>
+      <h2>Side-by-Side Comparison</h2>
+      <table class="article-grade-table">
+        <thead><tr><th>Factor</th><th>Fortuner 2.8L AT</th><th>Hilux SW4 2.8L AT</th></tr></thead>
+        <tbody>
+          <tr><td>Engine</td><td>2.8L 1GD diesel, 204hp</td><td>2.8L 1GD diesel, 204hp</td></tr>
+          <tr><td>On-road comfort</td><td>Excellent</td><td>Very Good</td></tr>
+          <tr><td>Off-road capability</td><td>Very Good</td><td>Excellent</td></tr>
+          <tr><td>Interior quality</td><td>Premium</td><td>Good</td></tr>
+          <tr><td>Avg. price (grade 4+, 2020)</td><td>$27,000-$30,000</td><td>$29,000-$33,000</td></tr>
+        </tbody>
+      </table>
+      <h2>Who Should Buy the Fortuner?</h2>
+      <ul>
+        <li>Families who primarily drive on paved roads in Phnom Penh</li>
+        <li>Buyers who prioritise interior comfort and refinement</li>
+        <li>Those who need a premium cabin without Land Cruiser prices</li>
+      </ul>
+      <h2>Who Should Buy the Hilux SW4?</h2>
+      <ul>
+        <li>Buyers who regularly travel to provinces on rough roads</li>
+        <li>Those who want maximum off-road capability</li>
+        <li>People who prefer a more commanding driving position</li>
+      </ul>
+      <div class="article-tip-box"><strong><i class="fas fa-star"></i> Our Recommendation</strong>For most Cambodian buyers: go with the Fortuner for daily city driving. If you regularly travel to the provinces on unpaved roads, the SW4's suspension makes a genuine difference.</div>
+    `
+  },
+  '7': {
+    id:'7', cat:'market', catLabel:'Market News', catClass:'tag-market',
+    title:'Japanese Auction Imports: How Vehicles Get From Japan to Cambodia',
+    date:'5 Dec 2024', author:'Sophea Keo', readTime:'7 min read',
+    img:'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1200&q=80',
+    related:['2','featured','4'],
+    body:`
+      <p>A large proportion of used cars in Cambodia were once owned and driven in Japan. Understanding how these vehicles travel from Japanese auction houses to Cambodian roads helps you make smarter purchase decisions.</p>
+      <h2>Step 1: The Japanese Auction System</h2>
+      <p>Japan has one of the world's most sophisticated used vehicle markets. Thousands of cars are sold weekly at auction houses including USS, TAA, and JAA. Key features:</p>
+      <ul>
+        <li>Independent inspectors grade every vehicle</li>
+        <li>Full auction sheets document all cosmetic damage</li>
+        <li>Odometer accuracy is verified -- Japan has extremely low odometer fraud rates</li>
+      </ul>
+      <h2>Step 2: Overseas Exporters</h2>
+      <p>Licensed Japanese exporters bid at auctions on behalf of overseas importers and handle deregistration, export customs documentation, and shipping booking.</p>
+      <h2>Step 3: Shipping to Cambodia</h2>
+      <p>Most vehicles are shipped as RoRo (Roll-on, Roll-off) cargo on large car carrier vessels. Transit time to Sihanoukville port is typically 2-3 weeks.</p>
+      <div class="article-info-box"><strong><i class="fas fa-ship"></i> Port of Entry</strong>The majority of Japanese imports enter Cambodia through Sihanoukville (Preah Sihanouk) port.</div>
+      <h2>Step 4: Customs Clearance</h2>
+      <p>Import duties and taxes are calculated based on the vehicle's age, engine displacement, and declared value. This process typically takes 1-3 weeks.</p>
+      <h2>Step 5: AVIS Technical Inspection</h2>
+      <p>Before registration in Cambodia, vehicles must pass an AVIS (Automotive Vehicle Inspection Station) technical inspection covering safety-critical systems.</p>
+      <h2>Step 6: Registration</h2>
+      <p>After passing AVIS, the vehicle is registered with the Ministry of Public Works and Transport and receives Cambodian number plates.</p>
+      <p>When buying from Toyota Plus Cambodia, all these steps have been completed before the car reaches our showroom. You just choose and drive away.</p>
+    `
+  },
+  '8': {
+    id:'8', cat:'guide', catLabel:'Buying Guide', catClass:'tag-guide',
+    title:'What to Look for on a Test Drive: The Expert Checklist',
+    date:'22 Nov 2024', author:'Vicheka Pen', readTime:'5 min read',
+    img:'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1200&q=80',
+    related:['1','featured','5'],
+    body:`
+      <p>The test drive is the single most important step in buying a used car. Most buyers focus on whether the car accelerates smoothly -- but there's much more to evaluate.</p>
+      <h2>Before You Start the Engine</h2>
+      <ul class="article-checklist">
+        <li><i class="fas fa-check-circle"></i> Check all fluid levels under the bonnet (oil, coolant, brake fluid)</li>
+        <li><i class="fas fa-check-circle"></i> Look for leaks, corrosion, or improvised repairs in the engine bay</li>
+        <li><i class="fas fa-check-circle"></i> Check tyre condition and tread depth on all four corners</li>
+        <li><i class="fas fa-check-circle"></i> Test all keys, locks, and central locking</li>
+      </ul>
+      <h2>Cold Start</h2>
+      <p>A cold start reveals: <strong>white smoke</strong> (normal briefly for diesels), <strong>blue smoke</strong> (burning oil), <strong>black smoke</strong> (over-fuelling). A rough idle that persists is a concern.</p>
+      <h2>At Low Speed (0-40 km/h)</h2>
+      <ul class="article-checklist">
+        <li><i class="fas fa-check-circle"></i> Test the brakes gently -- should feel firm, not spongy</li>
+        <li><i class="fas fa-check-circle"></i> Turn steering wheel lock to lock -- any grinding indicates steering issues</li>
+        <li><i class="fas fa-check-circle"></i> Wind down all windows -- check for rattles or unexpected wind noise</li>
+      </ul>
+      <h2>At Medium Speed (40-80 km/h)</h2>
+      <ul class="article-checklist">
+        <li><i class="fas fa-check-circle"></i> Accelerate and decelerate -- transmission should shift smoothly</li>
+        <li><i class="fas fa-check-circle"></i> Apply brakes firmly -- car should stop straight without pulling</li>
+        <li><i class="fas fa-check-circle"></i> Release steering briefly -- car should track straight with no drift</li>
+      </ul>
+      <h2>After the Drive</h2>
+      <ul class="article-checklist">
+        <li><i class="fas fa-check-circle"></i> Let engine idle 5 minutes, inspect exhaust pipe</li>
+        <li><i class="fas fa-check-circle"></i> Check under the car for new drips on the ground</li>
+        <li><i class="fas fa-check-circle"></i> Verify temperature gauge is stable in normal range</li>
+        <li><i class="fas fa-check-circle"></i> Check for any warning lights that appeared during the drive</li>
+      </ul>
+      <div class="article-tip-box"><strong><i class="fas fa-clock"></i> Minimum Time</strong>A proper test drive should be at least 15-20 minutes including both urban and highway conditions. Never accept a test limited to the car park.</div>
+      <p>At Toyota Plus Cambodia, all our vehicles are pre-inspected and you're welcome to take any car on an extended test drive before committing.</p>
+    `
+  }
+};
+
+function getParam(key) {
+  return new URLSearchParams(window.location.search).get(key);
+}
+
+function renderArticle() {
+  const id = getParam('id') || 'featured';
+  const art = ARTICLES[id];
+
+  if (!art) {
+    document.getElementById('articleHero').innerHTML = '';
+    document.getElementById('articleContent').innerHTML = `
+      <div class="article-not-found">
+        <i class="fas fa-newspaper"></i>
+        <h2>Article Not Found</h2>
+        <p>The article you're looking for doesn't exist or may have been moved.</p>
+        <a href="news.html" class="btn btn-primary" style="margin-top:16px;display:inline-flex;gap:8px;align-items:center;"><i class="fas fa-arrow-left"></i> Back to News</a>
+      </div>`;
+    return;
+  }
+
+  document.title = art.title + ' -- Toyota Plus Cambodia';
+
+  // Hero
+  document.getElementById('articleHero').innerHTML = `
+    <section class="article-hero">
+      <img class="article-hero-img" id="heroImg" src="${art.img}" alt="${art.title}" />
+      <div class="article-hero-overlay">
+        <div class="container">
+          <div class="article-hero-content">
+            <div class="breadcrumb">
+              <a href="index.html">Home</a>
+              <i class="fas fa-chevron-right" style="font-size:10px;"></i>
+              <a href="news.html">News</a>
+              <i class="fas fa-chevron-right" style="font-size:10px;"></i>
+              <span>${art.catLabel}</span>
+            </div>
+            <span class="news-cat-tag ${art.catClass}" style="margin-top:4px;">${art.catLabel}</span>
+            <h1 class="article-hero-title">${art.title}</h1>
+            <div class="article-hero-meta">
+              <span><i class="fas fa-user-circle"></i> ${art.author}</span>
+              <span><i class="fas fa-calendar-alt"></i> ${art.date}</span>
+              <span><i class="fas fa-clock"></i> ${art.readTime}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>`;
+
+  setTimeout(() => { const img = document.getElementById('heroImg'); if (img) img.classList.add('loaded'); }, 80);
+
+  // Related articles
+  const relatedHtml = (art.related || []).slice(0,3).map(rid => {
+    const r = ARTICLES[rid]; if (!r) return '';
+    return `
+      <a href="article-detail.html?id=${r.id}" class="related-card">
+        <img src="${r.img}" alt="${r.title}" loading="lazy" />
+        <div class="related-card-body">
+          <span class="news-cat-tag ${r.catClass}" style="font-size:11px;">${r.catLabel}</span>
+          <div class="related-card-title">${r.title}</div>
+          <div class="related-card-date"><i class="fas fa-calendar-alt" style="margin-right:4px;"></i>${r.date}</div>
+        </div>
+      </a>`;
+  }).join('');
+
+  document.getElementById('articleContent').innerHTML = `
+    <div class="article-layout">
+      <div>
+        <div class="article-body reveal">${art.body}</div>
+        <div class="article-share reveal">
+          <span>Share:</span>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}" target="_blank" class="share-btn fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+          <a href="https://t.me/share/url?url=${encodeURIComponent(location.href)}&text=${encodeURIComponent(art.title)}" target="_blank" class="share-btn tg"><i class="fab fa-telegram-plane"></i> Telegram</a>
+          <a href="https://wa.me/?text=${encodeURIComponent(art.title+' '+location.href)}" target="_blank" class="share-btn wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+          <button class="share-btn copy" onclick="copyLink()"><i class="fas fa-link"></i> Copy Link</button>
+        </div>
+        <div class="reveal" style="margin-bottom:32px;">
+          <a href="news.html" style="display:inline-flex;align-items:center;gap:8px;color:var(--grey);font-size:14px;font-weight:600;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--grey)'">
+            <i class="fas fa-arrow-left"></i> Back to All Articles
+          </a>
+        </div>
+        ${relatedHtml ? `<div class="related-section reveal"><h3>Related Articles</h3><div class="related-grid">${relatedHtml}</div></div>` : ''}
+      </div>
+      <aside class="news-sidebar">
+        <div class="sidebar-card">
+          <h4>Recent Posts</h4>
+          <a href="article-detail.html?id=featured" class="recent-post">
+            <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=120&q=80" alt="post" />
+            <div><div class="recent-post-title">The Complete Guide to Buying a Used Toyota</div><div class="recent-post-date"><i class="fas fa-calendar-alt" style="margin-right:4px;"></i>14 Jan 2025</div></div>
+          </a>
+          <a href="article-detail.html?id=1" class="recent-post">
+            <img src="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=120&q=80" alt="post" />
+            <div><div class="recent-post-title">10 Things to Check Before Buying a Used Car</div><div class="recent-post-date"><i class="fas fa-calendar-alt" style="margin-right:4px;"></i>5 Feb 2025</div></div>
+          </a>
+          <a href="article-detail.html?id=3" class="recent-post">
+            <img src="https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=120&q=80" alt="post" />
+            <div><div class="recent-post-title">Land Cruiser 300: Is It Worth the Price?</div><div class="recent-post-date"><i class="fas fa-calendar-alt" style="margin-right:4px;"></i>10 Jan 2025</div></div>
+          </a>
+          <a href="article-detail.html?id=2" class="recent-post">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" alt="post" />
+            <div><div class="recent-post-title">Used Car Prices in Cambodia: 2025 Overview</div><div class="recent-post-date"><i class="fas fa-calendar-alt" style="margin-right:4px;"></i>20 Jan 2025</div></div>
+          </a>
+        </div>
+        <div class="sidebar-card">
+          <h4>Popular Tags</h4>
+          <div class="tag-cloud">
+            <a href="news.html" class="tag-pill">Buying Guide</a>
+            <a href="news.html" class="tag-pill">Car Tips</a>
+            <a href="news.html" class="tag-pill">Market</a>
+            <a href="news.html" class="tag-pill">Land Cruiser</a>
+            <a href="news.html" class="tag-pill">Fortuner</a>
+            <a href="news.html" class="tag-pill">Financing</a>
+            <a href="news.html" class="tag-pill">Maintenance</a>
+            <a href="news.html" class="tag-pill">Japan Import</a>
+          </div>
+        </div>
+        <div class="sidebar-card newsletter-box">
+          <h4>Stay Updated</h4>
+          <p>Get new articles and inventory updates delivered to your inbox.</p>
+          <input type="email" id="sidebarEmail" placeholder="Your email address" />
+          <button class="btn btn-primary btn-block" onclick="handleNewsletter()"><i class="fas fa-paper-plane"></i> Subscribe</button>
+        </div>
+        <div class="sidebar-card" style="background:var(--red);border-color:var(--red);text-align:center;color:white;">
+          <div style="font-size:32px;margin-bottom:10px;"><i class="fas fa-car"></i></div>
+          <div style="font-weight:700;font-size:16px;margin-bottom:8px;">Ready to Buy?</div>
+          <p style="color:rgba(255,255,255,0.82);font-size:13px;margin-bottom:16px;">Browse our current stock of certified pre-owned Toyotas.</p>
+          <a href="inventory.html" class="btn btn-white btn-block">View Inventory</a>
+        </div>
+      </aside>
+    </div>`;
+
+  initReveal();
+}
+
+function initReveal() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+function copyLink() {
+  navigator.clipboard.writeText(location.href)
+    .then(() => showToast('Link copied!', 'success'))
+    .catch(() => showToast('Could not copy link.', 'error'));
+}
+
+function handleNewsletter() {
+  const input = document.getElementById('sidebarEmail');
+  if (!input || !input.value.includes('@')) { showToast('Please enter a valid email.', 'error'); return; }
+  showToast('Subscribed! Thank you.', 'success');
+  input.value = '';
+}
+
+window.addEventListener('scroll', () => {
+  const docHeight = document.body.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? Math.min((window.scrollY / docHeight) * 100, 100) : 0;
+  const bar = document.getElementById('readingProgress');
+  if (bar) bar.style.width = progress + '%';
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('.page-transition').classList.add('loaded');
+  renderArticle();
+});
+</script>
+</body>
+</html>

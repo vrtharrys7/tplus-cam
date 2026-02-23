@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car Inventory — Toyota Plus Cambodia</title>
+  <meta name="description" content="Browse Toyota Plus Cambodia's full inventory of certified pre-owned Toyota vehicles. Filter by model, year, price and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>body { font-family: 'Inter', 'Segoe UI', sans-serif; }</style>
+</head>
+<body class="page-transition">
+
+<!-- HEADER -->
+<header id="header">
+  <div class="top-bar">
+    <div class="container">
+      <div style="display:flex;gap:20px;align-items:center;">
+        <span><i class="fas fa-phone-alt" style="margin-right:6px;color:var(--red)"></i>+855 23 456 789</span>
+        <span><i class="fas fa-clock" style="margin-right:6px;color:var(--red)"></i>Mon–Sat: 8:00 AM – 6:00 PM</span>
+      </div>
+      <div class="top-bar-links">
+        <a href="#">Facebook</a>
+        <a href="#">Telegram</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <nav class="nav-wrap">
+      <a href="index.html" class="logo">
+        <div style="width:44px;height:44px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="28" height="18" viewBox="0 0 28 18" fill="none"><ellipse cx="14" cy="9" rx="13" ry="8.5" stroke="white" stroke-width="1.5" fill="none"/><ellipse cx="14" cy="9" rx="6" ry="4" stroke="white" stroke-width="1.5" fill="none"/><ellipse cx="14" cy="9" rx="2" ry="8.5" stroke="white" stroke-width="1.5" fill="none"/></svg>
+        </div>
+        <div class="logo-text"><strong>Toyota Plus</strong><span>Cambodia</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="inventory.html" class="active">Inventory</a>
+        <a href="news.html">News</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="lang-toggle"><i class="fas fa-globe"></i> EN / ខ្មែរ</button>
+        <a href="contact.html" class="btn btn-primary"><i class="fas fa-phone-alt"></i> Contact</a>
+        <button class="nav-hamburger" onclick="openMobileMenu()"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" onclick="closeMobileMenuOutside(event)">
+  <div class="mobile-menu-panel">
+    <div class="mobile-menu-close"><button onclick="closeMobileMenu()"><i class="fas fa-times"></i></button></div>
+    <div class="mobile-nav-links">
+      <a href="index.html">Home</a>
+      <a href="inventory.html">Inventory</a>
+      <a href="news.html">News</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right" style="font-size:10px;"></i>
+      <span>Inventory</span>
+    </div>
+    <h1>Car Inventory</h1>
+    <p id="resultsInfo">Browse our full selection of certified pre-owned Toyota vehicles</p>
+  </div>
+</section>
+
+<!-- INVENTORY LAYOUT -->
+<div class="container">
+  <div class="inventory-layout">
+
+    <!-- SIDEBAR FILTERS -->
+    <aside>
+      <div class="filters-panel">
+        <h3>Filter Cars <button onclick="clearAllFilters()">Clear All</button></h3>
+
+        <div class="filter-group">
+          <label>Model</label>
+          <select id="filterModel" onchange="applyFilters()">
+            <option value="">All Models</option>
+            <option>Camry</option>
+            <option>Corolla</option>
+            <option>Hilux</option>
+            <option>Land Cruiser</option>
+            <option>Fortuner</option>
+            <option>RAV4</option>
+            <option>Innova</option>
+            <option>Vios</option>
+            <option>Prado</option>
+            <option>Highlander</option>
+            <option>Yaris</option>
+            <option>Rush</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Year From / To</label>
+          <div class="price-range">
+            <div class="range-input">
+              <select id="filterYearFrom" onchange="applyFilters()">
+                <option value="">From</option>
+                <option>2015</option><option>2016</option><option>2017</option>
+                <option>2018</option><option>2019</option><option>2020</option>
+                <option>2021</option><option>2022</option><option>2023</option><option>2024</option>
+              </select>
+            </div>
+            <div class="range-input">
+              <select id="filterYearTo" onchange="applyFilters()">
+                <option value="">To</option>
+                <option>2015</option><option>2016</option><option>2017</option>
+                <option>2018</option><option>2019</option><option>2020</option>
+                <option>2021</option><option>2022</option><option>2023</option><option>2024</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label>Price Range (USD)</label>
+          <div class="price-range">
+            <div class="range-input">
+              <span class="currency">$</span>
+              <input type="text" id="filterPriceMin" placeholder="Min" oninput="applyFilters()" />
+            </div>
+            <div class="range-input">
+              <span class="currency">$</span>
+              <input type="text" id="filterPriceMax" placeholder="Max" oninput="applyFilters()" />
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label>Body Type</label>
+          <div class="check-group">
+            <label class="check-item"><input type="checkbox" value="Sedan" onchange="applyFilters()"><span>Sedan</span></label>
+            <label class="check-item"><input type="checkbox" value="SUV" onchange="applyFilters()"><span>SUV / Crossover</span></label>
+            <label class="check-item"><input type="checkbox" value="Pickup" onchange="applyFilters()"><span>Pickup Truck</span></label>
+            <label class="check-item"><input type="checkbox" value="MPV" onchange="applyFilters()"><span>MPV / Van</span></label>
+            <label class="check-item"><input type="checkbox" value="Hatchback" onchange="applyFilters()"><span>Hatchback</span></label>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label>Transmission</label>
+          <select id="filterTransmission" onchange="applyFilters()">
+            <option value="">All</option>
+            <option>Automatic</option>
+            <option>Manual</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Fuel Type</label>
+          <select id="filterFuel" onchange="applyFilters()">
+            <option value="">All</option>
+            <option>Petrol</option>
+            <option>Diesel</option>
+            <option>Hybrid</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Condition</label>
+          <div class="check-group">
+            <label class="check-item"><input type="checkbox" value="certified" onchange="applyFilters()"><span>Certified Pre-Owned</span></label>
+            <label class="check-item"><input type="checkbox" value="new-arrival" onchange="applyFilters()"><span>New Arrival</span></label>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-block" onclick="applyFilters()">
+          <i class="fas fa-filter"></i> Apply Filters
+        </button>
+      </div>
+    </aside>
+
+    <!-- RESULTS -->
+    <main>
+      <div class="results-header">
+        <div class="results-count">
+          Showing <span id="countShown">0</span> of <span id="countTotal">0</span> vehicles
+        </div>
+        <div class="sort-wrap">
+          <label for="sortBy">Sort:</label>
+          <select id="sortBy" onchange="applyFilters()">
+            <option value="newest">Newest First</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="mileage">Lowest Mileage</option>
+            <option value="year">Newest Year</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="cars-grid" id="inventoryGrid">
+        <!-- Populated by JS -->
+      </div>
+
+      <div id="noResults" style="display:none;text-align:center;padding:60px 20px;">
+        <i class="fas fa-search" style="font-size:48px;color:var(--grey-light);margin-bottom:16px;display:block;"></i>
+        <h3 style="margin-bottom:8px;">No cars found</h3>
+        <p style="color:var(--grey);margin-bottom:20px;">Try adjusting your filters to find more results.</p>
+        <button class="btn btn-outline" onclick="clearAllFilters()">Clear All Filters</button>
+      </div>
+
+      <!-- Pagination -->
+      <div id="pagination" style="display:flex;justify-content:center;gap:8px;margin-top:40px;flex-wrap:wrap;"></div>
+    </main>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div style="width:40px;height:40px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="24" height="16" viewBox="0 0 28 18" fill="none"><ellipse cx="14" cy="9" rx="13" ry="8.5" stroke="white" stroke-width="1.8" fill="none"/><ellipse cx="14" cy="9" rx="6" ry="4" stroke="white" stroke-width="1.8" fill="none"/><ellipse cx="14" cy="9" rx="2" ry="8.5" stroke="white" stroke-width="1.8" fill="none"/></svg></div>
+          <div class="logo-text"><strong style="font-size:17px;">Toyota Plus</strong><span>Cambodia</span></div>
+        </a>
+        <p>Your most trusted certified pre-owned Toyota dealer in Cambodia.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-telegram-plane"></i></a>
+          <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="inventory.html">Inventory</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Popular Models</h5>
+        <ul>
+          <li><a href="?model=Land+Cruiser">Land Cruiser</a></li>
+          <li><a href="?model=Fortuner">Fortuner</a></li>
+          <li><a href="?model=Camry">Camry</a></li>
+          <li><a href="?model=Hilux">Hilux</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul class="footer-contact">
+          <li><i class="fas fa-map-marker-alt"></i><span>123 Monivong Blvd, Phnom Penh</span></li>
+          <li><i class="fas fa-phone-alt"></i><span>+855 23 456 789</span></li>
+          <li><i class="fas fa-envelope"></i><span>info@toyotaplus.com.kh</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 Toyota Plus Cambodia. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/85523456789" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<div id="toast"></div>
+
+<script src="assets/js/cars-data.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    loadFiltersFromURL();
+    applyFilters();
+    document.querySelector('.page-transition').classList.add('loaded');
+  });
+
+  function loadFiltersFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('model')) document.getElementById('filterModel').value = params.get('model');
+    if (params.get('maxPrice')) document.getElementById('filterPriceMax').value = params.get('maxPrice');
+    if (params.get('type')) {
+      document.querySelectorAll('.check-item input[type=checkbox]').forEach(cb => {
+        if (cb.value === params.get('type')) cb.checked = true;
+      });
+    }
+    if (params.get('year')) document.getElementById('filterYearFrom').value = params.get('year');
+    if (params.get('filter')) {
+      document.querySelectorAll('.check-item input[type=checkbox]').forEach(cb => {
+        if (cb.value === params.get('filter')) cb.checked = true;
+      });
+    }
+  }
+
+  let currentPage = 1;
+  const ITEMS_PER_PAGE = 9;
+
+  function applyFilters() {
+    const model     = document.getElementById('filterModel').value;
+    const yearFrom  = parseInt(document.getElementById('filterYearFrom').value) || 0;
+    const yearTo    = parseInt(document.getElementById('filterYearTo').value) || 9999;
+    const priceMin  = parseInt(document.getElementById('filterPriceMin').value) || 0;
+    const priceMax  = parseInt(document.getElementById('filterPriceMax').value) || 99999999;
+    const trans     = document.getElementById('filterTransmission').value;
+    const fuel      = document.getElementById('filterFuel').value;
+    const sortBy    = document.getElementById('sortBy').value;
+
+    const checkedTypes = [...document.querySelectorAll('.check-item input[type=checkbox]:checked')]
+                           .filter(c => ['Sedan','SUV','Pickup','MPV','Hatchback'].includes(c.value))
+                           .map(c => c.value);
+    const checkedConds = [...document.querySelectorAll('.check-item input[type=checkbox]:checked')]
+                           .filter(c => ['certified','new-arrival'].includes(c.value))
+                           .map(c => c.value);
+
+    let filtered = carsData.filter(car => {
+      if (model && car.model !== model) return false;
+      if (car.year < yearFrom || car.year > yearTo) return false;
+      if (car.price < priceMin || car.price > priceMax) return false;
+      if (trans && car.transmission !== trans) return false;
+      if (fuel && car.fuel !== fuel) return false;
+      if (checkedTypes.length && !checkedTypes.includes(car.type)) return false;
+      if (checkedConds.length && !checkedConds.some(c => car.tags && car.tags.includes(c))) return false;
+      return true;
+    });
+
+    // Sort
+    if (sortBy === 'price-low')  filtered.sort((a,b) => a.price - b.price);
+    if (sortBy === 'price-high') filtered.sort((a,b) => b.price - a.price);
+    if (sortBy === 'mileage')    filtered.sort((a,b) => a.km - b.km);
+    if (sortBy === 'year')       filtered.sort((a,b) => b.year - a.year);
+    if (sortBy === 'newest')     filtered.sort((a,b) => b.id - a.id);
+
+    document.getElementById('countTotal').textContent = filtered.length;
+
+    const total = filtered.length;
+    const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
+    currentPage = Math.min(currentPage, totalPages || 1);
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const pageData = filtered.slice(start, start + ITEMS_PER_PAGE);
+
+    document.getElementById('countShown').textContent = pageData.length;
+
+    const grid = document.getElementById('inventoryGrid');
+    const noResults = document.getElementById('noResults');
+
+    if (pageData.length === 0) {
+      grid.innerHTML = '';
+      noResults.style.display = 'block';
+    } else {
+      noResults.style.display = 'none';
+      grid.innerHTML = pageData.map(car => buildCarCard(car)).join('');
+    }
+
+    // Pagination
+    renderPagination(totalPages, filtered);
+  }
+
+  function renderPagination(totalPages, allFiltered) {
+    const pag = document.getElementById('pagination');
+    if (totalPages <= 1) { pag.innerHTML = ''; return; }
+    let html = '';
+    html += `<button class="btn btn-sm ${currentPage===1?'btn-dark':'btn-outline'}" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>
+               <i class="fas fa-chevron-left"></i>
+             </button>`;
+    for (let i = 1; i <= totalPages; i++) {
+      html += `<button class="btn btn-sm ${i===currentPage?'btn-primary':'btn-outline'}" onclick="goPage(${i})">${i}</button>`;
+    }
+    html += `<button class="btn btn-sm ${currentPage===totalPages?'btn-dark':'btn-outline'}" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>
+               <i class="fas fa-chevron-right"></i>
+             </button>`;
+    pag.innerHTML = html;
+  }
+
+  function goPage(p) {
+    currentPage = p;
+    applyFilters();
+    window.scrollTo({ top: 300, behavior: 'smooth' });
+  }
+
+  function clearAllFilters() {
+    document.getElementById('filterModel').value = '';
+    document.getElementById('filterYearFrom').value = '';
+    document.getElementById('filterYearTo').value = '';
+    document.getElementById('filterPriceMin').value = '';
+    document.getElementById('filterPriceMax').value = '';
+    document.getElementById('filterTransmission').value = '';
+    document.getElementById('filterFuel').value = '';
+    document.querySelectorAll('.check-item input[type=checkbox]').forEach(c => c.checked = false);
+    currentPage = 1;
+    applyFilters();
+  }
+</script>
+</body>
+</html>
