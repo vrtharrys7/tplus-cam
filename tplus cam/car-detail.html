@@ -28,24 +28,24 @@
       background: white;
       border: 1.5px solid var(--border, #e5e7eb);
       border-radius: 16px;
-      padding: 22px;
-      margin-top: 18px;
+      margin-top: 20px;
     }
-    .calc-card h3 {
-      font-size: 15px;
-      font-weight: 800;
-      margin: 0 0 16px;
+    .calc-card-body { padding: 20px 20px 22px; }
+    .calc-card-title {
       display: flex;
       align-items: center;
       gap: 8px;
+      font-size: 15px;
+      font-weight: 800;
       color: var(--dark, #111);
+      margin-bottom: 16px;
     }
-    .calc-card h3 i { color: var(--red, #EB0A1E); }
+    .calc-card-title i { color: var(--red, #EB0A1E); }
     .calc-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
     .calc-field > label {
       display: block;
@@ -59,37 +59,66 @@
     .calc-field input,
     .calc-field select {
       width: 100%;
-      padding: 9px 12px;
+      padding: 10px 12px;
       border: 1.5px solid var(--border, #e5e7eb);
       border-radius: 8px;
       font-size: 14px;
       font-weight: 600;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
       box-sizing: border-box;
+      background: #fafafa;
     }
     .calc-field input:focus,
-    .calc-field select:focus { border-color: var(--red, #EB0A1E); }
-    .calc-result {
-      background: #FFF5F5;
-      border: 1.5px solid #FFCDD2;
-      border-radius: 10px;
-      padding: 14px 16px;
+    .calc-field select:focus {
+      border-color: var(--red, #EB0A1E);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(235,10,30,0.08);
+    }
+    /* Monthly highlight */
+    .calc-monthly-highlight {
+      background: linear-gradient(135deg, #EB0A1E 0%, #c70016 100%);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .calc-monthly-highlight .val {
+      font-size: 30px;
+      font-weight: 900;
+      color: white;
+      line-height: 1.1;
+    }
+    .calc-monthly-highlight .lbl {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.78);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-top: 4px;
+    }
+    /* Secondary result row */
+    .calc-result-row {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 8px;
     }
-    .calc-res-item { text-align: center; }
+    .calc-res-item {
+      background: #f8f9fb;
+      border-radius: 10px;
+      padding: 12px 8px;
+      text-align: center;
+    }
     .calc-res-item .val {
-      font-size: 17px;
-      font-weight: 900;
-      color: var(--red, #EB0A1E);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--dark, #111);
       line-height: 1.2;
     }
     .calc-res-item .lbl {
       font-size: 10px;
-      color: #6b7280;
-      font-weight: 700;
+      color: #9ca3af;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.4px;
       margin-top: 3px;
@@ -98,7 +127,7 @@
       font-size: 11px;
       color: #9ca3af;
       text-align: center;
-      margin-top: 10px;
+      margin-top: 12px;
       line-height: 1.5;
     }
 
@@ -409,6 +438,48 @@
             </span>
           `).join('')}
         </div>
+
+        <!-- PAYMENT CALCULATOR -->
+        <div class="calc-card">
+          <div class="calc-card-body">
+            <div class="calc-card-title">
+              <i class="fas fa-calculator"></i> Payment Calculator
+            </div>
+            <div class="calc-row">
+              <div class="calc-field">
+                <label>Down Payment ($)</label>
+                <input type="number" id="calcDown" value="5000" min="0" step="500"
+                       oninput="calcPayment(${car.price})" />
+              </div>
+              <div class="calc-field">
+                <label>Loan Term</label>
+                <select id="calcTerm" onchange="calcPayment(${car.price})">
+                  <option value="12">12 months</option>
+                  <option value="24">24 months</option>
+                  <option value="36" selected>36 months</option>
+                  <option value="48">48 months</option>
+                  <option value="60">60 months</option>
+                  <option value="72">72 months</option>
+                </select>
+              </div>
+            </div>
+            <div class="calc-monthly-highlight">
+              <div class="val" id="calcMonthly">—</div>
+              <div class="lbl">Estimated Monthly Payment</div>
+            </div>
+            <div class="calc-result-row">
+              <div class="calc-res-item">
+                <div class="val" id="calcLoan">—</div>
+                <div class="lbl">Loan Amount</div>
+              </div>
+              <div class="calc-res-item">
+                <div class="val" id="calcTotal">—</div>
+                <div class="lbl">Total Payments</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- RIGHT COLUMN: detail card -->
@@ -483,44 +554,6 @@
             </a>
           </div>
         </div>
-
-        <!-- PAYMENT CALCULATOR -->
-        <div class="calc-card">
-          <h3><i class="fas fa-calculator"></i> Payment Calculator</h3>
-          <div class="calc-row">
-            <div class="calc-field">
-              <label>Down Payment ($)</label>
-              <input type="number" id="calcDown" value="5000" min="0" step="500"
-                     oninput="calcPayment(${car.price})" />
-            </div>
-            <div class="calc-field">
-              <label>Loan Term</label>
-              <select id="calcTerm" onchange="calcPayment(${car.price})">
-                <option value="12">12 months</option>
-                <option value="24">24 months</option>
-                <option value="36" selected>36 months</option>
-                <option value="48">48 months</option>
-                <option value="60">60 months</option>
-                <option value="72">72 months</option>
-              </select>
-            </div>
-          </div>
-          <div class="calc-result">
-            <div class="calc-res-item">
-              <div class="val" id="calcMonthly">—</div>
-              <div class="lbl">Monthly</div>
-            </div>
-            <div class="calc-res-item">
-              <div class="val" id="calcLoan">—</div>
-              <div class="lbl">Loan Amount</div>
-            </div>
-            <div class="calc-res-item">
-              <div class="val" id="calcTotal">—</div>
-              <div class="lbl">Total Paid</div>
-            </div>
-          </div>
-          <p class="calc-note">* 8% flat rate via ABA Bank / ACLEDA. Subject to bank approval.</p>
-        </div>
       </div>
     `;
 
@@ -569,12 +602,10 @@
     const down    = Math.max(0, parseFloat(downEl.value) || 0);
     const term    = parseInt(termEl.value) || 36;
     const loan    = Math.max(0, price - down);
-    const rate    = 0.08;                             /* 8% flat annual rate */
-    const total   = loan + (loan * rate * (term / 12));
-    const monthly = term > 0 ? total / term : 0;
+    const monthly = term > 0 ? loan / term : 0;
     document.getElementById('calcMonthly').textContent = '$' + Math.round(monthly).toLocaleString();
     document.getElementById('calcLoan').textContent    = '$' + loan.toLocaleString();
-    document.getElementById('calcTotal').textContent   = '$' + Math.round(total).toLocaleString();
+    document.getElementById('calcTotal').textContent   = '$' + loan.toLocaleString();
   }
 </script>
 </body>
