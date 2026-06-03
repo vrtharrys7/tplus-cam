@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal & Privacy - Toyota Plus Cambodia</title>
+  <meta name="description" content="Privacy Policy and Legal Terms for Toyota Plus Cambodia certified used cars website." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    body { font-family: 'Inter', 'Segoe UI', sans-serif; }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    .legal-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 48px;
+      padding: 56px 0 80px;
+      align-items: start;
+    }
+    .legal-toc {
+      position: sticky;
+      top: 24px;
+      background: var(--white);
+      border: 1.5px solid var(--border, #eee);
+      border-radius: 14px;
+      padding: 22px 20px;
+    }
+    .legal-toc h6 {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--grey);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0 0 14px;
+    }
+    .legal-toc ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      counter-reset: toc;
+    }
+    .legal-toc li {
+      counter-increment: toc;
+      margin-bottom: 8px;
+    }
+    .legal-toc a {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--dark);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .legal-toc a::before {
+      content: counter(toc, decimal-leading-zero);
+      color: var(--red);
+      font-weight: 800;
+      margin-right: 10px;
+    }
+    .legal-toc a:hover, .legal-toc a.active {
+      background: rgba(235,10,30,0.06);
+      color: var(--red);
+    }
+
+    .legal-content {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px 44px;
+      border: 1.5px solid var(--border, #eee);
+    }
+    .legal-content h2 {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--red);
+      margin: 36px 0 14px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--red);
+      letter-spacing: -0.3px;
+    }
+    .legal-content h2:first-child { margin-top: 0; }
+    .legal-content h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 26px 0 10px;
+    }
+    .legal-content p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: #444;
+      margin: 0 0 14px;
+    }
+    .legal-content ul {
+      padding-left: 20px;
+      margin: 0 0 14px;
+    }
+    .legal-content ul li {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #444;
+      margin-bottom: 8px;
+      padding-left: 6px;
+    }
+    .legal-content ul li::marker { color: var(--red); }
+    .legal-content i { font-style: italic; }
+
+    .legal-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: #FFF8E1;
+      border-left: 3px solid #F9A825;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #5D4037;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 1024px) {
+      .legal-layout { grid-template-columns: 1fr; gap: 24px; }
+      .legal-toc { position: static; }
+      .legal-content { padding: 28px 22px; }
+    }
+  </style>
+</head>
+<body class="page-transition">
+
+<!-- HEADER -->
+<header id="header">
+  <div class="top-bar">
+    <div class="container">
+      <div style="display:flex;gap:20px;align-items:center;">
+        <span><i class="fas fa-phone-alt" style="margin-right:6px;color:var(--red)"></i>+855 23 456 789</span>
+        <span><i class="fas fa-clock" style="margin-right:6px;color:var(--red)"></i>Mon-Sat: 8:00 AM - 6:00 PM</span>
+      </div>
+      <div class="top-bar-links"><a href="contact.html">Contact</a></div>
+    </div>
+  </div>
+  <div class="container">
+    <nav class="nav-wrap">
+      <a href="index.html" class="logo">
+        <img src="assets/images/TPLUS - LOGO.png" alt="Toyota Plus Cambodia" class="logo-img" />
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="news.html">News</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="lang-toggle" onclick="toggleLang(this)"><i class="fas fa-globe"></i> EN / &#6017;&#6098;&#6040;&#6082;&#6042;</button>
+        <a href="inventory.html" class="btn btn-primary"><i class="fas fa-car"></i> Browse Cars</a>
+        <button class="nav-hamburger" onclick="openMobileMenu()"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" onclick="closeMobileMenuOutside(event)">
+  <div class="mobile-menu-panel">
+    <div class="mobile-menu-close"><button onclick="closeMobileMenu()"><i class="fas fa-times"></i></button></div>
+    <div class="mobile-nav-links">
+      <a href="index.html">Home</a>
+      <a href="inventory.html">Inventory</a>
+      <a href="news.html">News</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right" style="font-size:10px;"></i>
+      <span>Legal &amp; Privacy</span>
+    </div>
+    <h1>Legal &amp; Privacy</h1>
+    <p>Privacy Policy and Legal Terms governing your use of this website.</p>
+  </div>
+</section>
+
+<!-- LEGAL CONTENT -->
+<section style="background:var(--silver);">
+  <div class="container">
+    <div class="legal-layout">
+
+      <aside class="legal-toc reveal">
+        <h6>Contents</h6>
+        <ol>
+          <li><a href="#privacypolicy">Privacy Policy</a></li>
+          <li><a href="#legalterms">Legal Terms</a></li>
+        </ol>
+      </aside>
+
+      <div class="legal-content reveal">
+        <div class="legal-meta">
+          <i class="fas fa-info-circle"></i>
+          <span>Please read these terms carefully before using the Toyota Plus Cambodia website.</span>
+        </div>
+
+        <a id="privacypolicy"></a>
+        <h2>Privacy Policy</h2>
+
+        <h3>Personal Data Protection and Privacy Policy</h3>
+        <p>
+          TOYOTA (CAMBODIA) Co., Ltd. is a subsidiary of <i>Toyota Tsusho Corporation</i>. TOYOTA (CAMBODIA) Co., Ltd. is the authorized
+          distributor in Cambodia for Toyota vehicles.
+        </p>
+        <p>
+          The privacy of your personal data is important to us, and we are committed to accord the information the due level of care as presented in this
+          Privacy Policy statement, and consistent with the Personal Data Protection Act 2012 (Act 26 of 2012).
+        </p>
+        <p>
+          This policy applies to TOYOTA (CAMBODIA) Co., Ltd. and any other associated/affiliated businesses, and outlines our obligations and practices
+          in the handling of the Personal Data we collect and hold about our customers, prospects, vendors, suppliers, partners, and all others who come into
+          contact with us and our related companies, across all touch points of our business operations, including those seeking employment with us.
+        </p>
+
+        <h3>What Is Personal Data?</h3>
+        <p>
+          Personal data (&ldquo;Personal Data&rdquo;) refers to all and any information relating to you obtained by us in the course of and as a result of the provision
+          of any products and services by us to you. Such Personal Data includes, but is not limited to, your name, mailing address, telephone number(s) and
+          personal email address and passport number. We shall treat your Personal Data as confidential and will accord due level of care in accordance with
+          our Privacy Policy statement, and as consistent with the Personal Data Protection Act 2012 (Act 26 of 2012).
+        </p>
+
+        <h3>Use of Cookie Technology</h3>
+        <p>
+          Toyota Cambodia uses cookie technology to allow Toyota Cambodia to trace the paths followed by you to the Toyota site, to help Toyota Cambodia in
+          registering user activity at the Toyota site and to evaluate and improve the Toyota site, in order to make it more useful to you. Toyota Cambodia
+          does not register information on individual users through this technology, so no information about you in particular will be kept or used. Please
+          note that you can set your browser to not accept cookies or warn you in case cookies are sent.
+        </p>
+
+        <h3>Purpose for Collection</h3>
+        <p>
+          Generally, we collect Personal Data from customers, prospective customers, suppliers, etc. for purposes relating to the products and services we
+          offer or require, or in assessing your suitability for employment with us. These purposes include, but are not limited to:
+        </p>
+        <ul>
+          <li>responding to your enquiries regarding vehicles, vehicle sales/leasing/servicing/repairs, vehicle parts and accessories, and any other services we offer;</li>
+          <li>receiving feedback and dealing with complaints;</li>
+          <li>processing orders and administering accounts;</li>
+          <li>providing customer and dealer support, such as service maintenance reminders;</li>
+          <li>vehicle warranties and vehicle special service campaigns;</li>
+          <li>communication with you in relation to your vehicle ownership and, to products and services we provide which are relevant to your existing relationship with us;</li>
+          <li>offering you updated marketing and promotional packages that you can benefit from, including products and services offered by our selected partners;</li>
+          <li>providing information regarding product updates and upgrades;</li>
+          <li>conducting research and surveys;</li>
+          <li>meeting regulatory and legal obligations;</li>
+          <li>providing applications for employment.</li>
+        </ul>
+
+        <a id="legalterms"></a>
+        <h2>Legal Terms</h2>
+
+        <h3>Website Policy</h3>
+        <p>
+          By accessing and using the Toyota Cambodia website, you accept this policy without limitation or qualification. Your access to the Toyota Cambodia
+          website is therefore subject to this policy, as well as to all applicable laws.
+        </p>
+        <p>
+          We may change our Site and / or these Terms at any time without prior notice to you. Your continued use of our Site after any changes to the Terms
+          constitutes your acceptance of the same.
+        </p>
+
+        <h3>Content</h3>
+        <p>
+          The Toyota Cambodia website contains information regarding Toyota products and Toyota promotional programs. The Toyota products described in this
+          website are offered for sale only in Cambodia.
+        </p>
+        <p>
+          All information included in this website is for information purposes only. This website shall not be used or relied upon by you as a substitute for
+          information that is available to you from the authorised Toyota distributor &ndash; TOYOTA (CAMBODIA) Co., Ltd.
+        </p>
+        <p>
+          The information contained herein is designed to be as comprehensive as possible. TOYOTA (CAMBODIA) Co., Ltd. reserves the right, however, to make
+          changes at any time, without notice, to models, equipment, specifications, and availability.
+        </p>
+
+        <h3>Prices of Toyota Products</h3>
+        <p>
+          The price information contained in or provided through this Toyota website is for information purposes only and does not constitute an offer to sell
+          Toyota products. Prices are recommended retail prices, and actual prices from the authorised Toyota distributor may differ. The purchase of any
+          Toyota product shall be subject to the terms and conditions of the individual sales contract.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><img src="assets/images/TPLUS - LOGO.png" alt="Toyota Plus Cambodia" class="logo-img logo-img-sm" /></a>
+        <p>Your most trusted certified pre-owned Toyota dealer in Cambodia.</p>
+        <div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-telegram-plane"></i></a><a href="#"><i class="fab fa-tiktok"></i></a></div>
+      </div>
+      <div class="footer-col"><h5>Navigation</h5><ul><li><a href="index.html">Home</a></li><li><a href="inventory.html">Inventory</a></li><li><a href="news.html">News</a></li><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h5>Popular Models</h5><ul><li><a href="inventory.html?model=Land+Cruiser">Land Cruiser</a></li><li><a href="inventory.html?model=Fortuner">Fortuner</a></li><li><a href="inventory.html?model=Camry">Camry</a></li><li><a href="inventory.html?model=Hilux">Hilux</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul class="footer-contact"><li><i class="fas fa-map-marker-alt"></i><span>123 Monivong Blvd, Phnom Penh</span></li><li><i class="fas fa-phone-alt"></i><span>+855 23 456 789</span></li><li><i class="fas fa-envelope"></i><span>info@toyotaplus.com.kh</span></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 Toyota Plus Cambodia. All rights reserved.</span>
+      <span><a href="legal-privacy.html">Legal &amp; Privacy</a></span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/85523456789" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script src="assets/js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('.page-transition').classList.add('loaded');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Smooth scroll for TOC links + active state
+  const tocLinks = document.querySelectorAll('.legal-toc a');
+  tocLinks.forEach(link => {
+    link.addEventListener('click', (ev) => {
+      const id = link.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if (target) {
+        ev.preventDefault();
+        const y = target.getBoundingClientRect().top + window.scrollY - 90;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        tocLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>
