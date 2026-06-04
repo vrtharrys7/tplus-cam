@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blue-T Inspection — AI Vehicle Inspection | Toyota Plus Cambodia</title>
+  <meta name="description" content="Blue-T is an AI-powered vehicle inspection that reveals a car's true condition within 30 minutes across 110+ checkpoints — interior, exterior, frame and function — with a clear grade you can trust." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    /* ============================================================
+       BLUE-T INSPECTION — page-scoped BLUE theme
+       Remap the global red accent to blue for this page only, so
+       nav active state, buttons, icons & labels all turn blue.
+       ============================================================ */
+    body.bt-page {
+      --red:       #0d6efd;
+      --red-dark:  #0a58ca;
+      --red-light: #4d94ff;
+      --bt-navy:   #0a2540;
+      --bt-blue:   #0d6efd;
+      --bt-cyan:   #00c6ff;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+    }
+    /* Blue shadows replacing the hard-coded red ones */
+    body.bt-page .btn-primary:hover { box-shadow: 0 4px 16px rgba(13,110,253,0.40); }
+
+    /* Gradient headings */
+    .bt-page .grad-head {
+      background: linear-gradient(90deg, var(--bt-navy), var(--bt-blue));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: var(--bt-blue);
+    }
+
+    /* ---- HERO ---- */
+    .bt-page .page-hero {
+      background: linear-gradient(135deg, #07203b 0%, #0d47a1 58%, #1565c0 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .bt-page .page-hero .container { position: relative; z-index: 2; }
+    .bt-page .page-hero::before {
+      content: ""; position: absolute; width: 420px; height: 420px;
+      right: -90px; top: -150px; border-radius: 50%;
+      background: radial-gradient(circle, #2f86ff, transparent 70%);
+      opacity: .55; filter: blur(36px);
+      animation: btFloatA 11s ease-in-out infinite;
+    }
+    .bt-page .page-hero::after {
+      content: ""; position: absolute; width: 320px; height: 320px;
+      left: -70px; bottom: -150px; border-radius: 50%;
+      background: radial-gradient(circle, var(--bt-cyan), transparent 70%);
+      opacity: .40; filter: blur(40px);
+      animation: btFloatB 13s ease-in-out infinite;
+    }
+    @keyframes btFloatA { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-34px,28px); } }
+    @keyframes btFloatB { 0%,100% { transform: translate(0,0); } 50% { transform: translate(30px,-26px); } }
+
+    .bt-hero-badge {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.28);
+      color: #fff; padding: 7px 16px; border-radius: 50px;
+      font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      margin-bottom: 16px; backdrop-filter: blur(4px);
+      animation: btFadeUp .6s ease both;
+    }
+    .bt-hero-badge .pulse-dot {
+      width: 9px; height: 9px; border-radius: 50%; background: #4dff91;
+      animation: btPulse 1.8s infinite;
+    }
+    @keyframes btPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(77,255,145,0.6); }
+      70%  { box-shadow: 0 0 0 11px rgba(77,255,145,0); }
+      100% { box-shadow: 0 0 0 0 rgba(77,255,145,0); }
+    }
+    .bt-page .page-hero .breadcrumb { animation: btFadeUp .6s ease both; }
+    .bt-page .page-hero h1 { animation: btFadeUp .7s ease .1s both; }
+    .bt-page .page-hero p  { animation: btFadeUp .7s ease .22s both; }
+    @keyframes btFadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+
+    /* ---- Intro ---- */
+    .bt-intro { padding: 64px 0 8px; text-align: center; }
+    .bt-intro .section-label { display: block; }
+    .bt-intro h2 { font-size: clamp(26px, 3.4vw, 38px); font-weight: 900; color: var(--dark); margin: 6px 0 14px; }
+    .bt-intro p { max-width: 740px; margin: 0 auto; color: var(--grey); font-size: 16px; line-height: 1.7; }
+
+    /* ---- Highlight stats ---- */
+    .bt-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; padding: 44px 0 8px; }
+    .bt-stat {
+      background: var(--white); border: 1.5px solid #e8eef7; border-radius: 14px;
+      padding: 30px 22px; text-align: center;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+    }
+    .bt-stat:hover { transform: translateY(-5px); border-color: var(--bt-blue); box-shadow: 0 14px 32px rgba(13,110,253,0.14); }
+    .bt-stat .num { font-size: 40px; font-weight: 900; color: var(--bt-blue); line-height: 1; display: flex; justify-content: center; align-items: baseline; gap: 3px; }
+    .bt-stat .num .unit { font-size: 20px; font-weight: 800; }
+    .bt-stat .lbl { font-size: 13.5px; color: var(--grey); margin-top: 10px; font-weight: 600; }
+
+    /* ---- Four categories ---- */
+    .bt-cats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 40px; }
+    .bt-cat {
+      background: var(--white); border: 1.5px solid #e8eef7; border-radius: 16px;
+      padding: 28px; transition: border-color .25s, box-shadow .25s, transform .25s;
+    }
+    .bt-cat:hover { border-color: var(--bt-blue); box-shadow: 0 14px 32px rgba(13,110,253,0.12); transform: translateY(-4px); }
+    .bt-cat-icon {
+      width: 56px; height: 56px; border-radius: 13px;
+      background: linear-gradient(135deg, rgba(13,110,253,0.12), rgba(0,198,255,0.12));
+      color: var(--bt-blue);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 23px; margin-bottom: 16px;
+      transition: transform .35s ease, background .35s ease;
+    }
+    .bt-cat:hover .bt-cat-icon {
+      transform: rotate(-8deg) scale(1.1);
+      background: linear-gradient(135deg, var(--bt-blue), var(--bt-cyan)); color: #fff;
+    }
+    .bt-cat h3 { font-size: 19px; font-weight: 900; color: var(--dark); margin-bottom: 8px; }
+    .bt-cat p { font-size: 14px; color: var(--grey); line-height: 1.65; margin-bottom: 14px; }
+    .bt-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .bt-chip {
+      font-size: 12px; font-weight: 600; color: #2c4566;
+      background: #eef4ff; border-radius: 50px; padding: 5px 12px;
+      transition: background .2s, color .2s;
+    }
+    .bt-cat:hover .bt-chip { background: #e0ecff; }
+
+    /* ---- How it works ---- */
+    .bt-how { background: linear-gradient(180deg, #f3f8ff 0%, #eaf2ff 100%); margin-top: 56px; }
+    .bt-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 40px; }
+    .bt-step { text-align: center; }
+    .bt-step .ic {
+      width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--bt-blue), var(--bt-cyan)); color: var(--white);
+      display: flex; align-items: center; justify-content: center; font-size: 23px;
+      box-shadow: 0 8px 20px rgba(13,110,253,0.32);
+      transition: transform .3s;
+    }
+    .bt-step:hover .ic { transform: translateY(-4px) scale(1.06); }
+    .bt-step h4 { font-size: 16px; font-weight: 800; color: var(--dark); margin-bottom: 8px; }
+    .bt-step p { font-size: 13.5px; color: var(--grey); line-height: 1.6; }
+
+    /* ---- Grading scale ---- */
+    .bt-grades { padding: 64px 0 24px; }
+    .grade-table { display: flex; flex-direction: column; gap: 12px; margin-top: 36px; max-width: 760px; margin-left: auto; margin-right: auto; }
+    .grade-row {
+      display: flex; align-items: center; gap: 18px;
+      background: var(--white); border: 1.5px solid #e8eef7; border-radius: 12px;
+      padding: 16px 20px; transition: transform .2s, box-shadow .2s;
+    }
+    .grade-row:hover { transform: translateX(6px); box-shadow: 0 8px 22px rgba(13,110,253,0.10); }
+    .grade-badge {
+      flex-shrink: 0; width: 56px; height: 56px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 900; color: var(--white);
+    }
+    .grade-row .g-info { text-align: left; }
+    .grade-row .g-info h4 { font-size: 16px; font-weight: 800; color: var(--dark); margin-bottom: 2px; }
+    .grade-row .g-info p { font-size: 13.5px; color: var(--grey); }
+
+    /* ---- Damage severity scale ---- */
+    .bt-severity { padding: 16px 0 64px; }
+    .sev-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 32px; }
+    .sev-card {
+      background: var(--white); border: 1.5px solid #e8eef7; border-radius: 12px;
+      padding: 24px 22px; text-align: center; transition: transform .25s, box-shadow .25s, border-color .25s;
+    }
+    .sev-card:hover { transform: translateY(-4px); border-color: var(--bt-blue); box-shadow: 0 12px 28px rgba(13,110,253,0.12); }
+    .sev-card .sev-dot {
+      margin: 0 auto 14px; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(13,110,253,0.14), rgba(0,198,255,0.14));
+      display: flex; align-items: center; justify-content: center;
+      color: var(--bt-blue); font-weight: 800;
+      animation: btSev 2.6s ease-in-out infinite;
+    }
+    .sev-card:nth-child(2) .sev-dot { animation-delay: .3s; }
+    .sev-card:nth-child(3) .sev-dot { animation-delay: .6s; }
+    .sev-card:nth-child(4) .sev-dot { animation-delay: .9s; }
+    @keyframes btSev { 0%,100% { transform: scale(1); } 50% { transform: scale(1.07); } }
+    .sev-card h4 { font-size: 15px; font-weight: 800; color: var(--dark); margin-bottom: 4px; }
+    .sev-card p { font-size: 13px; color: var(--grey); }
+
+    /* ---- CTA ---- */
+    .bt-cta {
+      background: linear-gradient(135deg, #07203b 0%, #0d47a1 60%, #1565c0 100%);
+      border-radius: 18px; padding: 54px 40px; text-align: center; color: var(--white);
+      margin: 8px 0 70px; position: relative; overflow: hidden;
+    }
+    .bt-cta::before {
+      content: ""; position: absolute; width: 300px; height: 300px; right: -60px; top: -90px;
+      border-radius: 50%; background: radial-gradient(circle, var(--bt-cyan), transparent 70%);
+      opacity: .35; filter: blur(30px); animation: btFloatB 12s ease-in-out infinite;
+    }
+    .bt-cta > * { position: relative; z-index: 1; }
+    .bt-cta h3 { font-size: clamp(24px, 3vw, 32px); font-weight: 900; margin-bottom: 10px; }
+    .bt-cta p { color: rgba(255,255,255,0.78); font-size: 15px; margin-bottom: 26px; max-width: 580px; margin-left: auto; margin-right: auto; }
+    .bt-cta .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* ---- Scroll-reveal animations ---- */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.in-view { opacity: 1; transform: none; }
+    .stagger > * { opacity: 0; transform: translateY(26px); transition: opacity .55s ease, transform .55s ease; }
+    .stagger.in-view > * { opacity: 1; transform: none; }
+    .stagger.in-view > *:nth-child(1) { transition-delay: .05s; }
+    .stagger.in-view > *:nth-child(2) { transition-delay: .13s; }
+    .stagger.in-view > *:nth-child(3) { transition-delay: .21s; }
+    .stagger.in-view > *:nth-child(4) { transition-delay: .29s; }
+    .stagger.in-view > *:nth-child(5) { transition-delay: .37s; }
+    .stagger.in-view > *:nth-child(6) { transition-delay: .45s; }
+
+    @media (max-width: 900px) {
+      .bt-stats { grid-template-columns: 1fr; }
+      .bt-cats { grid-template-columns: 1fr; }
+      .bt-steps { grid-template-columns: repeat(2, 1fr); }
+      .sev-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .bt-steps { grid-template-columns: 1fr; }
+      .sev-grid { grid-template-columns: 1fr; }
+      .bt-cta { padding: 40px 22px; }
+    }
+
+    /* Respect reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .bt-page .page-hero::before, .bt-page .page-hero::after,
+      .bt-hero-badge, .bt-hero-badge .pulse-dot, .sev-card .sev-dot, .bt-cta::before,
+      .bt-page .page-hero .breadcrumb, .bt-page .page-hero h1, .bt-page .page-hero p {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="page-transition bt-page">
+
+<!-- HEADER -->
+<header id="header">
+  <div class="top-bar">
+    <div class="container">
+      <div style="display:flex;gap:20px;align-items:center;">
+        <span><i class="fas fa-phone-alt" style="margin-right:6px;color:var(--red)"></i>+855 23 456 789</span>
+        <span><i class="fas fa-clock" style="margin-right:6px;color:var(--red)"></i>Mon–Sat: 8:00 AM – 6:00 PM</span>
+      </div>
+      <div class="top-bar-links"><a href="contact.html">Contact</a></div>
+    </div>
+  </div>
+  <div class="container">
+    <nav class="nav-wrap">
+      <a href="index.html" class="logo">
+        <img src="assets/images/TPLUS - LOGO.png" alt="Toyota Plus Cambodia" class="logo-img" />
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="service.html">Service</a>
+        <a href="blue-t-inspection.html" class="active">Blue-T Inspection</a>
+        <a href="news.html">News</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="lang-toggle" onclick="toggleLang(this)"><i class="fas fa-globe"></i> EN / ខ្មែរ</button>
+        <a href="inventory.html" class="btn btn-primary"><i class="fas fa-car"></i> Browse Cars</a>
+        <button class="nav-hamburger" onclick="openMobileMenu()"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" onclick="closeMobileMenuOutside(event)">
+  <div class="mobile-menu-panel">
+    <div class="mobile-menu-close"><button onclick="closeMobileMenu()"><i class="fas fa-times"></i></button></div>
+    <div class="mobile-nav-links">
+      <a href="index.html">Home</a>
+      <a href="inventory.html">Inventory</a>
+      <a href="service.html">Service</a>
+      <a href="blue-t-inspection.html">Blue-T Inspection</a>
+      <a href="news.html">News</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right" style="font-size:10px;"></i>
+      <span>Blue-T Inspection</span>
+    </div>
+    <div class="bt-hero-badge"><span class="pulse-dot"></span> AI-Powered Vehicle Grading</div>
+    <h1>Blue-T Vehicle Inspection</h1>
+    <p>Reveal a car's true condition within 30 minutes — powered by the latest technology and an AI grading algorithm.</p>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="bt-intro">
+  <div class="container reveal">
+    <span class="section-label">AI-Powered Inspection</span>
+    <h2>Know Exactly What You're <span class="grad-head">Buying</span></h2>
+    <p>Every vehicle at Toyota Plus Cambodia can be assessed with <strong>Blue-T</strong> — an AI-powered vehicle grading system developed with Japanese experts. By combining a structured 110+ point inspection with an AI auto-grading algorithm, Blue-T turns a car's condition into a clear, objective grade you can rely on — no guesswork, no hidden surprises.</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<section>
+  <div class="container">
+    <div class="bt-stats stagger">
+      <div class="bt-stat">
+        <div class="num"><span class="count" data-target="30">0</span><span class="unit">min</span></div>
+        <div class="lbl">Full condition report, anywhere — no special facilities required</div>
+      </div>
+      <div class="bt-stat">
+        <div class="num"><span class="count" data-target="110">0</span><span class="unit">+</span></div>
+        <div class="lbl">Value-focused checkpoints across four key categories</div>
+      </div>
+      <div class="bt-stat">
+        <div class="num"><span class="count" data-target="10">0</span><span class="unit">+ yrs</span></div>
+        <div class="lbl">Of proven grading accuracy and real-time quality monitoring</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUR CATEGORIES -->
+<section class="bt-intro" style="padding-top:56px;">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">What We Inspect</span>
+      <h2>110+ Checkpoints, <span class="grad-head">Four Categories</span></h2>
+      <p>Blue-T evaluates a vehicle across four dimensions, documenting every finding with codes and a severity scale so the final grade is fully transparent.</p>
+    </div>
+    <div class="bt-cats stagger" style="text-align:left;">
+
+      <div class="bt-cat">
+        <div class="bt-cat-icon"><i class="fas fa-couch"></i></div>
+        <h3>Interior</h3>
+        <p>Comfort and cabin condition — assessed for wear, damage and anything that affects the in-car experience.</p>
+        <div class="bt-chips">
+          <span class="bt-chip">Cuts &amp; frays</span>
+          <span class="bt-chip">Cigarette burns</span>
+          <span class="bt-chip">Stains</span>
+          <span class="bt-chip">Odors</span>
+          <span class="bt-chip">Animal hair</span>
+          <span class="bt-chip">Loose components</span>
+        </div>
+      </div>
+
+      <div class="bt-cat">
+        <div class="bt-cat-icon"><i class="fas fa-car-side"></i></div>
+        <h3>Exterior</h3>
+        <p>Bodywork and paint condition — every panel checked for cosmetic and corrosion issues.</p>
+        <div class="bt-chips">
+          <span class="bt-chip">Scratches</span>
+          <span class="bt-chip">Dents</span>
+          <span class="bt-chip">Repaints</span>
+          <span class="bt-chip">Stone chips</span>
+          <span class="bt-chip">Rust &amp; corrosion</span>
+          <span class="bt-chip">Cracks</span>
+        </div>
+      </div>
+
+      <div class="bt-cat">
+        <div class="bt-cat-icon"><i class="fas fa-car-crash"></i></div>
+        <h3>Frame</h3>
+        <p>Structural integrity and safety — repair and accident history documented so you understand the vehicle's past.</p>
+        <div class="bt-chips">
+          <span class="bt-chip">Repair history</span>
+          <span class="bt-chip">Accident history</span>
+          <span class="bt-chip">Structural integrity</span>
+        </div>
+      </div>
+
+      <div class="bt-cat">
+        <div class="bt-cat-icon"><i class="fas fa-cogs"></i></div>
+        <h3>Functional</h3>
+        <p>Mechanical and electrical systems — tested to confirm everything operates as it should.</p>
+        <div class="bt-chips">
+          <span class="bt-chip">Engine</span>
+          <span class="bt-chip">Transmission</span>
+          <span class="bt-chip">Electrical systems</span>
+          <span class="bt-chip">Components</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="bt-how section-pad">
+  <div class="container" style="text-align:center;">
+    <div class="reveal">
+      <span class="section-label">The Process</span>
+      <h2 class="section-title" style="margin-top:6px;">How <span class="grad-head">Blue-T</span> Works</h2>
+      <p class="section-sub" style="max-width:640px;margin-left:auto;margin-right:auto;">A fast, technology-driven process that delivers a trustworthy result in about 30 minutes.</p>
+    </div>
+    <div class="bt-steps stagger">
+      <div class="bt-step">
+        <div class="ic"><i class="fas fa-camera"></i></div>
+        <h4>1. Capture</h4>
+        <p>The vehicle is documented and its condition recorded across all 110+ checkpoints.</p>
+      </div>
+      <div class="bt-step">
+        <div class="ic"><i class="fas fa-microchip"></i></div>
+        <h4>2. AI Grading</h4>
+        <p>The AI auto-grading algorithm analyzes every data point for precise, consistent results.</p>
+      </div>
+      <div class="bt-step">
+        <div class="ic"><i class="fas fa-clipboard-check"></i></div>
+        <h4>3. Detailed Report</h4>
+        <p>Each finding is classified with damage codes and a clear severity scale.</p>
+      </div>
+      <div class="bt-step">
+        <div class="ic"><i class="fas fa-award"></i></div>
+        <h4>4. Final Grade</h4>
+        <p>You receive an overall condition grade you can trust — in around 30 minutes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GRADING SCALE -->
+<section class="bt-grades">
+  <div class="container" style="text-align:center;">
+    <div class="reveal">
+      <span class="section-label">Results You Can Read</span>
+      <h2 class="section-title" style="margin-top:6px;">The Blue-T <span class="grad-head">Grading Scale</span></h2>
+      <p class="section-sub" style="max-width:640px;margin-left:auto;margin-right:auto;">Condition is reported on a simple letter scale — from <strong>B+</strong> (great) down to <strong>D</strong> (needs attention).</p>
+    </div>
+    <div class="grade-table stagger">
+      <div class="grade-row">
+        <div class="grade-badge" style="background:#1B5E20;">B+</div>
+        <div class="g-info"><h4>Great</h4><p>Excellent condition with only minimal, hard-to-find imperfections.</p></div>
+      </div>
+      <div class="grade-row">
+        <div class="grade-badge" style="background:#2E7D32;">B</div>
+        <div class="g-info"><h4>Good</h4><p>Well-kept vehicle with only light, expected wear.</p></div>
+      </div>
+      <div class="grade-row">
+        <div class="grade-badge" style="background:#F9A825;">B-</div>
+        <div class="g-info"><h4>Average</h4><p>Sound overall, with some visible cosmetic wear.</p></div>
+      </div>
+      <div class="grade-row">
+        <div class="grade-badge" style="background:#EF6C00;">C</div>
+        <div class="g-info"><h4>Okay</h4><p>Usable condition with noticeable imperfections or minor repairs.</p></div>
+      </div>
+      <div class="grade-row">
+        <div class="grade-badge" style="background:#C62828;">D</div>
+        <div class="g-info"><h4>Need Attention</h4><p>Significant wear or damage that should be reviewed carefully.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DAMAGE SEVERITY -->
+<section class="bt-severity">
+  <div class="container" style="text-align:center;">
+    <div class="reveal">
+      <span class="section-label">Consistent Damage Coding</span>
+      <h2 class="section-title" style="margin-top:6px;">Damage <span class="grad-head">Severity Scale</span></h2>
+      <p class="section-sub" style="max-width:640px;margin-left:auto;margin-right:auto;">Every defect is sized against an easy-to-picture reference, so two people read the same report the same way.</p>
+    </div>
+    <div class="sev-grid stagger">
+      <div class="sev-card">
+        <div class="sev-dot" style="width:40px;height:40px;font-size:14px;">1</div>
+        <h4>Minimum</h4>
+        <p>About the size of a coin</p>
+      </div>
+      <div class="sev-card">
+        <div class="sev-dot" style="width:52px;height:52px;font-size:16px;">2</div>
+        <h4>Small</h4>
+        <p>About a credit card</p>
+      </div>
+      <div class="sev-card">
+        <div class="sev-dot" style="width:64px;height:64px;font-size:18px;">3</div>
+        <h4>Medium</h4>
+        <p>Less than A4 paper</p>
+      </div>
+      <div class="sev-card">
+        <div class="sev-dot" style="width:76px;height:76px;font-size:20px;">4</div>
+        <h4>Large</h4>
+        <p>More than A4 paper</p>
+      </div>
+    </div>
+    <p style="margin-top:28px;font-size:13px;color:var(--grey-light);">Inspection methodology and grading powered by <a href="https://blue-t.tech/" target="_blank" rel="noopener" style="color:var(--bt-blue);">Blue-T</a>.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="container">
+    <div class="bt-cta reveal">
+      <h3>Want a Blue-T Report Before You Buy?</h3>
+      <p>Ask our team to run a Blue-T inspection on any vehicle you're considering — or bring your own car in for an assessment.</p>
+      <div class="cta-btns">
+        <a href="https://wa.me/85523456789" target="_blank" class="btn btn-white"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+        <a href="contact.html" class="btn btn-outline" style="color:#fff;border-color:#fff;"><i class="fas fa-envelope"></i> Book an Inspection</a>
+        <a href="inventory.html" class="btn btn-outline" style="color:#fff;border-color:#fff;"><i class="fas fa-car"></i> Browse Inspected Cars</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><img src="assets/images/TPLUS - LOGO.png" alt="Toyota Plus Cambodia" class="logo-img logo-img-sm" /></a>
+        <p>Your most trusted certified pre-owned Toyota dealer in Cambodia.</p>
+        <div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-telegram-plane"></i></a><a href="#"><i class="fab fa-tiktok"></i></a></div>
+      </div>
+      <div class="footer-col"><h5>Navigation</h5><ul><li><a href="index.html">Home</a></li><li><a href="inventory.html">Inventory</a></li><li><a href="service.html">Service</a></li><li><a href="blue-t-inspection.html">Blue-T Inspection</a></li><li><a href="news.html">News</a></li><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h5>Popular Models</h5><ul><li><a href="inventory.html?model=Land+Cruiser">Land Cruiser</a></li><li><a href="inventory.html?model=Fortuner">Fortuner</a></li><li><a href="inventory.html?model=Camry">Camry</a></li><li><a href="inventory.html?model=Hilux">Hilux</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul class="footer-contact"><li><i class="fas fa-map-marker-alt"></i><span>123 Monivong Blvd, Phnom Penh</span></li><li><i class="fas fa-phone-alt"></i><span>+855 23 456 789</span></li><li><i class="fas fa-envelope"></i><span>info@toyotaplus.com.kh</span></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2025 Toyota Plus Cambodia. All rights reserved.</span><span><a href="legal-privacy.html">Legal &amp; Privacy</a></span></div>
+  </div>
+</footer>
+
+<a href="https://wa.me/85523456789" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<div id="toast"></div>
+
+<script src="assets/js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const pt = document.querySelector('.page-transition');
+    if (pt) pt.classList.add('loaded');
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ── Scroll-reveal (reveal + stagger) ──────────────────── */
+    const revealEls = document.querySelectorAll('.reveal, .stagger');
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      revealEls.forEach(el => el.classList.add('in-view'));
+    } else {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      revealEls.forEach(el => io.observe(el));
+    }
+
+    /* ── Animated stat counters ────────────────────────────── */
+    const counters = document.querySelectorAll('.count');
+    function runCounter(el) {
+      const target = parseInt(el.dataset.target, 10) || 0;
+      if (reduceMotion) { el.textContent = target; return; }
+      const duration = 1400;
+      const start = performance.now();
+      function tick(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+        el.textContent = Math.round(eased * target);
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = target;
+      }
+      requestAnimationFrame(tick);
+    }
+    if (!('IntersectionObserver' in window)) {
+      counters.forEach(runCounter);
+    } else {
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { runCounter(e.target); statsObserver.unobserve(e.target); }
+        });
+      }, { threshold: 0.6 });
+      counters.forEach(c => statsObserver.observe(c));
+    }
+  });
+</script>
+</body>
+</html>
