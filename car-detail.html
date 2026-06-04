@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car Detail — Toyota Plus Cambodia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    body { font-family: 'Inter', 'Segoe UI', sans-serif; }
+
+    /* ── Inspection Sheet button ── */
+    .btn-inspection {
+      background: #EFF6FF;
+      color: #1565C0;
+      border: 1.5px solid #BBDEFB !important;
+    }
+    .btn-inspection:hover {
+      background: #1565C0;
+      color: white;
+      border-color: #1565C0 !important;
+    }
+
+    /* ── Payment Calculator card ── */
+    .calc-card {
+      background: white;
+      border: 1.5px solid var(--border, #e5e7eb);
+      border-radius: 16px;
+      margin-top: 20px;
+    }
+    .calc-card-body { padding: 20px 20px 22px; }
+    .calc-card-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--dark, #111);
+      margin-bottom: 16px;
+    }
+    .calc-card-title i { color: var(--red, #EB0A1E); }
+    .calc-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .calc-field > label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+    .calc-field input,
+    .calc-field select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border, #e5e7eb);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-sizing: border-box;
+      background: #fafafa;
+    }
+    .calc-field input:focus,
+    .calc-field select:focus {
+      border-color: var(--red, #EB0A1E);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(235,10,30,0.08);
+    }
+    /* Monthly highlight */
+    .calc-monthly-highlight {
+      background: linear-gradient(135deg, #EB0A1E 0%, #c70016 100%);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .calc-monthly-highlight .val {
+      font-size: 30px;
+      font-weight: 900;
+      color: white;
+      line-height: 1.1;
+    }
+    .calc-monthly-highlight .lbl {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.78);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-top: 4px;
+    }
+    /* Secondary result row */
+    .calc-result-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .calc-res-item {
+      background: #f8f9fb;
+      border-radius: 10px;
+      padding: 12px 8px;
+      text-align: center;
+    }
+    .calc-res-item .val {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--dark, #111);
+      line-height: 1.2;
+    }
+    .calc-res-item .lbl {
+      font-size: 10px;
+      color: #9ca3af;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-top: 3px;
+    }
+    .calc-note {
+      font-size: 11px;
+      color: #9ca3af;
+      text-align: center;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    /* ── Modal: payment type radios ── */
+    .pay-type-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .pay-type-label {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border, #e5e7eb);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .pay-type-label:has(input:checked) {
+      border-color: var(--red, #EB0A1E);
+      background: #FFF5F5;
+      color: var(--red, #EB0A1E);
+    }
+    .pay-type-label input[type="radio"] { accent-color: var(--red, #EB0A1E); }
+  </style>
+</head>
+<body class="page-transition">
+
+<!-- HEADER -->
+<header id="header">
+  <div class="top-bar">
+    <div class="container">
+      <div style="display:flex;gap:20px;align-items:center;">
+        <span><i class="fas fa-phone-alt" style="margin-right:6px;color:var(--red)"></i>+855 23 456 789</span>
+        <span><i class="fas fa-clock" style="margin-right:6px;color:var(--red)"></i>Mon–Sat: 8:00 AM – 6:00 PM</span>
+      </div>
+      <div class="top-bar-links"><a href="contact.html">Contact</a></div>
+    </div>
+  </div>
+  <div class="container">
+    <nav class="nav-wrap">
+      <a href="index.html" class="logo">
+        <img src="assets/images/TPLUS - LOGO.png" alt="Toyota Plus Cambodia" class="logo-img" />
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="inventory.html" class="active">Inventory</a>
+        <a href="service.html">Service</a>
+        <a href="blue-t-inspection.html">Blue-T Inspection</a>
+        <a href="news.html">News</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="lang-toggle"><i class="fas fa-globe"></i> EN / ខ្មែរ</button>
+        <a href="contact.html" class="btn btn-primary"><i class="fas fa-phone-alt"></i> Enquire</a>
+        <button class="nav-hamburger" onclick="openMobileMenu()"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" onclick="closeMobileMenuOutside(event)">
+  <div class="mobile-menu-panel">
+    <div class="mobile-menu-close"><button onclick="closeMobileMenu()"><i class="fas fa-times"></i></button></div>
+    <div class="mobile-nav-links">
+      <a href="index.html">Home</a><a href="inventory.html">Inventory</a><a href="service.html">Service</a><a href="blue-t-inspection.html">Blue-T Inspection</a>
+      <a href="news.html">News</a><a href="faq.html">FAQ</a>
+      <a href="about.html">About Us</a><a href="contact.html">Contact</a>
+    </div>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<section class="page-hero" style="padding:30px 0;">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right" style="font-size:10px;"></i>
+      <a href="inventory.html">Inventory</a>
+      <i class="fas fa-chevron-right" style="font-size:10px;"></i>
+      <span id="breadcrumbName">Car Detail</span>
+    </div>
+    <h1 id="pageTitle" style="font-size:28px;">Loading...</h1>
+  </div>
+</section>
+
+<!-- CAR DETAIL -->
+<div class="container">
+  <div class="car-detail-grid" id="carDetailGrid">
+    <!-- Populated by JS -->
+  </div>
+
+</div>
+
+<!-- SIMILAR CARS -->
+<section style="background:var(--silver);padding:60px 0;">
+  <div class="container">
+    <h2 style="font-size:26px;font-weight:800;margin-bottom:8px;">Similar Vehicles</h2>
+    <p style="color:var(--grey);margin-bottom:30px;">You might also be interested in these cars</p>
+    <div class="cars-grid" id="similarCars"></div>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="inventory.html" class="btn btn-outline btn-lg"><i class="fas fa-car"></i> View All Inventory</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <img src="assets/images/TPLUS - LOGO.png" alt="Toyota Plus Cambodia" class="logo-img logo-img-sm" />
+        </a>
+        <p>Your most trusted certified pre-owned Toyota dealer in Cambodia.</p>
+      </div>
+      <div class="footer-col"><h5>Navigation</h5><ul><li><a href="index.html">Home</a></li><li><a href="inventory.html">Inventory</a></li><li><a href="service.html">Service</a></li><li><a href="blue-t-inspection.html">Blue-T Inspection</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h5>Models</h5><ul><li><a href="inventory.html?model=Land+Cruiser">Land Cruiser</a></li><li><a href="inventory.html?model=Fortuner">Fortuner</a></li><li><a href="inventory.html?model=Camry">Camry</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul class="footer-contact"><li><i class="fas fa-phone-alt"></i><span>+855 23 456 789</span></li><li><i class="fas fa-envelope"></i><span>info@toyotaplus.com.kh</span></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2025 Toyota Plus Cambodia.</span><span><a href="legal-privacy.html">Legal &amp; Privacy</a></span></div>
+  </div>
+</footer>
+
+<a href="https://t.me/+85523456789" class="telegram-float" title="Chat on Telegram" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+<div id="toast"></div>
+
+<script src="assets/js/cars-data.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  /* ── Grade helpers ─────────────────────────────────────────── */
+
+  // Returns the CSS class suffix for an overall grade value
+  function overallGradeClass(g) {
+    const map = { 'B+':'bplus', 'B':'b', 'B-':'bminus', 'C':'c', 'D':'d' };
+    return map[String(g)] || 'na';
+  }
+
+  // Returns a short descriptor for the overall grade
+  function overallGradeDesc(g) {
+    const map = {
+      'B+':'Very Good', 'B':'Good', 'B-':'Fair',
+      'C':'Average', 'D':'Below Avg'
+    };
+    return map[String(g)] || '—';
+  }
+
+  // Returns the CSS class for a sub-grade (B+/B/B-/C/D)
+  function subGradeClass(g) {
+    const map = { 'B+':'bplus', 'B':'b', 'B-':'bminus', 'C':'c', 'D':'d' };
+    return map[String(g)] || 'na';
+  }
+
+  // Builds the full grade strip HTML
+  function buildGradeStrip(grades) {
+    if (!grades) return '';
+    const g  = grades.grade    || '—';
+    const fr = grades.frame    || '—';
+    const ex = grades.exterior || '—';
+    const it = grades.interior || '—';
+    const fn = grades.function || '—';
+
+    return `
+      <div class="grade-strip">
+        <div class="grade-box grade-overall grade-${overallGradeClass(g)}">
+          <span class="grade-label">Grade</span>
+          <span class="grade-value">${g}</span>
+          <span class="grade-desc">${overallGradeDesc(g)}</span>
+        </div>
+        <div class="grade-box sub-grade-${subGradeClass(fr)}">
+          <span class="grade-label">Frame</span>
+          <span class="grade-value">${fr}</span>
+        </div>
+        <div class="grade-box sub-grade-${subGradeClass(ex)}">
+          <span class="grade-label">Exterior</span>
+          <span class="grade-value">${ex}</span>
+        </div>
+        <div class="grade-box sub-grade-${subGradeClass(it)}">
+          <span class="grade-label">Interior</span>
+          <span class="grade-value">${it}</span>
+        </div>
+        <div class="grade-box sub-grade-${subGradeClass(fn)}">
+          <span class="grade-label">Function</span>
+          <span class="grade-value">${fn}</span>
+        </div>
+      </div>
+    `;
+  }
+
+  /* ── Page init ─────────────────────────────────────────────── */
+  document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const carId  = parseInt(params.get('id'));
+    const car    = carsData.find(c => c.id === carId);
+
+    if (!car) {
+      document.getElementById('carDetailGrid').innerHTML =
+        '<div style="padding:60px;text-align:center;grid-column:1/-1;">' +
+        '<h2>Car not found</h2>' +
+        '<a href="inventory.html" class="btn btn-primary" style="margin-top:16px;">Back to Inventory</a>' +
+        '</div>';
+      return;
+    }
+
+    document.title = `${car.year} Toyota ${car.model} — Toyota Plus Cambodia`;
+    document.getElementById('breadcrumbName').textContent = `Toyota ${car.model}`;
+    document.getElementById('pageTitle').textContent = `${car.year} Toyota ${car.model} ${car.trim || ''}`;
+
+    const imgs = car.images || [car.image, car.image, car.image, car.image];
+
+    document.getElementById('carDetailGrid').innerHTML = `
+
+      <!-- LEFT COLUMN: grade strip + gallery -->
+      <div>
+
+        <!-- GRADE BOXES (above image) -->
+        ${buildGradeStrip(car.grades)}
+
+        <!-- MAIN IMAGE -->
+        <div class="gallery-main" id="galleryMain">
+          <img
+            src="${imgs[0]}"
+            alt="${car.model}"
+            onerror="this.src='https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=800&q=80'"
+            id="mainImg"
+          />
+        </div>
+
+        <!-- THUMBNAILS -->
+        <div class="gallery-thumbs">
+          ${imgs.map((img, i) => `
+            <div class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="switchImg(this,'${img}')">
+              <img
+                src="${img}"
+                alt="${car.model} ${i + 1}"
+                onerror="this.src='https://images.unsplash.com/photo-1617469767053-d3b523a0b982?w=200&q=60'"
+              />
+            </div>
+          `).join('')}
+        </div>
+
+        <!-- TAGS -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;">
+          ${(car.tags || []).map(t => `
+            <span class="tag" style="${t === 'certified' ? 'background:rgba(200,169,110,0.15);color:#a0802a;' : ''}">
+              <i class="fas fa-${t === 'certified' ? 'award' : t === 'new-arrival' ? 'star' : 'tag'}"></i>
+              ${t === 'certified' ? 'Certified Pre-Owned' : t === 'new-arrival' ? 'New Arrival' : t}
+            </span>
+          `).join('')}
+        </div>
+
+        <!-- PAYMENT CALCULATOR -->
+        <div class="calc-card">
+          <div class="calc-card-body">
+            <div class="calc-card-title">
+              <i class="fas fa-calculator"></i> Payment Calculator
+            </div>
+            <div class="calc-row">
+              <div class="calc-field">
+                <label>Down Payment ($)</label>
+                <input type="number" id="calcDown" value="5000" min="0" step="500"
+                       oninput="calcPayment(${car.price})" />
+              </div>
+              <div class="calc-field">
+                <label>Loan Term</label>
+                <select id="calcTerm" onchange="calcPayment(${car.price})">
+                  <option value="12">12 months</option>
+                  <option value="24">24 months</option>
+                  <option value="36" selected>36 months</option>
+                  <option value="48">48 months</option>
+                  <option value="60">60 months</option>
+                  <option value="72">72 months</option>
+                </select>
+              </div>
+            </div>
+            <div class="calc-monthly-highlight">
+              <div class="val" id="calcMonthly">—</div>
+              <div class="lbl">Estimated Monthly Payment</div>
+            </div>
+            <div class="calc-result-row">
+              <div class="calc-res-item">
+                <div class="val" id="calcLoan">—</div>
+                <div class="lbl">Loan Amount</div>
+              </div>
+              <div class="calc-res-item">
+                <div class="val" id="calcTotal">—</div>
+                <div class="lbl">Total Payments</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: detail card -->
+      <div>
+        <div class="car-detail-card">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;">
+            <h1 class="car-detail-name">Toyota ${car.model}</h1>
+            <button class="car-fav ${isFavourite(car.id) ? 'active' : ''}" id="favBtn"
+                    onclick="toggleFav(${car.id})" title="Save to Favourites">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+          <p class="car-detail-sub">${car.year} · ${car.trim || ''} · ${car.color || ''}</p>
+
+          <div class="car-detail-price">
+            $${car.price.toLocaleString()}
+            <small>≈ ${(car.price * 4100).toLocaleString()} KHR</small>
+          </div>
+
+          <hr class="car-detail-divider" />
+
+          <div class="spec-grid">
+            <div class="spec-item">
+              <i class="fas fa-calendar-alt"></i>
+              <div class="spec-lbl">Year</div>
+              <div class="spec-val">${car.year}</div>
+            </div>
+            <div class="spec-item">
+              <i class="fas fa-tachometer-alt"></i>
+              <div class="spec-lbl">Mileage</div>
+              <div class="spec-val">${car.km.toLocaleString()} km</div>
+            </div>
+            <div class="spec-item">
+              <i class="fas fa-cog"></i>
+              <div class="spec-lbl">Transmission</div>
+              <div class="spec-val">${car.transmission}</div>
+            </div>
+            <div class="spec-item">
+              <i class="fas fa-gas-pump"></i>
+              <div class="spec-lbl">Fuel</div>
+              <div class="spec-val">${car.fuel}</div>
+            </div>
+            <div class="spec-item">
+              <i class="fas fa-paint-brush"></i>
+              <div class="spec-lbl">Color</div>
+              <div class="spec-val">${car.color || 'N/A'}</div>
+            </div>
+            <div class="spec-item">
+              <i class="fas fa-car"></i>
+              <div class="spec-lbl">Body Type</div>
+              <div class="spec-val">${car.type}</div>
+            </div>
+          </div>
+
+          <hr class="car-detail-divider" />
+
+          <div class="detail-actions">
+            <button class="btn btn-block btn-lg btn-inspection" onclick="downloadInspection(event)">
+              <i class="fas fa-file-alt"></i> Download Inspection Sheet
+            </button>
+            <a href="contact.html" class="btn btn-primary btn-block btn-lg">
+              <i class="fas fa-calendar-check"></i> Book an Appointment
+            </a>
+            <a href="https://t.me/+85523456789"
+               class="btn btn-block btn-lg"
+               style="background:#229ED9;color:white;border-color:#229ED9;"
+               target="_blank">
+              <i class="fab fa-telegram-plane"></i> Telegram Us
+            </a>
+            <a href="tel:+85523456789" class="btn btn-outline btn-block">
+              <i class="fas fa-phone-alt"></i> Call: +855 23 456 789
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+
+    calcPayment(car.price);
+
+    // Similar cars
+    const similar = carsData
+      .filter(c => c.id !== car.id && (c.model === car.model || c.type === car.type))
+      .slice(0, 3);
+    document.getElementById('similarCars').innerHTML = similar.map(c => buildCarCard(c)).join('');
+
+    document.querySelector('.page-transition').classList.add('loaded');
+  });
+
+  /* ── Helpers ───────────────────────────────────────────────── */
+  function switchImg(el, src) {
+    document.getElementById('mainImg').src = src;
+    document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function downloadInspection(e) {
+    e.preventDefault();
+    showToast('Inspection sheet download started!', 'success');
+  }
+
+  function calcPayment(price) {
+    const downEl = document.getElementById('calcDown');
+    const termEl = document.getElementById('calcTerm');
+    if (!downEl || !termEl) return;
+    const down    = Math.max(0, parseFloat(downEl.value) || 0);
+    const term    = parseInt(termEl.value) || 36;
+    const loan    = Math.max(0, price - down);
+    const monthly = term > 0 ? loan / term : 0;
+    document.getElementById('calcMonthly').textContent = '$' + Math.round(monthly).toLocaleString();
+    document.getElementById('calcLoan').textContent    = '$' + loan.toLocaleString();
+    document.getElementById('calcTotal').textContent   = '$' + loan.toLocaleString();
+  }
+</script>
+</body>
+</html>
